@@ -4,7 +4,6 @@ project(rtmlib)
 add_library(${PROJECT_NAME} 
                 src/canvas.cpp
                 src/color.cpp
-                src/geo_test.cpp
                 src/matrix.cpp
                 src/point.cpp
                 src/ray.cpp

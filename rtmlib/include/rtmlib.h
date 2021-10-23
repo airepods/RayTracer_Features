@@ -18,7 +18,7 @@
 
 // geometry
 #include "geometry/ray.h"
-#include "geometry/geo_test.h"
+//#include "geometry/geo_test.h"
 #include "geometry/intersection.h"
 
 // utility

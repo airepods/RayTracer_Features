@@ -1,5 +1,6 @@
 #include "rtmlib.h"
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -20,27 +21,21 @@ void print_matrix(Matrix M)
 
 int main()
 {    
+    
+    Ray ray(Point(0, 0, 5), Vector(0, 0, 1));
     Sphere s;
 
-    Intersection<Sphere> i1(5, s);
-    Intersection<Sphere> i2(7, s);
-    Intersection<Sphere> i3(-3, s);
-    Intersection<Sphere> i4(2, s);
+    Intersection<Sphere> i1(10, s);
+    Intersection<Sphere> i2(-1, s);
 
+    vector<Intersection<Sphere>> xs = {i1, i2};
+    Intersection<Sphere> i;
 
-    vector<Intersection<Sphere>> intersections{i1, i2, i3, i4};
-
-    auto i = hit(intersections);
-
-    if(i == nullptr)
-        cout<<"Nothing"<<endl;
+    if(hit(xs, i))
+        cout<<"T value: "<<i.t<<"\n"<<"Object: "<<i.object.type_to_str()<<"\n";
     else
-    {
-        cout<<i->get_t_value()<<endl;
-        delete i;
-    }
-        
-    
+        cout<<"No hit"<<endl;
+
     // if(l == empty_array())
     //     cout<<"Empty"<<endl;
     // else
@@ -49,8 +44,6 @@ int main()
     //     cout<<"x1 = "<<l[1]<<endl;
     // }
 
-
-
-
+    cout<<"Program completed"<<endl;
     return 0;
 }

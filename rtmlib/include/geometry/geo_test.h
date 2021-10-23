@@ -9,6 +9,6 @@
 using namespace std;
 
 Intersection<Sphere>* intersect(Sphere, Ray);
-Intersection<Sphere>* hit(vector<Intersection<Sphere>>);
+//Intersection<Sphere>* hit(vector<Intersection<Sphere>>);
 
 #endif
