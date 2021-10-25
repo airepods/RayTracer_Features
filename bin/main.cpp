@@ -44,6 +44,6 @@ int main()
     //     cout<<"x1 = "<<l[1]<<endl;
     // }
 
-    cout<<"Program completed"<<endl;
+    cout<<"Program completed!"<<endl;
     return 0;
 }
