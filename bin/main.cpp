@@ -24,17 +24,33 @@ int main()
     
     Ray ray(Point(0, 0, 5), Vector(0, 0, 1));
     Sphere s;
+    Cube c;
 
-    Intersection<Sphere> i1(10, s);
-    Intersection<Sphere> i2(-1, s);
+    // Intersection<Sphere> i1(-10, s);
+    // Intersection<Sphere> i2(-1, s);
+    // Intersection<Sphere> i3(1, s);
+    // Intersection<Sphere> i4(0.5, s);
 
-    vector<Intersection<Sphere>> xs = {i1, i2};
-    Intersection<Sphere> i;
+    // vector<Intersection<Sphere>> xs = {i1, i2, i3, i4};
+    // Intersection<Sphere> output;
 
-    if(hit(xs, i))
-        cout<<"T value: "<<i.t<<"\n"<<"Object: "<<i.object.type_to_str()<<"\n";
-    else
-        cout<<"No hit"<<endl;
+    // if(hit(xs, output))
+    //     cout<<"T value: "<<output.get_t()<<"\n"<<"Object: "<<output.get_object_type().type_to_str()<<"\n";
+    // else
+    //     cout<<"No hit"<<endl;
+
+    Intersection i1(-10, &s);
+    Intersection i2(-1, &s);
+    Intersection i3(2, &c);
+
+    vector<Intersection*> xs = {&i1, &i2, &i3};
+
+    for (int i = 0; i < xs.size(); i++)
+    {
+        cout<<"T value: "<<xs[i]->get_t()<<"\n";
+        cout<<"Object: "<<xs[i]->get_shape()->get_object_type()->type_to_str()<<"\n";
+    }
+    
 
     // if(l == empty_array())
     //     cout<<"Empty"<<endl;
@@ -44,6 +60,6 @@ int main()
     //     cout<<"x1 = "<<l[1]<<endl;
     // }
 
-    cout<<"Program completed!"<<endl;
+    cout<<"Program completed"<<endl;
     return 0;
 }
