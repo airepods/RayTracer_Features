@@ -15,10 +15,11 @@
 
 // primitives
 #include "primitives/sphere.h"
+#include "primitives/cube.h"
 
 // geometry
 #include "geometry/ray.h"
-//#include "geometry/geo_test.h"
+#include "geometry/intersections.h"
 #include "geometry/intersection.h"
 
 // utility
