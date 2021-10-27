@@ -8,7 +8,7 @@
 Sphere::Sphere()
 {}
 
-std::vector<Intersection<Sphere>> Sphere::intersects(Ray r)
+std::vector<Intersection> Sphere::intersects(Ray r)
 {
     Vector sphere_to_ray = r.origin() - Point(0, 0, 0);
 
@@ -20,14 +20,14 @@ std::vector<Intersection<Sphere>> Sphere::intersects(Ray r)
 
     if(discriminant < 0)
     {
-        std::vector<Intersection<Sphere>> e;
+        std::vector<Intersection> e;
         return e;
     }
 
     float t1 = (-b - sqrt(discriminant)) / (2 * a);
     float t2 = (-b + sqrt(discriminant)) / (2 * a);
 
-    std::vector<Intersection<Sphere>> intersections = {Intersection<Sphere>(t1, *this), Intersection<Sphere>(t2, *this)};
+    std::vector<Intersection> intersections = {Intersection(t1, this), Intersection(t2, this)};
 
     return intersections;
 }

@@ -3,16 +3,18 @@
 
 #include "geometry/ray.h" 
 #include "geometry/intersection.h"
-#include "primitives/sphere.h"
+#include "primitives/shape.h"
 #include <vector>
 #include <string>
 
-class Sphere
+class Sphere : public Shape
 {
     public:
         Sphere();
-        std::vector<Intersection<Sphere>> intersects(Ray r);
-        inline std::string type_to_str() {return "Sphere";}
+        std::vector<Intersection> intersects(Ray r);
+        
+        inline std::string type_to_str() override {return "Sphere";}
+        inline Sphere* get_object_type() override {return this;}
 };
 
 

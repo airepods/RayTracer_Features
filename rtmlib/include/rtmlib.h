@@ -14,6 +14,7 @@
 #include "transforms/transforms.h"
 
 // primitives
+#include "primitives/shape.h"
 #include "primitives/sphere.h"
 #include "primitives/cube.h"
 
