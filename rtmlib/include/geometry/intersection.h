@@ -11,54 +11,35 @@ class Intersection : public Intersections
 {
     private:
         float t;
-        Shape* object;
+        Shape* object = nullptr;
     public:
-        Intersection()
-        {}
-        Intersection(float t_val , Shape* object_val) : t(t_val), object(object_val) 
-        {}
+        Intersection();
 
-        float get_t() override {return t;}
-        inline Shape* get_shape() override {return object;}
+        Intersection(float t_val , Shape* object_val);
+
+        float get_t() override;
+        Shape* get_shape() override; 
 
         // Useful for std::sort array of intersections 
-        bool operator < (const Intersection& i) const
-        {
-        return (t < i.t);
-        }
+        bool operator < (const Intersection& i) const;
 };
 
-template <class T>
-bool hit(std::vector<T> record)
-{
-    std::sort(record.begin(), record.end());
+// template <class T>
+// bool hit(std::vector<T> record)
+// {
+//     std::sort(record.begin(), record.end());
 
-    for (auto&& current_intersection : record)
-    {
-        if(current_intersection.get_t() >= 0)
-        {
-            return true;
-        }
-    }
+//     for (auto&& current_intersection : record)
+//     {
+//         if(current_intersection.get_t() >= 0)
+//         {
+//             return true;
+//         }
+//     }
 
-    return false;
-}
+//     return false;
+// }
 
-template <class T>
-bool hit(std::vector<T> record, T& intersection_ouput)
-{
-    std::sort(record.begin(), record.end());
-
-    for (auto&& current_intersection : record)
-    {
-        if(current_intersection.get_t() >= 0)
-        {
-            intersection_ouput = current_intersection;
-            return true;
-        }
-    }
-
-    return false;
-}
+bool hit(std::vector<Intersection*> record, Intersection& intersection_ouput);
 
 #endif
