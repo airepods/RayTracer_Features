@@ -4,7 +4,7 @@
 
 using namespace std;
 
-void print_matrix(Matrix M)
+void print_matrix(const rtm::Matrix& M)
 {
     const int ROW = M.get_nrow();
     const int COLUMN = M.get_ncolumn();
@@ -22,43 +22,20 @@ void print_matrix(Matrix M)
 int main()
 {    
     
-    Ray ray(Point(0, 0, 5), Vector(0, 0, 1));
-    Sphere s;
-    Cube c;
+    rtm::Ray ray(rtm::Point(1, 2, 3), rtm::Vector(0, 1, 0));
+    rtm::Sphere s; 
 
-    // Intersection<Sphere> i1(-10, s);
-    // Intersection<Sphere> i2(-1, s);
-    // Intersection<Sphere> i3(1, s);
-    // Intersection<Sphere> i4(0.5, s);
+    rtm::Matrix t = rtm::translation(3, 4, 5);
 
-    // vector<Intersection<Sphere>> xs = {i1, i2, i3, i4};
-    // Intersection<Sphere> output;
+    auto t3 = t*ray.origin(); 
+    auto t4 = t*ray.direction();  
+    cout<<t3.to_str()<<endl;
+    cout<<t4.to_str()<<endl;
 
-    // if(hit(xs, output))
-    //     cout<<"T value: "<<output.get_t()<<"\n"<<"Object: "<<output.get_object_type().type_to_str()<<"\n";
-    // else
-    //     cout<<"No hit"<<endl;
+    //Point o = t*Point(1, 2, 3);
 
-    Intersection i1(-10, &s);
-    Intersection i2(-1, &s);
-    Intersection i3(2, &c);
-
-    vector<Intersection*> xs = {&i1, &i2, &i3};
-
-    for (int i = 0; i < xs.size(); i++)
-    {
-        cout<<"T value: "<<xs[i]->get_t()<<"\n";
-        cout<<"Object: "<<xs[i]->get_shape()->get_object_type()->type_to_str()<<"\n";
-    }
-    
-
-    // if(l == empty_array())
-    //     cout<<"Empty"<<endl;
-    // else
-    // {
-    //     cout<<"x0 = "<<l[0]<<endl;
-    //     cout<<"x1 = "<<l[1]<<endl;
-    // }
+    //auto d = t*ray.direction()
+    //cout<<d.to_str()<<endl;
 
     cout<<"Program completed"<<endl;
     return 0;
