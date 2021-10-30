@@ -5,6 +5,7 @@
 #include <fstream>
 
 using namespace std;
+using namespace rtm;
 
 Canvas::Canvas()
 {}

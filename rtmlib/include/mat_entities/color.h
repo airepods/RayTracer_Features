@@ -4,6 +4,8 @@
 #include "mat_entities/tuple.h"
 #include <string>
 
+namespace rtm
+{
 class Color : public Tuple
 {
     public:
@@ -23,5 +25,6 @@ class Color : public Tuple
 
         Color operator*(Color);
 };
+} //namespace rtm
 
 #endif

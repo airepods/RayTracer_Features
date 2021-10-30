@@ -4,6 +4,8 @@
 #include "mat_entities/tuple.h"
 #include <string>
 
+namespace rtm
+{
 class Point : public Tuple
 {
     public:
@@ -12,14 +14,15 @@ class Point : public Tuple
         Point(float x, float y, float z, float w);
         Point(float* elements);
 
-        inline float x() {return this->t[0];}
-        inline float y() {return this->t[1];}
-        inline float z() {return this->t[2];}
-        inline float w() {return this->t[3];}
+        inline float x() const {return this->t[0];}
+        inline float y() const {return this->t[1];}
+        inline float z() const {return this->t[2];}
+        inline float w() const {return this->t[3];}
 
         std::string to_str();
 
         Point operator- ();
 };
+} //namespace rtm
 
 #endif

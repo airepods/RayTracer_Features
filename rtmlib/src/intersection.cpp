@@ -1,5 +1,7 @@
 #include "geometry/intersection.h"
 
+using namespace rtm;
+
 Intersection::Intersection()
 {}
 
@@ -21,18 +23,3 @@ bool Intersection::operator < (const Intersection& i) const
     return (t < i.t);
 }
 
-bool hit(std::vector<Intersection*> record, Intersection& intersection_ouput)
-{
-    std::sort(record.begin(), record.end(), [](Intersection* a, Intersection* b){return *a < *b;});
-
-    for (auto&& current_intersection : record)
-    {
-        if(current_intersection->get_t() >= 0)
-        {
-            intersection_ouput = *current_intersection;
-            return true;
-        }
-    }
-
-    return false;
-}

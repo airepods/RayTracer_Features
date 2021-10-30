@@ -6,6 +6,9 @@
 #include "mat_entities/point.h"
 #include "mat_entities/color.h"
 #include "mat_entities/matrix.h"
+#include "mat_entities/tuple_utility.h"
+#include "mat_entities/vector_utility.h"
+#include "mat_entities/matrix_utility.h"
 
 // canvas
 #include "canvas/canvas.h"
@@ -22,6 +25,7 @@
 #include "geometry/ray.h"
 #include "geometry/intersections.h"
 #include "geometry/intersection.h"
+#include "geometry/ray_intersection.h"
 
 // utility
 #include "util/utils.h"

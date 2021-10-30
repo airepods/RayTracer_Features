@@ -4,6 +4,7 @@
 #include <string>
 
 using namespace std;
+using namespace rtm;
 
 Vector::Vector()
 {}

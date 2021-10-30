@@ -3,11 +3,14 @@
 
 #include <string> 
 
+namespace rtm
+{
 class Shape
 {
 public:
     inline virtual std::string type_to_str() {return "Shape";}
     inline virtual Shape* get_object_type() {return this;};
 };
+} // namespace rtm
 
 #endif

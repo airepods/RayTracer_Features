@@ -7,6 +7,8 @@
 #include <vector>
 #include <string>
 
+namespace rtm
+{
 class Sphere : public Shape
 {
     public:
@@ -16,6 +18,6 @@ class Sphere : public Shape
         inline std::string type_to_str() override {return "Sphere";}
         inline Sphere* get_object_type() override {return this;}
 };
-
+} //namespace rtm
 
 #endif

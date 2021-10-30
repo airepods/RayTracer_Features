@@ -1,6 +1,6 @@
 #include "geometry/ray.h"
-#include "mat_entities/vector.h"
-#include "mat_entities/point.h"
+
+using namespace rtm;
 
 Ray::Ray()
 {}
@@ -16,9 +16,4 @@ Point Ray::origin()
 Vector Ray::direction()
 {
     return _direction;
-}
-
-Point position(Ray r, float t)
-{
-    return r.origin() + r.direction()*t;
 }

@@ -4,6 +4,8 @@
 #include "mat_entities/color.h"
 #include <string>
 
+namespace rtm
+{
 class Canvas
 {
     private:
@@ -23,5 +25,6 @@ class Canvas
 
         void export_to_ppm();
 };
+} //namespace rtm
 
 #endif

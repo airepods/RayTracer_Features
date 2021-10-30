@@ -1,6 +1,8 @@
 #include "mat_entities/matrix.h"
 #include "util/utils.h"
 
+using namespace rtm;
+
 Matrix::Matrix()
 {}
 
@@ -72,7 +74,7 @@ void Matrix::set_value(int row, int column, float val)
     matrix[row][column] = val;
 }
 
-Matrix Matrix::operator*(Matrix m)
+Matrix Matrix::operator*(const Matrix& m)
 {
     Matrix result = Matrix(4, 4);
 
@@ -105,73 +107,5 @@ Matrix Matrix::transpose()
     }
     
     return tmatrix;
-}
-
-bool compare(Matrix A, Matrix B)
-{
-    int row = A.get_nrow();
-    int col = A.get_ncolumn();
-
-    int ntrues = 0;
-    int totalTrues = row*col;
-
-    for(int i=0; i<row; ++i)
-    {
-        for(int j=0; j<col; ++j)
-        {
-            if(fcompare(A.at(i,j), B.at(i,j)))
-                ntrues++;
-        }
-    }
-
-    if(ntrues == totalTrues)
-        return true;
-    else
-        return false;    
-}
-
-float determinant(Matrix M)
-{   
-    if(M.get_nrow() != M.get_ncolumn())
-         throw Matrix::size_not_equal();
-
-    float det = 0;
-
-    if(M.get_nrow() == 2 && M.get_ncolumn() == 2)
-    {
-        det = M.at(0,0)*M.at(1, 1) - M.at(0, 1)*M.at(1, 0);
-        return det;
-    }
-    else
-    {
-        for(int col=0; col<M.get_ncolumn(); ++col)
-        {
-            det+=M.at(0, col)*cofactor(M, 0, col);
-        }
-
-        return det;
-    }
-}
-
-Matrix inverse(Matrix M)
-{
-    if(determinant(M) == 0)
-         throw Matrix::zero_determinant_error();
-
-    const int SIZE = M.get_nrow();
-    float det = determinant(M);
-    
-    Matrix inv = Matrix(SIZE, SIZE);
-
-    for(int row=0; row<SIZE; ++row)
-    {
-        for(int col=0 ; col<SIZE; ++col)
-        {
-            float c = cofactor(M, row, col);
-            inv.set_value(col, row, c/det);
-        }
-    }
-
-    return inv;
 }
 

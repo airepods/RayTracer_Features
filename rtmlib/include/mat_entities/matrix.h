@@ -1,6 +1,8 @@
 #ifndef MATRIX_H    
 #define MATRIX_H
 
+namespace rtm
+{
 class Matrix
 {
     private:
@@ -29,8 +31,8 @@ class Matrix
         Matrix(int row, int column);
         ~Matrix();
 
-        inline int get_nrow() { return _row; }
-        int get_ncolumn() { return _column; }
+        inline int get_nrow() const { return _row; }
+        inline int get_ncolumn() const { return _column; }
 
         float at(int row, int column) const;
         void set_matrix(int nrow, int ncolumn, float* mat);
@@ -38,30 +40,9 @@ class Matrix
         void set_value(int row, int column, float val);
         Matrix transpose();
 
-        Matrix operator*(Matrix m);
+        Matrix operator*(const Matrix& m);
 
 };
-
-bool compare(Matrix, Matrix);
-
-float determinant(Matrix M);
-Matrix inverse(Matrix M);
-
-template<class T>
-T operator*(Matrix m, T tuple)
-{
-    float results[4];
-
-    for(int row=0; row<4; ++row)
-    {
-        results[row] = m.at(row, 0) * tuple.x() +
-                       m.at(row, 1) * tuple.y() +
-                       m.at(row, 2) * tuple.z() +
-                       m.at(row, 3) * tuple.w();
-    }
-    return T(results);
-}
-
-
+} //namespace rtm
 
 #endif

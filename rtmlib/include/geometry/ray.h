@@ -4,6 +4,8 @@
 #include "mat_entities/vector.h"
 #include "mat_entities/point.h"
 
+namespace rtm
+{
 class Ray
 {
     private:
@@ -16,7 +18,6 @@ class Ray
         Point origin();
         Vector direction();     
 };
-
-Point position(Ray, float);
+} //namespace rtm
 
 #endif

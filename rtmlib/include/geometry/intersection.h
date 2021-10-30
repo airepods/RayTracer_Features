@@ -3,10 +3,10 @@
 
 #include "intersections.h"
 #include "primitives/shape.h"
-#include <vector>
-#include <algorithm>
 #include <string>
 
+namespace rtm
+{
 class Intersection : public Intersections
 {
     private:
@@ -23,23 +23,6 @@ class Intersection : public Intersections
         // Useful for std::sort array of intersections 
         bool operator < (const Intersection& i) const;
 };
-
-// template <class T>
-// bool hit(std::vector<T> record)
-// {
-//     std::sort(record.begin(), record.end());
-
-//     for (auto&& current_intersection : record)
-//     {
-//         if(current_intersection.get_t() >= 0)
-//         {
-//             return true;
-//         }
-//     }
-
-//     return false;
-// }
-
-bool hit(std::vector<Intersection*> record, Intersection& intersection_ouput);
+} //namespace rtm
 
 #endif

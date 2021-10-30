@@ -1,9 +1,12 @@
 #include "primitives/sphere.h"
-#include "geometry/ray.h"
 #include "mat_entities/vector.h"
 #include <cmath>
 #include <vector>
 #include "geometry/intersection.h"
+#include "mat_entities/tuple_utility.h"
+#include "mat_entities/vector_utility.h"
+
+using namespace rtm;
 
 Sphere::Sphere()
 {}
