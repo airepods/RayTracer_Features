@@ -19,13 +19,13 @@
 // primitives
 #include "primitives/shape.h"
 #include "primitives/sphere.h"
-#include "primitives/cube.h"
 
 // geometry
 #include "geometry/ray.h"
 #include "geometry/intersections.h"
 #include "geometry/intersection.h"
 #include "geometry/ray_intersection.h"
+#include "geometry/ray_transform.h"
 
 // utility
 #include "util/utils.h"

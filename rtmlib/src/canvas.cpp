@@ -135,7 +135,7 @@ void Canvas::export_to_ppm()
     // Write into a file
     cout<<"Writing canvas into ppm file..."<<endl;
     out<<this->to_str();
-    cout<<"picture.ppm has been created";
+    cout<<"picture.ppm has been created\n";
 
     // Close ofstream
     out.close();

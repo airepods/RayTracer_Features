@@ -8,12 +8,12 @@ Ray::Ray()
 Ray::Ray(Point origin, Vector direction) : _origin(origin), _direction(direction)
 {}
 
-Point Ray::origin()
+Point Ray::origin() const
 {
     return _origin;
 }
 
-Vector Ray::direction()
+Vector Ray::direction() const
 {
     return _direction;
 }

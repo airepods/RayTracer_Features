@@ -2,14 +2,16 @@
 #define SHAPE_H
 
 #include <string> 
+#include "mat_entities/matrix.h"
 
 namespace rtm
 {
 class Shape
 {
 public:
-    inline virtual std::string type_to_str() {return "Shape";}
-    inline virtual Shape* get_object_type() {return this;};
+    virtual std::string type_to_str() const = 0;
+    virtual Shape* get_object_type() = 0;
+    //virtual Matrix& get_transform() const = 0;
 };
 } // namespace rtm
 

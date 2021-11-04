@@ -1,23 +1,24 @@
 #include "mat_entities/matrix.h"
 #include "util/utils.h"
+#include <iostream>
 
 using namespace rtm;
 
-Matrix::Matrix()
+Matrix::Matrix() : matrix(nullptr)
 {}
 
-Matrix::Matrix(int row, int column) : _row(row), _column(column)
+Matrix::Matrix(int row, int column) : _row(row), _column(column), matrix(nullptr)
 {
-    matrix = new float*[row];
+    matrix = new float*[_row];
 
-    for(int i=0; i<row; ++i)
+    for(int i=0; i<_row; ++i)
     {
-        matrix[i] = new float[column];
+        matrix[i] = new float[_column];
     }
 
-    for(int i=0; i<row; ++i)
+    for(int i=0; i<_row; ++i)
     {
-        for(int j=0; j<column; ++j)
+        for(int j=0; j<_column; ++j)
         {
             matrix[i][j] = 0.0f;
         }
@@ -26,11 +27,18 @@ Matrix::Matrix(int row, int column) : _row(row), _column(column)
 
 Matrix::~Matrix()
 {
-    for(int i=0; i<_row; ++i)
+    if(matrix != nullptr)
     {
-        delete[] matrix[i];
+        for(int i=0; i<_row; ++i)
+        {
+            delete[] matrix[i];
+        }
+        delete[] matrix;
+
+        std::cout<<"delete matrix"<<std::endl;
     }
-    delete[] matrix;
+    else
+        std::cout<<"nothing to delete matrix"<<std::endl;  
 }
 
 float Matrix::at(int row, int column) const
@@ -96,7 +104,7 @@ Matrix Matrix::operator*(const Matrix& m)
 
 Matrix Matrix::transpose()
 {
-    Matrix tmatrix = Matrix(_column, _row);
+    Matrix tmatrix(_column, _row);
 
     for(int row=0; row<_column; ++row)
     {

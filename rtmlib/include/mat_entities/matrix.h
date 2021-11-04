@@ -7,7 +7,7 @@ class Matrix
 {
     private:
         int _row, _column;
-        float** matrix = nullptr;
+        float** matrix;
     public:
 
         // Exception class
@@ -40,7 +40,7 @@ class Matrix
         void set_value(int row, int column, float val);
         Matrix transpose();
 
-        Matrix operator*(const Matrix& m);
+        Matrix operator *(const Matrix& m);
 
 };
 } //namespace rtm

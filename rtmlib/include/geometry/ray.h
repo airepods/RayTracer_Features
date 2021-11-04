@@ -15,8 +15,8 @@ class Ray
         Ray();
         Ray(Point origin, Vector direction);
 
-        Point origin();
-        Vector direction();     
+        Point origin() const;
+        Vector direction() const;     
 };
 } //namespace rtm
 

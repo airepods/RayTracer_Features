@@ -1,17 +1,27 @@
 #include "primitives/sphere.h"
 #include "mat_entities/vector.h"
+#include "mat_entities/matrix.h"
 #include <cmath>
 #include <vector>
 #include "geometry/intersection.h"
 #include "mat_entities/tuple_utility.h"
 #include "mat_entities/vector_utility.h"
 
+#include <iostream>
+
 using namespace rtm;
 
-Sphere::Sphere()
-{}
+Sphere::Sphere() : _transform{Matrix(4, 4)}
+{
+    _transform.set_identity();
+}
 
-std::vector<Intersection> Sphere::intersects(Ray r)
+void Sphere::set_transform(Matrix& transformation)
+{
+    _transform = transformation;
+}
+
+std::vector<Intersection> Sphere::intersects(Ray& r)
 {
     Vector sphere_to_ray = r.origin() - Point(0, 0, 0);
 
