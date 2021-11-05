@@ -7,9 +7,12 @@
 using namespace std;
 using namespace rtm;
 
-Canvas::Canvas()
+// Default constructor
+Canvas::Canvas() : board(nullptr)
 {}
 
+// Custom constructor, it allocates memory for the canvas board
+// the default canvas is black (every pixel is 0, 0, 0)
 Canvas::Canvas(int width, int height) : _width(width), _height(height)
 {
     board = new Color*[width];
@@ -28,15 +31,68 @@ Canvas::Canvas(int width, int height) : _width(width), _height(height)
     }
 }
 
+// Destructor
 Canvas::~Canvas()
 {
-    for(int i=0; i<_width; ++i)
+    if(board != nullptr)
     {
-        delete[] board[i];
+        for(int i=0; i<_width; ++i)
+        {
+            delete[] board[i];
+        }
+        delete[] board;
     }
-    delete[] board;
 }
 
+// Copy constructor, copy the contents of board into a the new instance's board member
+// data, make sure to copy the contents and no the pointers otherwise the two instances
+// will point to the same memory address 
+Canvas::Canvas(const Canvas& c)
+{
+    _width = c._width;
+    _height = c._height;
+
+    board = new Color*[_width];
+
+    for(int i=0; i<_width; ++i)
+    {
+        board[i] = new Color[_height];
+    }
+
+    for(int i=0; i<_width; ++i)
+    {
+        for(int j=0; j<_height; ++j)
+        {
+            board[i][j] = c.board[i][j];
+        }
+    }
+}
+
+// Copy assignment operator, same at copy constructor
+Canvas& Canvas::operator= (const Canvas& c)
+{
+    _width = c._width;
+    _height = c._height;
+
+    board = new Color*[_width];
+
+    for(int i=0; i<_width; ++i)
+    {
+        board[i] = new Color[_height];
+    }
+
+    for(int i=0; i<_width; ++i)
+    {
+        for(int j=0; j<_height; ++j)
+        {
+            board[i][j] = c.board[i][j];
+        }
+    }
+
+    return *this;
+}
+
+// Return a string with the content formated for a ppm file
 string Canvas::to_str()
 {
     string out = "";
@@ -70,6 +126,7 @@ string Canvas::to_str()
     return out;
 }
 
+// Testing purposes only, print a matrix of asterisk for validation
 void Canvas::debug_print()
 {
     for(int i=0; i<_height; ++i)
@@ -82,7 +139,10 @@ void Canvas::debug_print()
     }
 }
 
-void Canvas::write_pixel(int x, int y, Color color)
+// Write a pixel into the canvas given its x and y positions and a color
+// Every color greater than 255 will be considered at 255, and for colors less
+// than 0, they will be considered as 0
+void Canvas::write_pixel(int x, int y, const Color& color)
 {
     int r, g, b;
     Color c;
@@ -122,11 +182,13 @@ void Canvas::write_pixel(int x, int y, Color color)
     board[x][y] = c;
 }
 
+// Return a specific pixel given the x and y positions of the canvas
 Color Canvas::pixel_at(int x, int y)
 {
     return board[x][y];
 }
 
+// Export canvas to ppm file
 void Canvas::export_to_ppm()
 {
     // Initialize ofstream
