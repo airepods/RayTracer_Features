@@ -5,16 +5,16 @@
 
 namespace rtm
 {
-bool compare(Matrix, Matrix);
-float determinant(Matrix M);
-Matrix inverse(Matrix M);
+bool compare(const Matrix&, const Matrix&);
+float determinant(const Matrix& M);
+Matrix inverse(const Matrix& M);
 
 // Stuff for computing the inverse of a matrix
+Matrix submatrix(const Matrix& M, int row, int col);
+float minor(const Matrix& M, int row, int col);
+float cofactor(const Matrix& M, int row, int col);
 
-Matrix submatrix(Matrix M, int row, int col);
-float minor(Matrix M, int row, int col);
-float cofactor(Matrix M, int row, int col);
-
+// Matrix - Tuple multiplication
 template<class T>
 T operator*(const Matrix& m, const T& tuple)
 {

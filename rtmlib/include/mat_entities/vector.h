@@ -23,12 +23,9 @@ class Vector : public Tuple
 
         Vector operator- ();
 
-        // Compute the magnitude of the vector
-        float magnitude();
-        // Normalize the vector
-        Vector normalize();
-        // Compute the dot product with another vector
-        float dot(Vector);
+        float magnitude() const;
+        Vector normalize() const;
+        float dot(const Vector&);
 };
 } //namespace rtm
 

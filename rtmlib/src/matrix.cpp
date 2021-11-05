@@ -4,9 +4,11 @@
 
 using namespace rtm;
 
+// Default constructor
 Matrix::Matrix() : matrix(nullptr)
 {}
 
+// Custom consturctor
 Matrix::Matrix(int row, int column) : _row(row), _column(column)
 {
     matrix = new float*[_row];
@@ -25,6 +27,37 @@ Matrix::Matrix(int row, int column) : _row(row), _column(column)
     }
 }
 
+// Construct a Matrix providing a built-in array of arrays (built-in matrix) and
+// the number of rows and columns 
+Matrix::Matrix(int row, int column, float* mat) : _row(row), _column(column)
+{
+    matrix = new float*[_row];
+
+    for(int i=0; i<_row; ++i)
+    {
+        matrix[i] = new float[_column];
+    }
+
+    for(int i=0; i<_row; ++i)
+    {
+        for(int j=0; j<_column; ++j)
+        {
+            matrix[i][j] = 0.0f;
+        }
+    }
+
+    int i, j;
+    for(i=0; i<_row; i++)
+    {
+        for(j=0; j<_column; j++)
+        {
+            matrix[i][j] = *(mat + i*_column + j);
+        }
+    }
+
+}
+
+// Destructor
 Matrix::~Matrix()
 {
     if(matrix != nullptr)
@@ -41,6 +74,7 @@ Matrix::~Matrix()
         std::cout<<"nothing to delete matrix"<<std::endl;  
 }
 
+// Copy constructor
 Matrix::Matrix(const Matrix& m)
 {
     _row = m._row;
@@ -62,6 +96,7 @@ Matrix::Matrix(const Matrix& m)
     }
 }
 
+// Copy assignment operator
 Matrix& Matrix::operator= (const Matrix& m)
 {
     _row = m._row;
@@ -85,6 +120,7 @@ Matrix& Matrix::operator= (const Matrix& m)
     return *this;
 }
 
+// Get an element of a matrix given its row and column indexes
 float Matrix::at(int row, int column) const
 {
     if(row > _row-1 || column > _column-1)
@@ -93,18 +129,19 @@ float Matrix::at(int row, int column) const
     return matrix[row][column];
 }
 
-void Matrix::set_matrix(int nrow, int ncolumn, float* mat)
-{
-    int i, j;
-    for(i=0; i<nrow; i++)
-    {
-        for(j=0; j<ncolumn; j++)
-        {
-            matrix[i][j] = *(mat + i*ncolumn + j);
-        }
-    }
-}
+// void Matrix::set_matrix(int nrow, int ncolumn, float* mat)
+// {
+//     int i, j;
+//     for(i=0; i<nrow; i++)
+//     {
+//         for(j=0; j<ncolumn; j++)
+//         {
+//             matrix[i][j] = *(mat + i*ncolumn + j);
+//         }
+//     }
+// }
 
+// Create the identity matrix
 void Matrix::set_identity()
 {   
     if(matrix == nullptr)
@@ -118,6 +155,7 @@ void Matrix::set_identity()
     this->set_value(3, 3, 1.0f);
 }
 
+// Set the values of the elements of the matrix given an specific index i(row), j(column) 
 void Matrix::set_value(int row, int column, float val)
 {
     if(row > _row-1 || column > _column-1)
@@ -126,6 +164,7 @@ void Matrix::set_value(int row, int column, float val)
     matrix[row][column] = val;
 }
 
+// Matrix multiplication
 Matrix Matrix::operator*(const Matrix& m)
 {
     Matrix result = Matrix(4, 4);
@@ -146,6 +185,7 @@ Matrix Matrix::operator*(const Matrix& m)
     return result;
 }
 
+// Return the transpose of a matrix
 Matrix Matrix::transpose()
 {
     Matrix tmatrix(_column, _row);

@@ -9,34 +9,34 @@ namespace rtm
 {
 // tuple basic operations functions
 // Addition
-Vector operator+(Vector, Vector);
-Point operator+(Vector, Point);
-Point operator+(Point, Vector);
-Color operator+(Color, Color);
+Vector operator+(const Vector&, const Vector&);
+Point operator+(const Vector&, const Point&);
+Point operator+(const Point&, const Vector&);
+Color operator+(const Color&, const Color&);
 
 // Substraction
-Vector operator-(Vector, Vector);
-Point operator-(Vector, Point);
-Point operator-(Point, Vector);
-Vector operator-(Point, Point);
-Color operator-(Color, Color);
+Vector operator-(const Vector&, const Vector&);
+Point operator-(const Vector&, const Point&);
+Point operator-(const Point&, const Vector&);
+Vector operator-(const Point&, const Point&);
+Color operator-(const Color&, const Color&);
 
 // Multiplication by scalar
 template<class T>
-T operator*(T t, float scalar)
+T operator*(const T& t, float scalar)
 {
     return T(t.x()*scalar, t.y()*scalar, t.z()*scalar);
 }
 
 template<class T>
-T operator*(float scalar, T t)
+T operator*(float scalar, const T& t)
 {
     return t*scalar;
 }
 
 // Division by scalar
 template<class T>
-T operator/(T t, float scalar)
+T operator/(const T& t, float scalar)
 {
     return T(t.x()/scalar, t.y()/scalar, t.z()/scalar);
 }

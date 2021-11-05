@@ -4,6 +4,8 @@
 #include "util/utils.h"
 #include <string>
 
+// Abstract class Tuple
+
 namespace rtm
 {
 class Vector;
@@ -14,8 +16,6 @@ class Tuple
 {
     protected:
         float t[4];
-        int c[3];
-
     public:
         Tuple();
         Tuple(float x, float y, float z);
@@ -24,8 +24,9 @@ class Tuple
 
         virtual std::string to_str() = 0;
 
+        // Compare if two tuples are equal
         template<class T>
-        bool is_equal_to(T tuple)
+        bool is_equal_to(const T& tuple)
         {
             for(int i=0; i<4; ++i)
             {

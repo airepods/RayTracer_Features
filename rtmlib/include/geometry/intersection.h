@@ -11,7 +11,7 @@ class Intersection : public Intersections
 {
     private:
         float t;
-        Shape* object = nullptr;
+        Shape* object;
     public:
         Intersection();
 

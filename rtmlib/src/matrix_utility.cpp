@@ -4,7 +4,9 @@
 
 using namespace rtm;
 
-bool rtm::compare(Matrix A, Matrix B)
+// Compare two matrix, it considers a compiron between
+// floating point numbers
+bool rtm::compare(const Matrix& A, const Matrix& B)
 {
     int row = A.get_nrow();
     int col = A.get_ncolumn();
@@ -27,7 +29,8 @@ bool rtm::compare(Matrix A, Matrix B)
         return false;    
 }
 
-float rtm::determinant(Matrix M)
+// Compute the determinant of a matrix
+float rtm::determinant(const Matrix& M)
 {   
     if(M.get_nrow() != M.get_ncolumn())
          throw Matrix::size_not_equal();
@@ -50,7 +53,8 @@ float rtm::determinant(Matrix M)
     }
 }
 
-Matrix rtm::inverse(Matrix M)
+// Compute the inverse of a matrix
+Matrix rtm::inverse(const Matrix& M)
 {
     if(determinant(M) == 0)
          throw Matrix::zero_determinant_error();
@@ -73,7 +77,7 @@ Matrix rtm::inverse(Matrix M)
 }
 
 // Compute the submatrix of a given matrix
-Matrix rtm::submatrix(Matrix M, int row, int col)
+Matrix rtm::submatrix(const Matrix& M, int row, int col)
 {
     int ROW = M.get_nrow()-1;
     int COL = M.get_ncolumn()-1;
@@ -101,14 +105,14 @@ Matrix rtm::submatrix(Matrix M, int row, int col)
     return R;
 }
 
-// Compute the submatrix of a given matrix
-float rtm::minor(Matrix M, int row, int col)
+// Compute the minor of a matrix
+float rtm::minor(const Matrix& M, int row, int col)
 {
     return determinant(submatrix(M, row, col));
 }
 
-// Compute the submatrix of a matrix given its row and colomun indices
-float rtm::cofactor(Matrix M, int row, int col)
+// Compute the cofactor of a matrix given a specific row and column
+float rtm::cofactor(const Matrix& M, int row, int col)
 {
     if((row+col)%2 != 0)
         return -minor(M, row, col);

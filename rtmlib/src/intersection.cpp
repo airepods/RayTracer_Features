@@ -2,7 +2,7 @@
 
 using namespace rtm;
 
-Intersection::Intersection()
+Intersection::Intersection() : object(nullptr)
 {}
 
 Intersection::Intersection(float t_val , Shape* object_val) : t(t_val), object(object_val) 

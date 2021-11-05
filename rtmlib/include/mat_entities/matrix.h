@@ -29,6 +29,7 @@ class Matrix
 
         Matrix();
         Matrix(int row, int column);
+        Matrix(int row, int column, float* mat);
         ~Matrix();
 
         Matrix(const Matrix&);

@@ -17,13 +17,13 @@ class Color : public Tuple
         inline float green() const {return this->t[1];}
         inline float blue() const {return this->t[2];}
 
-        inline float x() {return this->t[0];}
-        inline float y() {return this->t[1];}
-        inline float z() {return this->t[2];}
+        inline float x() const {return this->t[0];}
+        inline float y() const {return this->t[1];}
+        inline float z() const {return this->t[2];}
 
         std::string to_str();
 
-        Color operator*(Color);
+        Color operator*(const Color&);
 };
 } //namespace rtm
 

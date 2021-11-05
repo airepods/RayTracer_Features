@@ -6,9 +6,11 @@
 using namespace std;
 using namespace rtm;
 
+// Default constructor
 Vector::Vector()
 {}
 
+// Custom constructor
 Vector::Vector(float x, float y, float z) : Tuple(x, y, z)
 {
     t[3] = 0.0f;
@@ -17,9 +19,11 @@ Vector::Vector(float x, float y, float z) : Tuple(x, y, z)
 Vector::Vector(float x, float y, float z, float w) : Tuple(x, y, z, w)
 {}
 
+// Construct a vector from an primitive array
 Vector::Vector(float* elements) : Tuple(elements)
 {}
 
+// Return a string of the values of a vector
 string Vector::to_str()
 {
     string out = "";
@@ -32,24 +36,28 @@ string Vector::to_str()
     return out;
 }
 
+// Negate a vector
 Vector Vector::operator-()
 {
     return Vector(-t[0], -t[1], -t[2]);
 }
 
-float Vector::magnitude()
+// Compute the magnitude/norm of a vector
+float Vector::magnitude() const
 {
     return sqrt(t[0]*t[0] + t[1]*t[1] + t[2]*t[2] + t[3]*t[3]);
 }
 
-Vector Vector::normalize()
+// Normalize a vector
+Vector Vector::normalize() const
 {
     return Vector(t[0]/this->magnitude(), 
                   t[1]/this->magnitude(), 
                   t[2]/this->magnitude());
 }
 
-float Vector::dot(Vector v)
+// Compute the dot product of a vector
+float Vector::dot(const Vector& v)
 {
     return t[0]*v.x() + 
            t[1]*v.y() +
