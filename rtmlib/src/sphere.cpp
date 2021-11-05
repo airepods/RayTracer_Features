@@ -21,7 +21,7 @@ void Sphere::set_transform(Matrix& transformation)
     _transform = transformation;
 }
 
-std::vector<Intersection> Sphere::intersects(Ray& r)
+std::vector<Intersection> Sphere::intersects(const Ray& r)
 {
     Vector sphere_to_ray = r.origin() - Point(0, 0, 0);
 

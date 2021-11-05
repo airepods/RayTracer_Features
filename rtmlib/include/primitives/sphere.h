@@ -16,7 +16,7 @@ class Sphere : public Shape
         Matrix _transform;
     public:
         Sphere();
-        std::vector<Intersection> intersects(Ray& r);
+        std::vector<Intersection> intersects(const Ray& r);
         
         inline std::string type_to_str() const override {return "Sphere";}
         inline Sphere* get_object_type() override {return this;}
