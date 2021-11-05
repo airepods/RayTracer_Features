@@ -31,6 +31,9 @@ class Matrix
         Matrix(int row, int column);
         ~Matrix();
 
+        Matrix(const Matrix&);
+        Matrix& operator= (const Matrix&);
+
         inline int get_nrow() const { return _row; }
         inline int get_ncolumn() const { return _column; }
 

@@ -7,7 +7,7 @@ using namespace rtm;
 Matrix::Matrix() : matrix(nullptr)
 {}
 
-Matrix::Matrix(int row, int column) : _row(row), _column(column), matrix(nullptr)
+Matrix::Matrix(int row, int column) : _row(row), _column(column)
 {
     matrix = new float*[_row];
 
@@ -39,6 +39,50 @@ Matrix::~Matrix()
     }
     else
         std::cout<<"nothing to delete matrix"<<std::endl;  
+}
+
+Matrix::Matrix(const Matrix& m)
+{
+    _row = m._row;
+    _column = m._column;
+
+    matrix = new float*[_row];
+
+    for(int i=0; i<_row; ++i)
+    {
+        matrix[i] = new float[_column];
+    }
+
+    for(int i=0; i<_row; ++i)
+    {
+        for(int j=0; j<_column; ++j)
+        {
+            matrix[i][j] = m.matrix[i][j];
+        }
+    }
+}
+
+Matrix& Matrix::operator= (const Matrix& m)
+{
+    _row = m._row;
+    _column = m._column;
+
+    matrix = new float*[_row];
+
+    for(int i=0; i<_row; ++i)
+    {
+        matrix[i] = new float[_column];
+    }
+
+    for(int i=0; i<_row; ++i)
+    {
+        for(int j=0; j<_column; ++j)
+        {
+            matrix[i][j] = m.matrix[i][j];
+        }
+    }
+
+    return *this;
 }
 
 float Matrix::at(int row, int column) const
