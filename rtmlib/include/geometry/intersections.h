@@ -4,6 +4,8 @@
 #include <string>
 #include "primitives/shape.h"
 
+// Abstract base class 
+
 namespace rtm
 {
 class Intersections

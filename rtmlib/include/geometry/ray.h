@@ -13,10 +13,10 @@ class Ray
         Vector _direction;
     public:
         Ray();
-        Ray(Point origin, Vector direction);
+        Ray(const Point& origin, const Vector& direction);
 
-        Point origin() const;
-        Vector direction() const;     
+        inline Point origin() const {return _origin;}
+        inline Vector direction() const {return _direction;}     
 };
 } //namespace rtm
 

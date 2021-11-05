@@ -4,7 +4,7 @@
 
 using namespace rtm;
 
-bool rtm::hit(std::vector<Intersection*> record, Intersection& intersection_ouput)
+bool rtm::hit(const std::vector<Intersection*>& record, Intersection& intersection_ouput)
 {
     std::sort(record.begin(), record.end(), [](Intersection* a, Intersection* b){return *a < *b;});
 
@@ -20,7 +20,7 @@ bool rtm::hit(std::vector<Intersection*> record, Intersection& intersection_oupu
     return false;
 }
 
-Point rtm::position(Ray r, float t)
+Point rtm::position(const Ray& r, float t)
 {
     return r.origin() + r.direction()*t;
 }
