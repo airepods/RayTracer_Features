@@ -68,10 +68,8 @@ Matrix::~Matrix()
         }
         delete[] matrix;
 
-        std::cout<<"delete matrix"<<std::endl;
-    }
-    else
-        std::cout<<"nothing to delete matrix"<<std::endl;  
+        //std::cout<<"delete matrix"<<std::endl;
+    } 
 }
 
 // Copy constructor

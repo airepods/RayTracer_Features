@@ -8,7 +8,9 @@
 
 namespace rtm
 {
-bool hit(const std::vector<Intersection*>& record, Intersection& intersection_ouput);
+bool hit(std::vector<Intersection*>& record, Intersection& intersection_ouput);
+bool hit(std::vector<Intersection>& record, Intersection& intersection_ouput);
+bool hit(std::vector<Intersection>& record);
 Point position(const Ray&, float);
 } // namespace rtm
 

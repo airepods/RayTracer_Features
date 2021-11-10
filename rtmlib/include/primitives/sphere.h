@@ -16,13 +16,13 @@ class Sphere : public Shape
         Matrix _transform;
     public:
         Sphere();
-        std::vector<Intersection> intersects(const Ray& r);
+        std::vector<Intersection> intersects(const Ray&);
         
         inline std::string type_to_str() const override {return "Sphere";}
         inline Sphere* get_object_type() override {return this;}
-        inline Matrix get_transform() {return _transform;}
+        inline Matrix get_transform() const override {return _transform;}
 
-        void set_transform(Matrix& transformation);
+        void transform(const Matrix& transformation) override;
 };
 } //namespace rtm
 

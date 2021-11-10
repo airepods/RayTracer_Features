@@ -1,6 +1,7 @@
 #include "primitives/sphere.h"
 #include "mat_entities/vector.h"
 #include "mat_entities/matrix.h"
+#include "mat_entities/matrix_utility.h"
 #include <cmath>
 #include <vector>
 #include "geometry/intersection.h"
@@ -16,17 +17,21 @@ Sphere::Sphere() : _transform{Matrix(4, 4)}
     _transform.set_identity();
 }
 
-void Sphere::set_transform(Matrix& transformation)
+void Sphere::transform(const Matrix& transformation)
 {
     _transform = transformation;
 }
 
 std::vector<Intersection> Sphere::intersects(const Ray& r)
 {
-    Vector sphere_to_ray = r.origin() - Point(0, 0, 0);
+    // Here I am transforming the ray
+    // Transform the ray by the inverse of the sphere's transformation matrix 
+    Ray ray2 = r.transform(inverse(this->get_transform()));
+    
+    Vector sphere_to_ray = ray2.origin() - Point(0, 0, 0);
 
-    float a = dot(r.direction(), r.direction());
-    float b = 2 * dot(r.direction(), sphere_to_ray);
+    float a = dot(ray2.direction(), ray2.direction());
+    float b = 2 * dot(ray2.direction(), sphere_to_ray);
     float c = dot(sphere_to_ray, sphere_to_ray) - 1;
 
     float discriminant = pow(b, 2) - 4 * a * c;

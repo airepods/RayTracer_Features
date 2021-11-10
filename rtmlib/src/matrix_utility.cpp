@@ -56,13 +56,14 @@ float rtm::determinant(const Matrix& M)
 // Compute the inverse of a matrix
 Matrix rtm::inverse(const Matrix& M)
 {
-    if(determinant(M) == 0)
+    float det = determinant(M);
+
+    if(det == 0)
          throw Matrix::zero_determinant_error();
 
     const int SIZE = M.get_nrow();
-    float det = determinant(M);
     
-    Matrix inv = Matrix(SIZE, SIZE);
+    Matrix inv = Matrix(SIZE, SIZE);   // 1 matrix
 
     for(int row=0; row<SIZE; ++row)
     {
