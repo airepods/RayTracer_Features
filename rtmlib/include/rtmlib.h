@@ -27,6 +27,13 @@
 #include "geometry/ray_intersection.h"
 #include "geometry/ray_transform.h"
 
+// light
+#include "lighting/light.h"
+#include "lighting/pointLight.h"
+
+// materials
+#include "materials/material.h"
+
 // utility
 #include "util/utils.h"
 

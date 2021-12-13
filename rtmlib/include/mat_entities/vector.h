@@ -19,6 +19,8 @@ class Vector : public Tuple
         inline float z() const {return this->t[2];}
         inline float w() const {return this->t[3];}
 
+        inline void set_w(float w_val) { t[3] = w_val; }
+
         std::string to_str();
 
         Vector operator- ();

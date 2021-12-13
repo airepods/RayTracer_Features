@@ -14,6 +14,8 @@ Matrix submatrix(const Matrix& M, int row, int col);
 float minor(const Matrix& M, int row, int col);
 float cofactor(const Matrix& M, int row, int col);
 
+
+
 // Matrix - Tuple multiplication
 template<class T>
 T operator*(const Matrix& m, const T& tuple)

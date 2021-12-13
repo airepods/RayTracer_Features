@@ -16,7 +16,9 @@ add_library(${PROJECT_NAME}
                 src/tuple.cpp
                 src/tuple_utility.cpp
                 src/vector.cpp
-                src/utils.cpp)
+                src/utils.cpp
+                src/pointLight.cpp
+                src/material.cpp)
 
 # Include directories for header files
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include)

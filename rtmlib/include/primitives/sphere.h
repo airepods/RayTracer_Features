@@ -7,6 +7,7 @@
 #include "mat_entities/matrix.h"
 #include <vector>
 #include <string>
+#include "materials/material.h"
 
 namespace rtm
 {
@@ -14,6 +15,7 @@ class Sphere : public Shape
 {
     private:
         Matrix _transform;
+        Material m_material;
     public:
         Sphere();
         std::vector<Intersection> intersects(const Ray&);
@@ -22,7 +24,12 @@ class Sphere : public Shape
         inline Sphere* get_object_type() override {return this;}
         inline Matrix get_transform() const override {return _transform;}
 
-        void transform(const Matrix& transformation) override;
+        void set_transform(const Matrix& transformation) override;
+        Vector normal_at(const Point& world_point);
+
+        inline Material get_material() {return m_material;}
+        inline void set_material(const Material& material) {m_material = material;}
+
 };
 } //namespace rtm
 
