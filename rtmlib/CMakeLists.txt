@@ -18,7 +18,8 @@ add_library(${PROJECT_NAME}
                 src/vector.cpp
                 src/utils.cpp
                 src/pointLight.cpp
-                src/material.cpp)
+                src/material.cpp
+                src/light.cpp)
 
 # Include directories for header files
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include)
