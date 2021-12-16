@@ -8,6 +8,7 @@ add_library(${PROJECT_NAME}
                 src/matrix_utility.cpp
                 src/matrix.cpp
                 src/point.cpp
+                src/surface.cpp
                 src/ray_intersection.cpp
                 src/ray_transform.cpp
                 src/ray.cpp

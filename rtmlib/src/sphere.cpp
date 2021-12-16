@@ -8,20 +8,17 @@
 #include "mat_entities/tuple_utility.h"
 #include "mat_entities/vector_utility.h"
 #include "mat_entities/point.h"
-#include "materials/material.h"
 
 #include <iostream>
 
 using namespace rtm;
 
-Sphere::Sphere() : _transform{Matrix(4, 4)}, m_material(Material())
-{
-    _transform.set_identity();
-}
+Sphere::Sphere() : Surface()
+{}
 
 void Sphere::set_transform(const Matrix& transformation)
 {
-    _transform = transformation;
+    m_transform = transformation;
 }
 
 std::vector<Intersection> Sphere::intersects(const Ray& r)
@@ -55,11 +52,11 @@ std::vector<Intersection> Sphere::intersects(const Ray& r)
 Vector Sphere::normal_at(const Point& world_point)
 {
     // Passing the point in world space to object space
-    auto object_point = inverse(_transform) * world_point;
+    auto object_point = inverse(m_transform) * world_point;
     // Getting the normal vector in object space
     auto object_normal = object_point - rtm::Point(0, 0, 0);
     // Taking the normal vector in object space and pass it to world space
-    auto world_normal = (inverse(_transform)).transpose() * object_normal;
+    auto world_normal = (inverse(m_transform)).transpose() * object_normal;
     // Set the w component to 0 because I am considering the translation component
     // of the transformation matrix and because of that, the w might change. 
     world_normal.set_w(0);

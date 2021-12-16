@@ -16,16 +16,16 @@
 // transforms
 #include "transforms/transforms.h"
 
-// primitives
-#include "primitives/shape.h"
-#include "primitives/sphere.h"
-
 // geometry
 #include "geometry/ray.h"
 #include "geometry/intersections.h"
 #include "geometry/intersection.h"
 #include "geometry/ray_intersection.h"
 #include "geometry/ray_transform.h"
+
+// primitives
+#include "primitives/surface.h"
+#include "primitives/sphere.h"
 
 // light
 #include "lighting/light.h"

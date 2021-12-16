@@ -32,7 +32,8 @@ Color rtm::lighting(Material material, PointLight light, Point point, Vector eye
     {
         diffuse = effective_color * material.get_diffuse() * light_dot_normal;
         
-        auto reflectv = reflect(-lightv, normalv);
+        // compute the reflection vector
+        auto reflectv = reflect(lightv, normalv);
         auto reflect_dot_eye = dot(reflectv, eyev);
 
         if(reflect_dot_eye <= 0)

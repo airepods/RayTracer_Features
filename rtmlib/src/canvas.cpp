@@ -154,16 +154,16 @@ void Canvas::write_pixel(int x, int y, const Color& color)
         r = 0;
 
     g = round(color.green()*255);
-    if(r > 255)
-        r = 255;
+    if(g > 255)
+        g = 255;
     if(r < 0)
-        r = 0;
+        g = 0;
 
     b = round(color.blue()*255);
-    if(r > 255)
-        r = 255;
-    if(r < 0)
-        r = 0;
+    if(b > 255)
+        b = 255;
+    if(b < 0)
+        b = 0;
     
     c = Color(r, g, b);
 

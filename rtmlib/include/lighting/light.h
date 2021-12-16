@@ -12,7 +12,7 @@
 namespace rtm
 {
     // Because the l vector is pointing out towards the surface
-    inline Vector reflect(Vector l, Vector normal) { return l - 2*dot(l, normal)*normal; }
+    inline Vector reflect(Vector l, Vector normal) { return -l + 2*dot(l, normal)*normal; }
 
     Color lighting(Material material, PointLight light, Point point, Vector eyev, Vector normalv);
 }

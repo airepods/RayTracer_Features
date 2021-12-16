@@ -5,7 +5,7 @@ using namespace rtm;
 Intersection::Intersection() : object(nullptr)
 {}
 
-Intersection::Intersection(float t_val , Shape* object_val) : t(t_val), object(object_val) 
+Intersection::Intersection(float t_val , Surface* object_val) : t(t_val), object(object_val) 
 {}
 
 float Intersection::get_t()
@@ -13,7 +13,7 @@ float Intersection::get_t()
     return t;
 }
 
-Shape* Intersection::get_shape()
+Surface* Intersection::get_shape()
 {
     return object;
 }

@@ -3,7 +3,7 @@
 
 #include "geometry/ray.h" 
 #include "geometry/intersection.h"
-#include "primitives/shape.h"
+#include "primitives/surface.h"
 #include "mat_entities/matrix.h"
 #include <vector>
 #include <string>
@@ -11,24 +11,23 @@
 
 namespace rtm
 {
-class Sphere : public Shape
+class Sphere : public Surface
 {
-    private:
-        Matrix _transform;
-        Material m_material;
     public:
         Sphere();
+
         std::vector<Intersection> intersects(const Ray&);
         
         inline std::string type_to_str() const override {return "Sphere";}
         inline Sphere* get_object_type() override {return this;}
-        inline Matrix get_transform() const override {return _transform;}
 
+        inline Matrix get_transform() const override {return m_transform;}
         void set_transform(const Matrix& transformation) override;
-        Vector normal_at(const Point& world_point);
 
-        inline Material get_material() {return m_material;}
-        inline void set_material(const Material& material) {m_material = material;}
+        Vector normal_at(const Point& world_point) override;
+
+        inline Material get_material() override {return m_material;}
+        inline void set_material(const Material& material) override {m_material = material;}
 
 };
 } //namespace rtm
