@@ -1,13 +1,13 @@
 #ifndef LIGHT_H    
 #define LIGHT_H
 
-#include <mat_entities/vector.h>
-#include <mat_entities/point.h>
-#include <mat_entities/vector_utility.h>
-#include <mat_entities/tuple_utility.h>
-#include <mat_entities/color.h>
-#include <lighting/pointLight.h>
-#include <materials/material.h>
+#include "mat_entities/vector.h"
+#include "mat_entities/point.h"
+#include "mat_entities/vector_utility.h"
+#include "mat_entities/tuple_utility.h"
+#include "mat_entities/color.h"
+#include "pointLight.h"
+#include "materials/material.h"
 
 namespace rtm
 {

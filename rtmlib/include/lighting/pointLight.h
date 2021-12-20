@@ -1,8 +1,8 @@
 #ifndef POINTLIGHT_H    
 #define POINTLIGHT_H
 
-#include <mat_entities/point.h>
-#include <mat_entities/color.h>
+#include "mat_entities/point.h"
+#include "mat_entities/color.h"
 
 namespace rtm
 {

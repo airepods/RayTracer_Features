@@ -1,4 +1,4 @@
-#include <lighting/pointLight.h>
+#include "lighting/pointLight.h"
 
 using namespace rtm;
 
