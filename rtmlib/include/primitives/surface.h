@@ -18,17 +18,14 @@ class Surface
     public:
         Surface();
 
-        virtual std::string type_to_str() const = 0;
-
-        virtual Surface* get_object_type() = 0;
-        
+        virtual std::string type_to_str() = 0;
         virtual Vector normal_at(const Point& world_point) = 0;
 
-        virtual Matrix get_transform() const = 0;
-        virtual void set_transform(const Matrix&) = 0;
+        inline Matrix get_transform() {return m_transform;}
+        inline void set_transform(const Matrix& transformation) {m_transform = transformation;};
 
-        virtual Material get_material() = 0;
-        virtual void set_material(const Material& material) = 0;
+        inline Material get_material() {return m_material;}
+        inline void set_material(const Material& material) {m_material = material;}
 };
 } // namespace rtm
 

@@ -16,11 +16,6 @@ using namespace rtm;
 Sphere::Sphere() : Surface()
 {}
 
-void Sphere::set_transform(const Matrix& transformation)
-{
-    m_transform = transformation;
-}
-
 std::vector<Intersection> Sphere::intersects(const Ray& r)
 {
     // Here I am transforming the ray

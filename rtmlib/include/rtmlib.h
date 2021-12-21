@@ -34,6 +34,9 @@
 // materials
 #include "materials/material.h"
 
+// world
+#include "worldScene/world.h"
+
 // utility
 #include "util/utils.h"
 
