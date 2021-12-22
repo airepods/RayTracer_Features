@@ -20,16 +20,19 @@ class Surface
         Material m_material;
     public:
         Surface();
+        Surface(const Surface& s);
+        
+        virtual std::string type_to_str() const = 0;
+        virtual Vector normal_at(const Point& world_point) const = 0;
+        virtual std::vector<Intersection> intersects_with(const Ray&) const = 0;
 
-        virtual std::string type_to_str() = 0;
-        virtual Vector normal_at(const Point& world_point) = 0;
-        virtual std::vector<Intersection> intersects_with(const Ray&) = 0;
-
-        inline Matrix get_transform() {return m_transform;}
+        inline Matrix get_transform() const {return m_transform;}
         inline void set_transform(const Matrix& transformation) {m_transform = transformation;};
 
-        inline Material get_material() {return m_material;}
+        inline Material get_material() const {return m_material;}
         inline void set_material(const Material& material) {m_material = material;}
+
+
 };
 } // namespace rtm
 

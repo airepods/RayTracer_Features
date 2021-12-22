@@ -11,12 +11,12 @@ Vector::Vector()
 {}
 
 // Custom constructor
-Vector::Vector(float x, float y, float z) : Tuple(x, y, z)
+Vector::Vector(const float& x, const float& y, const float& z) : Tuple(x, y, z)
 {
     t[3] = 0.0f;
 }
 
-Vector::Vector(float x, float y, float z, float w) : Tuple(x, y, z, w)
+Vector::Vector(const float& x, const float& y, const float& z, const float& w) : Tuple(x, y, z, w)
 {}
 
 // Construct a vector from an primitive array
@@ -24,7 +24,7 @@ Vector::Vector(float* elements) : Tuple(elements)
 {}
 
 // Return a string of the values of a vector
-string Vector::to_str()
+string Vector::to_str() const
 {
     string out = "";
 
@@ -57,7 +57,7 @@ Vector Vector::normalize() const
 }
 
 // Compute the dot product of a vector
-float Vector::dot(const Vector& v)
+float Vector::dot(const Vector& v) const
 {
     return t[0]*v.x() + 
            t[1]*v.y() +

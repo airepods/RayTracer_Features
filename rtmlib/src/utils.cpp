@@ -9,7 +9,7 @@ using namespace std;
 using namespace rtm;
 
 // Compare two floating point numbers
-bool rtm::fcompare(float a, float b)
+bool rtm::fcompare(const float& a, const float& b)
 {
     const float EPSILON = 0.00001;
 
@@ -20,7 +20,7 @@ bool rtm::fcompare(float a, float b)
 }
 
 // Convert float to string with fixed decimal places
-string rtm::ftos(float f, int nd)
+string rtm::ftos(const float& f, const int& nd)
 {
    ostringstream ostr;
    int tens = stoi("1" + string(nd, '0'));
@@ -29,7 +29,7 @@ string rtm::ftos(float f, int nd)
 }
 
 // Convert an angle from degrees to radians
-float rtm::to_radians(float degrees)
+float rtm::to_radians(const float& degrees)
 {
     return (degrees/180)*M_PI;
 }

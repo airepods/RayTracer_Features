@@ -16,7 +16,7 @@ using namespace rtm;
 Sphere::Sphere() : Surface()
 {}
 
-std::vector<Intersection> Sphere::intersects_with(const Ray& r)
+std::vector<Intersection> Sphere::intersects_with(const Ray& r) const
 {
     // Here I am transforming the ray
     // Transform the ray by the inverse of the sphere's transformation matrix 
@@ -44,7 +44,7 @@ std::vector<Intersection> Sphere::intersects_with(const Ray& r)
     return intersections;
 }
 
-Vector Sphere::normal_at(const Point& world_point)
+Vector Sphere::normal_at(const Point& world_point) const
 {
     // Passing the point in world space to object space
     auto object_point = inverse(m_transform) * world_point;

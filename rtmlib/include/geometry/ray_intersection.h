@@ -11,7 +11,7 @@ namespace rtm
 bool hit(std::vector<Intersection*>& record, Intersection& intersection_ouput);
 bool hit(std::vector<Intersection>& record, Intersection& intersection_ouput);
 bool hit(std::vector<Intersection>& record);
-Point position(const Ray&, float);
+Point position(const Ray&, const float&);
 } // namespace rtm
 
 #endif

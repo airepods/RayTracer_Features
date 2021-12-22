@@ -23,7 +23,7 @@ Color operator-(const Color&, const Color&);
 
 // Multiplication by scalar
 template<class T>
-T operator*(const T& t, float scalar)
+T operator*(const T& t, const float& scalar)
 {
     return T(t.x()*scalar, t.y()*scalar, t.z()*scalar);
 }
@@ -36,7 +36,7 @@ T operator*(float scalar, const T& t)
 
 // Division by scalar
 template<class T>
-T operator/(const T& t, float scalar)
+T operator/(const T& t, const float& scalar)
 {
     return T(t.x()/scalar, t.y()/scalar, t.z()/scalar);
 }

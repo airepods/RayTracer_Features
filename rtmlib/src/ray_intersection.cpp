@@ -51,7 +51,7 @@ bool rtm::hit(std::vector<Intersection>& record)
     return false;
 }
 
-Point rtm::position(const Ray& r, float t)
+Point rtm::position(const Ray& r, const float& t)
 {
     return r.origin() + r.direction()*t;
 }

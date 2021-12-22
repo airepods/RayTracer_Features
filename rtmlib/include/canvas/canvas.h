@@ -9,24 +9,24 @@ namespace rtm
 class Canvas
 {
     private:
-        int _width;
-        int _height;
+        int m_width;
+        int m_height;
         Color** board;
     public:
         Canvas();
-        Canvas(int width, int height);
+        Canvas(const int& width, const int& height);
         ~Canvas();
 
         Canvas(const Canvas&);
         Canvas& operator= (const Canvas&);
 
-        std::string to_str();
-        void debug_print();
+        std::string to_str() const;
+        void debug_print() const;
 
-        void write_pixel(int x, int y, const Color&);
-        Color pixel_at(int x, int y);
+        void write_pixel(int& x, int& y, const Color&) const;
+        Color pixel_at(const int& x, const int& y) const;
         
-        void export_to_ppm();
+        void export_to_ppm() const;
 };
 } //namespace rtm
 

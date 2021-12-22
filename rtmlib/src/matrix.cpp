@@ -9,18 +9,18 @@ Matrix::Matrix() : matrix(nullptr)
 {}
 
 // Custom consturctor
-Matrix::Matrix(int row, int column) : _row(row), _column(column)
+Matrix::Matrix(const int& row, const int& column) : m_row(row), m_column(column)
 {
-    matrix = new float*[_row];
+    matrix = new float*[m_row];
 
-    for(int i=0; i<_row; ++i)
+    for(int i=0; i<m_row; ++i)
     {
-        matrix[i] = new float[_column];
+        matrix[i] = new float[m_column];
     }
 
-    for(int i=0; i<_row; ++i)
+    for(int i=0; i<m_row; ++i)
     {
-        for(int j=0; j<_column; ++j)
+        for(int j=0; j<m_column; ++j)
         {
             matrix[i][j] = 0.0f;
         }
@@ -29,29 +29,29 @@ Matrix::Matrix(int row, int column) : _row(row), _column(column)
 
 // Construct a Matrix providing a built-in array of arrays (built-in matrix) and
 // the number of rows and columns 
-Matrix::Matrix(int row, int column, float* mat) : _row(row), _column(column)
+Matrix::Matrix(const int& row, const int& column, float* mat) : m_row(row), m_column(column)
 {
-    matrix = new float*[_row];
+    matrix = new float*[m_row];
 
-    for(int i=0; i<_row; ++i)
+    for(int i=0; i<m_row; ++i)
     {
-        matrix[i] = new float[_column];
+        matrix[i] = new float[m_column];
     }
 
-    for(int i=0; i<_row; ++i)
+    for(int i=0; i<m_row; ++i)
     {
-        for(int j=0; j<_column; ++j)
+        for(int j=0; j<m_column; ++j)
         {
             matrix[i][j] = 0.0f;
         }
     }
 
     int i, j;
-    for(i=0; i<_row; i++)
+    for(i=0; i<m_row; i++)
     {
-        for(j=0; j<_column; j++)
+        for(j=0; j<m_column; j++)
         {
-            matrix[i][j] = *(mat + i*_column + j);
+            matrix[i][j] = *(mat + i*m_column + j);
         }
     }
 
@@ -62,7 +62,7 @@ Matrix::~Matrix()
 {
     if(matrix != nullptr)
     {
-        for(int i=0; i<_row; ++i)
+        for(int i=0; i<m_row; ++i)
         {
             delete[] matrix[i];
         }
@@ -75,19 +75,19 @@ Matrix::~Matrix()
 // Copy constructor
 Matrix::Matrix(const Matrix& m)
 {
-    _row = m._row;
-    _column = m._column;
+    m_row = m.m_row;
+    m_column = m.m_column;
 
-    matrix = new float*[_row];
+    matrix = new float*[m_row];
 
-    for(int i=0; i<_row; ++i)
+    for(int i=0; i<m_row; ++i)
     {
-        matrix[i] = new float[_column];
+        matrix[i] = new float[m_column];
     }
 
-    for(int i=0; i<_row; ++i)
+    for(int i=0; i<m_row; ++i)
     {
-        for(int j=0; j<_column; ++j)
+        for(int j=0; j<m_column; ++j)
         {
             matrix[i][j] = m.matrix[i][j];
         }
@@ -97,19 +97,19 @@ Matrix::Matrix(const Matrix& m)
 // Copy assignment operator
 Matrix& Matrix::operator= (const Matrix& m)
 {
-    _row = m._row;
-    _column = m._column;
+    m_row = m.m_row;
+    m_column = m.m_column;
 
-    matrix = new float*[_row];
+    matrix = new float*[m_row];
 
-    for(int i=0; i<_row; ++i)
+    for(int i=0; i<m_row; ++i)
     {
-        matrix[i] = new float[_column];
+        matrix[i] = new float[m_column];
     }
 
-    for(int i=0; i<_row; ++i)
+    for(int i=0; i<m_row; ++i)
     {
-        for(int j=0; j<_column; ++j)
+        for(int j=0; j<m_column; ++j)
         {
             matrix[i][j] = m.matrix[i][j];
         }
@@ -119,9 +119,9 @@ Matrix& Matrix::operator= (const Matrix& m)
 }
 
 // Get an element of a matrix given its row and column indexes
-float Matrix::at(int row, int column) const
+float Matrix::at(const int& row, const int& column) const
 {
-    if(row > _row-1 || column > _column-1)
+    if(row > m_row-1 || column > m_column-1)
         throw Matrix::out_of_index();
     
     return matrix[row][column];
@@ -154,16 +154,16 @@ void Matrix::set_identity()
 }
 
 // Set the values of the elements of the matrix given an specific index i(row), j(column) 
-void Matrix::set_value(int row, int column, float val)
+void Matrix::set_value(const int& row, const int& column, const float& val)
 {
-    if(row > _row-1 || column > _column-1)
+    if(row > m_row-1 || column > m_column-1)
         throw Matrix::out_of_index();
 
     matrix[row][column] = val;
 }
 
 // Matrix multiplication
-Matrix Matrix::operator*(const Matrix& m)
+Matrix Matrix::operator*(const Matrix& m) const
 {
     Matrix result = Matrix(4, 4);
 
@@ -184,13 +184,13 @@ Matrix Matrix::operator*(const Matrix& m)
 }
 
 // Return the transpose of a matrix
-Matrix Matrix::transpose()
+Matrix Matrix::transpose() const
 {
-    Matrix tmatrix(_column, _row);
+    Matrix tmatrix(m_column, m_row);
 
-    for(int row=0; row<_column; ++row)
+    for(int row=0; row<m_column; ++row)
     {
-        for(int col=0; col<_row; ++col)
+        for(int col=0; col<m_row; ++col)
         {
             tmatrix.set_value(row, col, matrix[col][row]);
         }

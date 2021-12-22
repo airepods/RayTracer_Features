@@ -10,7 +10,7 @@ class Color : public Tuple
 {
     public:
         Color();
-        Color(float red, float green, float blue);
+        Color(const float& red, const float& green, const float& blue);
         Color(float* elements);
 
         inline float red() const {return this->t[0];}
@@ -21,9 +21,9 @@ class Color : public Tuple
         inline float y() const {return this->t[1];}
         inline float z() const {return this->t[2];}
 
-        std::string to_str();
+        std::string to_str() const override;
 
-        Color operator*(const Color&);
+        Color operator*(const Color&) const;
 };
 } //namespace rtm
 

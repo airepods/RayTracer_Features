@@ -23,6 +23,9 @@ class World
         //getters
         inline PointLight get_pointLight() const {return m_light;}
         inline std::vector<Surface*> get_surfaces() const {return m_surfaces;}
+
+        //setters
+        inline void set_light(const PointLight& light) {m_light = light;}
 };
 } // namespace rtm
 

@@ -7,9 +7,9 @@
 
 namespace rtm
 {
-bool fcompare(float, float);
-std::string ftos(float f, int nd);
-float to_radians(float degrees);
+bool fcompare(const float&, const float&);
+std::string ftos(const float& f, const int& nd);
+float to_radians(const float& degrees);
 void* empty_array();
 } //namespace rtm
 

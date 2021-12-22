@@ -18,15 +18,15 @@ class Tuple
         float t[4];
     public:
         Tuple();
-        Tuple(float x, float y, float z);
-        Tuple(float x, float y, float z, float w);
+        Tuple(const float& x, const float& y, const float& z);
+        Tuple(const float& x, const float& y, const float& z, const float& w);
         Tuple(float* elements);
 
-        virtual std::string to_str() = 0;
+        virtual std::string to_str() const = 0;
 
         // Compare if two tuples are equal
         template<class T>
-        bool is_equal_to(const T& tuple)
+        bool is_equal_to(const T& tuple) const
         {
             for(int i=0; i<4; ++i)
             {

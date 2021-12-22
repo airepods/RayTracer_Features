@@ -6,7 +6,7 @@ using namespace rtm;
 Ray::Ray()
 {}
 
-Ray::Ray(const Point& origin, const Vector& direction) : _origin(origin), _direction(direction)
+Ray::Ray(const Point& origin, const Vector& direction) : m_origin(origin), m_direction(direction)
 {}
 
 Ray Ray::transform(const Matrix& m) const

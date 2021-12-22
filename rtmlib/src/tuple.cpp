@@ -8,14 +8,14 @@ using namespace rtm;
 Tuple::Tuple()
 {}
 
-Tuple::Tuple(float x, float y, float z)
+Tuple::Tuple(const float& x, const float& y, const float& z)
 {
     t[0] = x;
     t[1] = y;
     t[2] = z;
 }
 
-Tuple::Tuple(float x, float y, float z, float w)
+Tuple::Tuple(const float& x, const float& y, const float& z, const float& w)
 {
     t[0] = x;
     t[1] = y;

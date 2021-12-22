@@ -5,7 +5,7 @@
 
 using namespace rtm;
 
-Matrix rtm::translation(float x, float y, float z)
+Matrix rtm::translation(const float& x, const float& y, const float& z)
 {
     Matrix mtranslation = Matrix(4 , 4);
     mtranslation.set_identity();
@@ -17,7 +17,7 @@ Matrix rtm::translation(float x, float y, float z)
     return mtranslation;
 }
 
-Matrix rtm::scaling(float x, float y, float z)
+Matrix rtm::scaling(const float& x, const float& y, const float& z)
 {
     Matrix mscaling = Matrix(4 , 4);
     mscaling.set_identity();
@@ -29,7 +29,7 @@ Matrix rtm::scaling(float x, float y, float z)
     return mscaling;
 }
 
-Matrix rtm::rotation_x(float angle)
+Matrix rtm::rotation_x(float& angle)
 {
     Matrix mrotate_x = Matrix(4 , 4);
     mrotate_x.set_identity();
@@ -44,7 +44,7 @@ Matrix rtm::rotation_x(float angle)
     return mrotate_x;
 }
 
-Matrix rtm::rotation_y(float angle)
+Matrix rtm::rotation_y(float& angle)
 {
     Matrix mrotate_y = Matrix(4 , 4);
     mrotate_y.set_identity();
@@ -59,7 +59,7 @@ Matrix rtm::rotation_y(float angle)
     return mrotate_y;
 }
 
-Matrix rtm::rotation_z(float angle)
+Matrix rtm::rotation_z(float& angle)
 {
     Matrix mrotate_z = Matrix(4 , 4);
     mrotate_z.set_identity();
@@ -74,7 +74,7 @@ Matrix rtm::rotation_z(float angle)
     return mrotate_z;
 }
 
-Matrix rtm::shearing(int x_y, int x_z, int y_x, int y_z, int z_x, int z_y)
+Matrix rtm::shearing(const int& x_y, const int& x_z, const int& y_x, const int& y_z, const int& z_x, const int& z_y)
 {
     Matrix mshearing = Matrix(4 , 4);
     mshearing.set_identity();

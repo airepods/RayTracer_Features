@@ -10,17 +10,17 @@ namespace rtm
 class Ray
 {
     private:
-        Point _origin;
-        Vector _direction;
+        Point m_origin;
+        Vector m_direction;
     public:
         Ray();
         Ray(const Point& origin, const Vector& direction);
 
-        inline Point origin() const {return _origin;}
-        inline Vector direction() const {return _direction;}     
+        inline Point origin() const {return m_origin;}
+        inline Vector direction() const {return m_direction;}     
 
-        inline void set_origin(const Point& o) {_origin = o;}
-        inline void set_direction(const Vector& v) {_direction = v;} 
+        inline void set_origin(const Point& o) {m_origin = o;}
+        inline void set_direction(const Vector& v) {m_direction = v;} 
 
         Ray transform(const Matrix& m) const;
 };

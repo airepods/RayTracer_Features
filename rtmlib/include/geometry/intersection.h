@@ -10,12 +10,12 @@ namespace rtm
 class Intersection : public Intersections
 {
     private:
-        float t;
-        Surface* object;
+        float m_t;
+        Surface* m_object;
     public:
         Intersection();
 
-        Intersection(float t_val , Surface* object_val);
+        Intersection(const float& t_val , const Surface* object_val);
 
         float get_t() const override;
         Surface* get_shape() const override; 

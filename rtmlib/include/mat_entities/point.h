@@ -10,8 +10,8 @@ class Point : public Tuple
 {
     public:
         Point();
-        Point(float x, float y, float z);
-        Point(float x, float y, float z, float w);
+        Point(const float& x, const float& y, const float& z);
+        Point(const float& x, const float& y, const float& z, const float& w);
         Point(float* elements);
 
         inline float x() const {return this->t[0];}
@@ -19,9 +19,9 @@ class Point : public Tuple
         inline float z() const {return this->t[2];}
         inline float w() const {return this->t[3];}
 
-        std::string to_str();
+        std::string to_str() const override;
 
-        Point operator- ();
+        Point operator- () const;
 };
 } //namespace rtm
 

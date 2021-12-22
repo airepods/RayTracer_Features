@@ -15,11 +15,11 @@ class Sphere : public Surface
 {
     public:
         Sphere();
-        std::vector<Intersection> intersects_with(const Ray&) override;
-        Vector normal_at(const Point& world_point) override;
+        std::vector<Intersection> intersects_with(const Ray&) const override;
+        Vector normal_at(const Point& world_point) const override;
         
         //inline Sphere* get_object_type() override {return this;}
-        inline std::string type_to_str() override {return "Sphere";}
+        inline std::string type_to_str() const override {return "Sphere";}
 };
 } //namespace rtm
 

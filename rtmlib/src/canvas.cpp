@@ -13,7 +13,7 @@ Canvas::Canvas() : board(nullptr)
 
 // Custom constructor, it allocates memory for the canvas board
 // the default canvas is black (every pixel is 0, 0, 0)
-Canvas::Canvas(int width, int height) : _width(width), _height(height)
+Canvas::Canvas(const int& width, const int& height) : m_width(width), m_height(height)
 {
     board = new Color*[width];
 
@@ -36,7 +36,7 @@ Canvas::~Canvas()
 {
     if(board != nullptr)
     {
-        for(int i=0; i<_width; ++i)
+        for(int i=0; i<m_width; ++i)
         {
             delete[] board[i];
         }
@@ -49,41 +49,41 @@ Canvas::~Canvas()
 // will point to the same memory address 
 Canvas::Canvas(const Canvas& c)
 {
-    _width = c._width;
-    _height = c._height;
+    m_width = c.m_width;
+    m_height = c.m_height;
 
-    board = new Color*[_width];
+    board = new Color*[m_width];
 
-    for(int i=0; i<_width; ++i)
+    for(int i=0; i<m_width; ++i)
     {
-        board[i] = new Color[_height];
+        board[i] = new Color[m_height];
     }
 
-    for(int i=0; i<_width; ++i)
+    for(int i=0; i<m_width; ++i)
     {
-        for(int j=0; j<_height; ++j)
+        for(int j=0; j<m_height; ++j)
         {
             board[i][j] = c.board[i][j];
         }
     }
 }
 
-// Copy assignment operator, same at copy constructor
+// Copy assignment operator, same as copy constructor
 Canvas& Canvas::operator= (const Canvas& c)
 {
-    _width = c._width;
-    _height = c._height;
+    m_width = c.m_width;
+    m_height = c.m_height;
 
-    board = new Color*[_width];
+    board = new Color*[m_width];
 
-    for(int i=0; i<_width; ++i)
+    for(int i=0; i<m_width; ++i)
     {
-        board[i] = new Color[_height];
+        board[i] = new Color[m_height];
     }
 
-    for(int i=0; i<_width; ++i)
+    for(int i=0; i<m_width; ++i)
     {
-        for(int j=0; j<_height; ++j)
+        for(int j=0; j<m_height; ++j)
         {
             board[i][j] = c.board[i][j];
         }
@@ -93,19 +93,19 @@ Canvas& Canvas::operator= (const Canvas& c)
 }
 
 // Return a string with the content formated for a ppm file
-string Canvas::to_str()
+string Canvas::to_str() const
 {
     string out = "";
 
     out += "P3\n";
-    out += to_string(_width) + " ";
-    out += to_string(_height) + "\n";
+    out += to_string(m_width) + " ";
+    out += to_string(m_height) + "\n";
     out += "255\n";
 
-    for(int i=0; i<_height; ++i)
+    for(int i=0; i<m_height; ++i)
     {
         int CH_LEFT = 70;
-        for(int j=0; j<_width; ++j)
+        for(int j=0; j<m_width; ++j)
         {
             if(CH_LEFT < 11)
             {
@@ -127,11 +127,11 @@ string Canvas::to_str()
 }
 
 // Testing purposes only, print a matrix of asterisk for validation
-void Canvas::debug_print()
+void Canvas::debug_print() const
 {
-    for(int i=0; i<_height; ++i)
+    for(int i=0; i<m_height; ++i)
     {
-        for(int j=0; j<_width; ++j)
+        for(int j=0; j<m_width; ++j)
         {
             cout<<"* ";
         }
@@ -142,7 +142,7 @@ void Canvas::debug_print()
 // Write a pixel into the canvas given its x and y positions and a color
 // Every color greater than 255 will be considered at 255, and for colors less
 // than 0, they will be considered as 0
-void Canvas::write_pixel(int x, int y, const Color& color)
+void Canvas::write_pixel(int& x, int& y, const Color& color) const
 {
     int r, g, b;
     Color c;
@@ -167,14 +167,14 @@ void Canvas::write_pixel(int x, int y, const Color& color)
     
     c = Color(r, g, b);
 
-    if(x >= _width)
-        x = _width-1;
+    if(x >= m_width)
+        x = m_width-1;
     
     if(x < 0)
         x = 0;
 
-    if(y >= _height)
-        y = _height-1;
+    if(y >= m_height)
+        y = m_height-1;
     
     if(y < 0)
         y = 0;
@@ -183,13 +183,13 @@ void Canvas::write_pixel(int x, int y, const Color& color)
 }
 
 // Return a specific pixel given the x and y positions of the canvas
-Color Canvas::pixel_at(int x, int y)
+Color Canvas::pixel_at(const int& x, const int& y) const
 {
     return board[x][y];
 }
 
 // Export canvas to ppm file
-void Canvas::export_to_ppm()
+void Canvas::export_to_ppm() const
 {
     // Initialize ofstream
     ofstream out ("picture.ppm");
