@@ -8,12 +8,12 @@ Intersection::Intersection() : object(nullptr)
 Intersection::Intersection(float t_val , Surface* object_val) : t(t_val), object(object_val) 
 {}
 
-float Intersection::get_t()
+float Intersection::get_t() const
 {
     return t;
 }
 
-Surface* Intersection::get_shape()
+Surface* Intersection::get_shape() const
 {
     return object;
 }

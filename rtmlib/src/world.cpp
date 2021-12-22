@@ -5,6 +5,7 @@
 #include "materials/material.h"
 #include "mat_entities/color.h"
 #include "transforms/transforms.h"
+#include <algorithm>
 
 using namespace rtm;
 
@@ -39,3 +40,22 @@ World::~World()
     }
     m_surfaces.clear();
 }
+
+// TODO implement copy constructors
+
+std::vector<Intersection> World::intersects_with(const Ray& r)
+{
+    std::vector<Intersection> intersections;
+
+    for(auto ivec : m_surfaces)
+    {
+        for(auto i : ivec->intersects_with(r))
+        {
+            intersections.push_back(i);
+        }
+    }
+
+    std::sort(intersections.begin(), intersections.end(), [](Intersection a, Intersection b){return a < b;});
+    return intersections;
+}
+

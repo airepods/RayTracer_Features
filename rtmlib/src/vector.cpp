@@ -37,7 +37,7 @@ string Vector::to_str()
 }
 
 // Negate a vector
-Vector Vector::operator-()
+Vector Vector::operator-() const
 {
     return Vector(-t[0], -t[1], -t[2]);
 }

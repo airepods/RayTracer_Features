@@ -17,11 +17,11 @@ namespace rtm
         public:
             Material();
 
-            inline Color get_color() {return m_color;}
-            inline float get_ambient() {return m_ambient;}
-            inline float get_diffuse() {return m_diffuse;}
-            inline float get_specular() {return m_specular;}
-            inline float get_shininess() {return m_shininess;}
+            inline Color get_color() const {return m_color;}
+            inline float get_ambient() const {return m_ambient;}
+            inline float get_diffuse() const {return m_diffuse;}
+            inline float get_specular() const {return m_specular;}
+            inline float get_shininess() const {return m_shininess;}
 
             inline void set_color(const Color& color) {m_color = color;}
             inline void set_ambient(const float& ambient) {m_ambient = ambient;}

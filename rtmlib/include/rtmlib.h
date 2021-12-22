@@ -37,6 +37,10 @@
 // world
 #include "worldScene/world.h"
 
+// pre-computations
+#include "computations/computation.h"
+#include "computations/prepare_computations.h"
+
 // utility
 #include "util/utils.h"
 

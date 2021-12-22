@@ -15,8 +15,8 @@ namespace rtm
             PointLight();
             PointLight(const Point& position, const Color& intensity);
 
-            inline Point get_position()  {return m_position;}
-            inline Color get_intensity() {return m_intensity;}
+            inline Point get_position() const {return m_position;}
+            inline Color get_intensity() const {return m_intensity;}
     };
 }
 

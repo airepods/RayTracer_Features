@@ -16,7 +16,7 @@ using namespace rtm;
 Sphere::Sphere() : Surface()
 {}
 
-std::vector<Intersection> Sphere::intersects(const Ray& r)
+std::vector<Intersection> Sphere::intersects_with(const Ray& r)
 {
     // Here I am transforming the ray
     // Transform the ray by the inverse of the sphere's transformation matrix 

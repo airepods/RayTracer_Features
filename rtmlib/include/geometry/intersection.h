@@ -17,8 +17,8 @@ class Intersection : public Intersections
 
         Intersection(float t_val , Surface* object_val);
 
-        float get_t() override;
-        Surface* get_shape() override; 
+        float get_t() const override;
+        Surface* get_shape() const override; 
 
         // Useful for std::sort array of intersections 
         bool operator < (const Intersection& i) const;

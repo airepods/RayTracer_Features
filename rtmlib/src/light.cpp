@@ -10,7 +10,7 @@
 
 using namespace rtm;
 
-Color rtm::lighting(Material material, PointLight light, Point point, Vector eyev, Vector normalv)
+Color rtm::lighting(const Material& material, const PointLight& light, const Point& point, const Vector& eyev, const Vector& normalv)
 {
     Color effective_color = material.get_color() * light.get_intensity();
     
@@ -48,4 +48,9 @@ Color rtm::lighting(Material material, PointLight light, Point point, Vector eye
     }
 
     return ambient + diffuse + specular;
+}
+
+Color rtm::shade_hit(const World& world, const Computation& comps)
+{
+    return lighting(comps.surface->get_material(), world.get_pointLight(), comps.point, comps.eyev, comps.normalv);
 }

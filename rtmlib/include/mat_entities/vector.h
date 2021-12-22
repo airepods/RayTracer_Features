@@ -23,7 +23,7 @@ class Vector : public Tuple
 
         std::string to_str();
 
-        Vector operator- ();
+        Vector operator- () const;
 
         float magnitude() const;
         Vector normalize() const;

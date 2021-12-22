@@ -11,8 +11,8 @@ namespace rtm
 class Intersections
 {
 public:
-    virtual float get_t() = 0;
-    virtual Surface* get_shape() = 0;
+    virtual float get_t() const = 0;
+    virtual Surface* get_shape() const = 0;
 };
 } //namespace rtm
 

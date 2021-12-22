@@ -21,7 +21,8 @@ add_library(${PROJECT_NAME}
                 src/pointLight.cpp
                 src/material.cpp
                 src/light.cpp
-                src/world.cpp)
+                src/world.cpp
+                src/prepare_computations.cpp)
 
 # Include directories for header files
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include)

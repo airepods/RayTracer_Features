@@ -8,13 +8,16 @@
 #include "mat_entities/color.h"
 #include "pointLight.h"
 #include "materials/material.h"
+#include "worldScene/world.h"
+#include "computations/computation.h"
 
 namespace rtm
 {
     // Because the l vector is pointing out towards the surface
-    inline Vector reflect(Vector l, Vector normal) { return -l + 2*dot(l, normal)*normal; }
+    inline Vector reflect(const Vector& l, const Vector& normal) { return -l + 2*dot(l, normal)*normal; }
 
-    Color lighting(Material material, PointLight light, Point point, Vector eyev, Vector normalv);
+    Color lighting(const Material& material, const PointLight& light, const Point& point, const Vector& eyev, const Vector& normalv);
+    Color shade_hit(const World& world, const Computation& comps);
 }
 
 #endif
