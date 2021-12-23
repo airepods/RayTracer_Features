@@ -12,8 +12,8 @@ using namespace rtm;
 World::World()
 {
     m_light = PointLight(Point(-10, 10, -10), Color(1, 1, 1));
-    Sphere* s1 = new Sphere;
-    Sphere* s2 = new Sphere;
+    Sphere* s1 = new Sphere();
+    Sphere* s2 = new Sphere();
 
     // default sphere 1
     auto matsph1 = Material();
@@ -28,8 +28,7 @@ World::World()
     // default sphere 2
     s2->set_transform(scaling(0.5, 0.5, 0.5));
 
-    m_surfaces.push_back(s1);
-    m_surfaces.push_back(s2);
+    m_surfaces = {s1, s2};
 }
 
 World::~World()
@@ -43,7 +42,7 @@ World::~World()
 
 // TODO implement copy constructors
 
-std::vector<Intersection> World::intersects_with(const Ray& r)
+std::vector<Intersection> World::intersects_with(const Ray& r) const
 {
     std::vector<Intersection> intersections;
 

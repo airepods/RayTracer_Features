@@ -18,7 +18,7 @@ class World
         World();
         ~World();
 
-        std::vector<Intersection> intersects_with(const Ray& r);
+        std::vector<Intersection> intersects_with(const Ray& r) const;
 
         //getters
         inline PointLight get_pointLight() const {return m_light;}

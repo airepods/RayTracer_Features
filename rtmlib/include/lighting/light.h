@@ -10,6 +10,7 @@
 #include "materials/material.h"
 #include "worldScene/world.h"
 #include "computations/computation.h"
+#include "geometry/ray.h"
 
 namespace rtm
 {
@@ -18,6 +19,7 @@ namespace rtm
 
     Color lighting(const Material& material, const PointLight& light, const Point& point, const Vector& eyev, const Vector& normalv);
     Color shade_hit(const World& world, const Computation& comps);
+    Color color_at(const World& world, const Ray& ray);
 }
 
 #endif

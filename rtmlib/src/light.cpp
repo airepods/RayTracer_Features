@@ -6,6 +6,9 @@
 #include "mat_entities/color.h"
 #include "lighting/pointLight.h"
 #include "materials/material.h"
+#include "geometry/intersection.h"
+#include "geometry/ray_intersection.h"
+#include "computations/prepare_computations.h"
 #include <cmath>
 
 using namespace rtm;
@@ -54,3 +57,23 @@ Color rtm::shade_hit(const World& world, const Computation& comps)
 {
     return lighting(comps.surface->get_material(), world.get_pointLight(), comps.point, comps.eyev, comps.normalv);
 }
+
+Color rtm::color_at(const World& world, const Ray& ray)
+{
+    auto xs = world.intersects_with(ray);
+    auto color = Color();
+
+    auto intersection = rtm::Intersection(); 
+    if(hit(xs, intersection))
+    {
+        auto comps = prepare_computations(intersection, ray);
+        color = rtm::shade_hit(world, comps);
+    }
+    else
+    {
+        color = rtm::Color(0, 0, 0);
+    }
+
+    return color;
+}
+
