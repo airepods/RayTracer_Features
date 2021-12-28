@@ -21,79 +21,73 @@ void print_matrix(const rtm::Matrix& M)
 
 int main()
 {    
-    // create a new material
-    auto material = rtm::Material();
-    material.set_color(rtm::Color(1, 1, 1));
+    // light
+    auto light = rtm::PointLight(rtm::Point(-10, 10, -10), rtm::Color(1, 1, 1));
 
-    // create a surface (sphere) and bind it to a material
-    rtm::Sphere sphere;
-    sphere.set_transform(rtm::scaling(1, 0.2, 2));
-    sphere.set_material(material);
+    // floor
+    auto floor = new rtm::Sphere();
+    // floor transform
+    floor->set_transform(rtm::scaling(10, 0.01, 10));
+    // floor material
+    auto matfloor = rtm::Material();
+    matfloor.set_color(rtm::Color(1, 0.9, 0.9));
+    matfloor.set_specular(0);
+    floor->set_material(matfloor);
 
-    // wall
-    float wall_z = 10;
+    // left wall
+    auto left_wall = new rtm::Sphere();
+    // left wall transform
+    left_wall->set_transform(rtm::translation(0, 0, 5) *
+                             rtm::rotation_y(-rtm::PI()/4) *  rtm::rotation_x(rtm::PI()/2) *
+                             rtm::scaling(10, 0.01, 10));
+    // left wall material
+    left_wall->set_material(matfloor);
 
-    float wall_size = 7;
-    float canvas_pixels = 500;
+    // right wall
+    auto right_wall = new rtm::Sphere();
+    // right wall transform
+    right_wall->set_transform(rtm::translation(0, 0, 5) *
+                              rtm::rotation_y(rtm::PI()/4) *  rtm::rotation_x(rtm::PI()/2) *
+                              rtm::scaling(10, 0.01, 10));
+    // right wall material
+    right_wall->set_material(matfloor);
 
-    float pixel_size = wall_size/canvas_pixels;
-    float half = wall_size/2;
+    // right
+    auto right = new rtm::Sphere();
+    // right transform
+    right->set_transform(rtm::translation(1.5, 0.5, -0.5) * rtm::scaling(0.5, 0.5, 0.5));
+    // right material
+    auto matright = rtm::Material();
+    matright.set_color(rtm::Color(0.5, 1, 0.1));
+    matright.set_diffuse(0.7);
+    matright.set_specular(0.3);
+    right->set_material(matright);
 
-    // ray origin
-    rtm::Point ray_origin(0, 0, -5);
+    // middle 
+    auto middle = new rtm::Sphere();
+    // middle transform
+    middle->set_transform(rtm::translation(-0.5, 1, 0.5));
+    // middle material
+    auto matmiddle = rtm::Material();
+    matmiddle.set_color(rtm::Color(0.1, 1, 0.5));
+    matmiddle.set_diffuse(0.7);
+    matmiddle.set_specular(0.3);
+    middle->set_material(matmiddle);
 
-    // canvas
-    rtm::Canvas canvas(canvas_pixels, canvas_pixels);
+    vector<rtm::Surface*> surfaces = {floor, left_wall, right_wall, right, middle};
 
-    // set the light source
-    auto light_position = rtm::Point(-10, 5, -5);
-    auto light_color = rtm::Color(1, 1, 1);
-    auto light = rtm::PointLight(light_position, light_color);
+    auto world = rtm::World(light, surfaces);
+    auto c = rtm::Camera(500, 250, rtm::PI()/3);
+    
+    auto from = rtm::Point(0, 1.5, -5);
+    auto to = rtm::Point(0, 1, 0);
+    auto up = rtm::Vector(0, 1, 0);
+    c.set_transform(rtm::view_transform(from, to, up));
 
-    cout<<"Starting rendering..."<<endl;
+    rtm::Scene scene;
+    auto image = rtm::Scene::Render(c, world);
 
-    for(int y=0; y<canvas_pixels; ++y)
-    {
-        float world_y = half - pixel_size * y;
-        
-        for(int x=0; x<canvas_pixels; ++x)
-        {
-            float world_x = -half + pixel_size * x;
-
-            rtm::Point position(world_x, world_y, wall_z);
-
-            rtm::Ray ray(ray_origin, rtm::normalize((position - ray_origin)));
-
-            // ray-sphere intersection
-            auto intersections = sphere.intersects(ray);
-            auto hit_object = rtm::Intersection();
-
-            if(rtm::hit(intersections, hit_object))
-            {
-                // get the intersection point 
-                auto point = rtm::position(ray, hit_object.get_t());
-                
-                // compute the normal vector in that point in the sphere
-                auto normal = hit_object.get_shape()->normal_at(point);
-
-                // compute the eye vector
-                auto eye = -ray.direction();
-
-                // standard lighting model (compute the phong model for local ilumination)
-                auto color = rtm::lighting(hit_object.get_shape()->get_material(), light, point, eye, normal);
-
-                // write into canvas
-                canvas.write_pixel(x, y, color);
-            }
-
-        }
-        
-        float progress = (y+1)*(100/canvas_pixels);
-        if(progress == int(progress))
-            cout<<"Progress "<<progress<<"%"<<endl;
-    }
-
-    canvas.export_to_ppm();
-
-    cout<<"Process completed!"<<endl;
+    image.export_to_ppm();
+    
+    return 0;
 }
