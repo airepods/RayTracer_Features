@@ -11,6 +11,8 @@ bool fcompare(const float&, const float&);
 std::string ftos(const float& f, const int& nd);
 float to_radians(const float& degrees);
 void* empty_array();
+
+inline float PI() {return 3.14159265;}
 } //namespace rtm
 
 #endif

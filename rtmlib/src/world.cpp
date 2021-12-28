@@ -31,6 +31,9 @@ World::World()
     m_surfaces = {s1, s2};
 }
 
+World::World(const PointLight& light, const std::vector<Surface*>& surfaces) : m_light(light), m_surfaces(surfaces)
+{}
+
 World::~World()
 {
     for(auto p : m_surfaces)

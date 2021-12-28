@@ -16,6 +16,7 @@ class World
         std::vector<Surface*> m_surfaces;
     public:
         World();
+        World(const PointLight& light, const std::vector<Surface*>& surfaces);
         ~World();
 
         std::vector<Intersection> intersects_with(const Ray& r) const;

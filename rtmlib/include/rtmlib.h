@@ -36,6 +36,8 @@
 
 // world
 #include "worldScene/world.h"
+#include "worldScene/camera.h"
+#include "worldScene/scene.h"
 
 // pre-computations
 #include "computations/computation.h"
@@ -43,5 +45,6 @@
 
 // utility
 #include "util/utils.h"
+#include "progress_bar/progressbar.hpp"
 
 #endif
