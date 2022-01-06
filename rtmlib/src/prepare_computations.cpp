@@ -1,6 +1,8 @@
 #include "computations/prepare_computations.h"
 #include "geometry/ray_intersection.h"
 #include "mat_entities/vector_utility.h"
+#include "mat_entities/tuple_utility.h"
+#include "util/utils.h"
 
 using namespace rtm;
 
@@ -17,6 +19,7 @@ Computation rtm::prepare_computations(const Intersection& i, const Ray& ray)
     comps.point = position(ray, comps.tvalue);
     comps.eyev = -ray.direction();
     comps.normalv = comps.surface->normal_at(comps.point);
+    comps.over_point = comps.point + (comps.normalv * EPSILON());
 
     if(dot(comps.normalv, comps.eyev) < 0)
     {

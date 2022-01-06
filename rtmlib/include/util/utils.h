@@ -13,6 +13,7 @@ float to_radians(const float& degrees);
 void* empty_array();
 
 inline float PI() {return 3.14159265;}
+inline float EPSILON() {return 0.01;}
 } //namespace rtm
 
 #endif

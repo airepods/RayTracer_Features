@@ -14,6 +14,7 @@ struct Computation
     Point point;
     Vector eyev;
     Vector normalv;
+    Point over_point; // for acne effect - point moved slighly in the direction of normal 
     bool inside;
 };
 } // namespace rtm

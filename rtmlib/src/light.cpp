@@ -13,7 +13,7 @@
 
 using namespace rtm;
 
-Color rtm::lighting(const Material& material, const PointLight& light, const Point& point, const Vector& eyev, const Vector& normalv)
+Color rtm::lighting(const Material& material, const PointLight& light, const Point& point, const Vector& eyev, const Vector& normalv, const bool& in_shadow)
 {
     Color effective_color = material.get_color() * light.get_intensity();
     
@@ -26,7 +26,7 @@ Color rtm::lighting(const Material& material, const PointLight& light, const Poi
     Color specular;
 
     auto light_dot_normal = dot(lightv, normalv);
-    if(light_dot_normal < 0)
+    if(light_dot_normal < 0 || in_shadow)
     {
         diffuse = Color(0, 0, 0);
         specular = Color(0, 0, 0);
@@ -55,7 +55,8 @@ Color rtm::lighting(const Material& material, const PointLight& light, const Poi
 
 Color rtm::shade_hit(const World& world, const Computation& comps)
 {
-    return lighting(comps.surface->get_material(), world.get_pointLight(), comps.point, comps.eyev, comps.normalv);
+    auto shadow = is_shadowed(world, comps.over_point);
+    return lighting(comps.surface->get_material(), world.get_pointLight(), comps.over_point, comps.eyev, comps.normalv, shadow);
 }
 
 Color rtm::color_at(const World& world, const Ray& ray)
@@ -76,4 +77,24 @@ Color rtm::color_at(const World& world, const Ray& ray)
 
     return color;
 }
+
+bool rtm::is_shadowed(const World& world, const Point& point)
+{
+    auto v = world.get_pointLight().get_position() - point;
+    auto distance = v.magnitude();
+    auto direction = normalize(v);
+
+    auto ray = Ray(point, direction);
+    auto intersections = world.intersects_with(ray);
+    Intersection intersection_output;
+
+    if(hit(intersections, intersection_output))
+    {
+        if(distance > intersection_output.get_t())
+            return true;
+    }
+
+    return false;
+}
+
 
