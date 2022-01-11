@@ -10,14 +10,14 @@ class Point : public Tuple
 {
     public:
         Point();
-        Point(const float& x, const float& y, const float& z);
-        Point(const float& x, const float& y, const float& z, const float& w);
-        Point(float* elements);
+        Point(const double& x, const double& y, const double& z);
+        Point(const double& x, const double& y, const double& z, const double& w);
+        Point(double* elements);
 
-        inline float x() const {return this->t[0];}
-        inline float y() const {return this->t[1];}
-        inline float z() const {return this->t[2];}
-        inline float w() const {return this->t[3];}
+        inline double x() const {return this->t[0];}
+        inline double y() const {return this->t[1];}
+        inline double z() const {return this->t[2];}
+        inline double w() const {return this->t[3];}
 
         std::string to_str() const override;
 

@@ -45,7 +45,7 @@ Color rtm::lighting(const Material& material, const PointLight& light, const Poi
         }
         else
         {
-            float factor = pow(reflect_dot_eye, material.get_shininess());
+            double factor = std::pow(reflect_dot_eye, material.get_shininess());
             specular = light.get_intensity() * material.get_specular() * factor;
         }
     }

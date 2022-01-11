@@ -9,7 +9,7 @@ namespace rtm
 {
 struct Computation
 {
-    float tvalue;
+    double tvalue;
     Surface* surface;
     Point point;
     Vector eyev;

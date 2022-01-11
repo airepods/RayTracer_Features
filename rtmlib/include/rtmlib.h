@@ -1,6 +1,8 @@
 #ifndef RTMLIB_H    
 #define RTMLIB_H
 
+#include "mat_constants/math_constants.h"
+
 // mat_entities
 #include "mat_entities/vector.h"
 #include "mat_entities/point.h"
@@ -26,6 +28,7 @@
 // primitives
 #include "primitives/surface.h"
 #include "primitives/sphere.h"
+#include "primitives/plane.h"
 
 // light
 #include "lighting/light.h"

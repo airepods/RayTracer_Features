@@ -5,7 +5,7 @@
 
 namespace rtm
 {
-inline float dot(const Vector& v1, const Vector& v2)
+inline double dot(const Vector& v1, const Vector& v2)
 {
     return v1.x()*v2.x() + 
            v1.y()*v2.y() + 

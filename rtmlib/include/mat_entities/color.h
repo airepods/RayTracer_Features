@@ -10,16 +10,16 @@ class Color : public Tuple
 {
     public:
         Color();
-        Color(const float& red, const float& green, const float& blue);
-        Color(float* elements);
+        Color(const double& red, const double& green, const double& blue);
+        Color(double* elements);
 
-        inline float red() const {return this->t[0];}
-        inline float green() const {return this->t[1];}
-        inline float blue() const {return this->t[2];}
+        inline double red() const {return this->t[0];}
+        inline double green() const {return this->t[1];}
+        inline double blue() const {return this->t[2];}
 
-        inline float x() const {return this->t[0];}
-        inline float y() const {return this->t[1];}
-        inline float z() const {return this->t[2];}
+        inline double x() const {return this->t[0];}
+        inline double y() const {return this->t[1];}
+        inline double z() const {return this->t[2];}
 
         std::string to_str() const override;
 

@@ -2,7 +2,7 @@
 #define SPHERE_H
 
 #include "geometry/ray.h" 
-#include "primitives/surface.h"
+#include "surface.h"
 #include "geometry/intersection.h"
 #include "mat_entities/matrix.h"
 #include <vector>

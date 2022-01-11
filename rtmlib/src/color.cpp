@@ -10,11 +10,11 @@ Color::Color()
 {}
 
 // Custom constructor, construct a pixel RGB
-Color::Color(const float& red, const float& green, const float& blue) : Tuple(red, green, blue)
+Color::Color(const double& red, const double& green, const double& blue) : Tuple(red, green, blue)
 {}
 
 // Construct a color from an array of pixels/elements
-Color::Color(float* elements) : Tuple(elements)
+Color::Color(double* elements) : Tuple(elements)
 {}
 
 // Return a string of the RGB color 
@@ -25,9 +25,9 @@ string Color::to_str() const
     int i;
     for(i=0; i<2; ++i)
     {
-        out += ftos(t[i], 2) + " ";
+        out += dtos(t[i], 2) + " ";
     }
-    out += ftos(t[i], 2);
+    out += dtos(t[i], 2);
 
     return out;
 }
@@ -35,9 +35,9 @@ string Color::to_str() const
 // Pixelwise multiplication of colors
 Color Color::operator*(const Color& c) const
 {
-    float r = this->red()   * c.red();
-    float g = this->green() * c.green();
-    float b = this->blue()  * c.blue();
+    double r = this->red()   * c.red();
+    double g = this->green() * c.green();
+    double b = this->blue()  * c.blue();
 
     return Color(r, g, b);
 }

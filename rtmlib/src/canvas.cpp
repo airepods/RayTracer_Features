@@ -147,19 +147,19 @@ void Canvas::write_pixel(int& x, int& y, const Color& color) const
     int r, g, b;
     Color c;
 
-    r = round(color.red()*255);
+    r = std::round(color.red()*255);
     if(r > 255)
         r = 255;
     if(r < 0)
         r = 0;
 
-    g = round(color.green()*255);
+    g = std::round(color.green()*255);
     if(g > 255)
         g = 255;
     if(r < 0)
         g = 0;
 
-    b = round(color.blue()*255);
+    b = std::round(color.blue()*255);
     if(b > 255)
         b = 255;
     if(b < 0)

@@ -11,11 +11,11 @@ Matrix::Matrix() : matrix(nullptr)
 // Custom consturctor
 Matrix::Matrix(const int& row, const int& column) : m_row(row), m_column(column)
 {
-    matrix = new float*[m_row];
+    matrix = new double*[m_row];
 
     for(int i=0; i<m_row; ++i)
     {
-        matrix[i] = new float[m_column];
+        matrix[i] = new double[m_column];
     }
 
     for(int i=0; i<m_row; ++i)
@@ -29,13 +29,13 @@ Matrix::Matrix(const int& row, const int& column) : m_row(row), m_column(column)
 
 // Construct a Matrix providing a built-in array of arrays (built-in matrix) and
 // the number of rows and columns 
-Matrix::Matrix(const int& row, const int& column, float* mat) : m_row(row), m_column(column)
+Matrix::Matrix(const int& row, const int& column, double* mat) : m_row(row), m_column(column)
 {
-    matrix = new float*[m_row];
+    matrix = new double*[m_row];
 
     for(int i=0; i<m_row; ++i)
     {
-        matrix[i] = new float[m_column];
+        matrix[i] = new double[m_column];
     }
 
     for(int i=0; i<m_row; ++i)
@@ -78,11 +78,11 @@ Matrix::Matrix(const Matrix& m)
     m_row = m.m_row;
     m_column = m.m_column;
 
-    matrix = new float*[m_row];
+    matrix = new double*[m_row];
 
     for(int i=0; i<m_row; ++i)
     {
-        matrix[i] = new float[m_column];
+        matrix[i] = new double[m_column];
     }
 
     for(int i=0; i<m_row; ++i)
@@ -100,11 +100,11 @@ Matrix& Matrix::operator= (const Matrix& m)
     m_row = m.m_row;
     m_column = m.m_column;
 
-    matrix = new float*[m_row];
+    matrix = new double*[m_row];
 
     for(int i=0; i<m_row; ++i)
     {
-        matrix[i] = new float[m_column];
+        matrix[i] = new double[m_column];
     }
 
     for(int i=0; i<m_row; ++i)
@@ -119,7 +119,7 @@ Matrix& Matrix::operator= (const Matrix& m)
 }
 
 // Get an element of a matrix given its row and column indexes
-float Matrix::at(const int& row, const int& column) const
+double Matrix::at(const int& row, const int& column) const
 {
     if(row > m_row-1 || column > m_column-1)
         throw Matrix::out_of_index();
@@ -127,7 +127,7 @@ float Matrix::at(const int& row, const int& column) const
     return matrix[row][column];
 }
 
-// void Matrix::set_matrix(int nrow, int ncolumn, float* mat)
+// void Matrix::set_matrix(int nrow, int ncolumn, double* mat)
 // {
 //     int i, j;
 //     for(i=0; i<nrow; i++)
@@ -154,7 +154,7 @@ void Matrix::set_identity()
 }
 
 // Set the values of the elements of the matrix given an specific index i(row), j(column) 
-void Matrix::set_value(const int& row, const int& column, const float& val)
+void Matrix::set_value(const int& row, const int& column, const double& val)
 {
     if(row > m_row-1 || column > m_column-1)
         throw Matrix::out_of_index();
@@ -171,7 +171,7 @@ Matrix Matrix::operator*(const Matrix& m) const
     {
         for(int col=0; col<4; ++col)
         {
-            float val = this->at(row, 0) * m.at(0, col) +
+            double val = this->at(row, 0) * m.at(0, col) +
                         this->at(row, 1) * m.at(1, col) +
                         this->at(row, 2) * m.at(2, col) +
                         this->at(row, 3) * m.at(3, col);

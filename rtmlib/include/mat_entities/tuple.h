@@ -15,12 +15,12 @@ class Color;
 class Tuple
 {
     protected:
-        float t[4];
+        double t[4];
     public:
         Tuple();
-        Tuple(const float& x, const float& y, const float& z);
-        Tuple(const float& x, const float& y, const float& z, const float& w);
-        Tuple(float* elements);
+        Tuple(const double& x, const double& y, const double& z);
+        Tuple(const double& x, const double& y, const double& z, const double& w);
+        Tuple(double* elements);
 
         virtual std::string to_str() const = 0;
 

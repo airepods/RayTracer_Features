@@ -11,16 +11,16 @@ Vector::Vector()
 {}
 
 // Custom constructor
-Vector::Vector(const float& x, const float& y, const float& z) : Tuple(x, y, z)
+Vector::Vector(const double& x, const double& y, const double& z) : Tuple(x, y, z)
 {
     t[3] = 0.0f;
 }
 
-Vector::Vector(const float& x, const float& y, const float& z, const float& w) : Tuple(x, y, z, w)
+Vector::Vector(const double& x, const double& y, const double& z, const double& w) : Tuple(x, y, z, w)
 {}
 
 // Construct a vector from an primitive array
-Vector::Vector(float* elements) : Tuple(elements)
+Vector::Vector(double* elements) : Tuple(elements)
 {}
 
 // Return a string of the values of a vector
@@ -30,7 +30,7 @@ string Vector::to_str() const
 
     for(int i=0; i<4; ++i)
     {
-        out += ftos(t[i], 3) + " ";
+        out += dtos(t[i], 3) + " ";
     }
 
     return out;
@@ -43,7 +43,7 @@ Vector Vector::operator-() const
 }
 
 // Compute the magnitude/norm of a vector
-float Vector::magnitude() const
+double Vector::magnitude() const
 {
     return sqrt(t[0]*t[0] + t[1]*t[1] + t[2]*t[2] + t[3]*t[3]);
 }
@@ -57,7 +57,7 @@ Vector Vector::normalize() const
 }
 
 // Compute the dot product of a vector
-float Vector::dot(const Vector& v) const
+double Vector::dot(const Vector& v) const
 {
     return t[0]*v.x() + 
            t[1]*v.y() +

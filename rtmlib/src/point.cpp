@@ -10,17 +10,17 @@ Point::Point()
 {}
 
 // Custom constructor
-Point::Point(const float& x, const float& y, const float& z) : Tuple(x, y, z)
+Point::Point(const double& x, const double& y, const double& z) : Tuple(x, y, z)
 {
     t[3] = 1.0f;
 }
 
 // Another custom constructor, takes an additional w parameter
-Point::Point(const float& x, const float& y, const float& z, const float& w) : Tuple(x, y, z, w)
+Point::Point(const double& x, const double& y, const double& z, const double& w) : Tuple(x, y, z, w)
 {}
 
 // Constructs a point from an array of elements (primitive array)
-Point::Point(float* elements) : Tuple(elements)
+Point::Point(double* elements) : Tuple(elements)
 {}
 
 // Return a string with the values of a point
@@ -30,7 +30,7 @@ string Point::to_str() const
 
     for(int i=0; i<4; ++i)
     {
-        out += ftos(t[i], 3) + " ";
+        out += dtos(t[i], 3) + " ";
     }
 
     return out;

@@ -1,6 +1,7 @@
 #define _USE_MATH_DEFINES
 
 #include "util/utils.h"
+#include "mat_constants/math_constants.h"
 #include <string>
 #include <sstream>
 #include <cmath>
@@ -9,11 +10,9 @@ using namespace std;
 using namespace rtm;
 
 // Compare two floating point numbers
-bool rtm::fcompare(const float& a, const float& b)
+bool rtm::fcompare(const double& a, const double& b)
 {
-    const float EPSILON = 0.00001;
-
-    if(abs(a - b) < EPSILON)
+    if(abs(a - b) < rtm::constants::pi)
         return true;
     else
         return false;
@@ -21,6 +20,15 @@ bool rtm::fcompare(const float& a, const float& b)
 
 // Convert float to string with fixed decimal places
 string rtm::ftos(const float& f, const int& nd)
+{
+   ostringstream ostr;
+   int tens = stoi("1" + string(nd, '0'));
+   ostr << round(f*tens)/tens;
+   return ostr.str();
+}
+
+// Convert double to string with fixed decimal places
+string rtm::dtos(const double& f, const int& nd)
 {
    ostringstream ostr;
    int tens = stoi("1" + string(nd, '0'));

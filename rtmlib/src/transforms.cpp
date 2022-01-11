@@ -9,7 +9,7 @@
 
 using namespace rtm;
 
-Matrix rtm::translation(const float& x, const float& y, const float& z)
+Matrix rtm::translation(const double& x, const double& y, const double& z)
 {
     Matrix mtranslation = Matrix(4 , 4);
     mtranslation.set_identity();
@@ -21,7 +21,7 @@ Matrix rtm::translation(const float& x, const float& y, const float& z)
     return mtranslation;
 }
 
-Matrix rtm::scaling(const float& x, const float& y, const float& z)
+Matrix rtm::scaling(const double& x, const double& y, const double& z)
 {
     Matrix mscaling = Matrix(4 , 4);
     mscaling.set_identity();
@@ -33,41 +33,41 @@ Matrix rtm::scaling(const float& x, const float& y, const float& z)
     return mscaling;
 }
 
-Matrix rtm::rotation_x(const float& angle)
+Matrix rtm::rotation_x(const double& angle)
 {
     Matrix mrotate_x = Matrix(4 , 4);
     mrotate_x.set_identity();
 
-    mrotate_x.set_value(1, 1, cos(angle));
-    mrotate_x.set_value(1, 2, -sin(angle));
-    mrotate_x.set_value(2, 1, sin(angle));
-    mrotate_x.set_value(2, 2, cos(angle));
+    mrotate_x.set_value(1, 1, std::cos(angle));
+    mrotate_x.set_value(1, 2, -std::sin(angle));
+    mrotate_x.set_value(2, 1, std::sin(angle));
+    mrotate_x.set_value(2, 2, std::cos(angle));
 
     return mrotate_x;
 }
 
-Matrix rtm::rotation_y(const float& angle)
+Matrix rtm::rotation_y(const double& angle)
 {
     Matrix mrotate_y = Matrix(4 , 4);
     mrotate_y.set_identity();
 
-    mrotate_y.set_value(0, 0, cos(angle));
-    mrotate_y.set_value(0, 2, sin(angle));
-    mrotate_y.set_value(2, 0, -sin(angle));
-    mrotate_y.set_value(2, 2, cos(angle));
+    mrotate_y.set_value(0, 0, std::cos(angle));
+    mrotate_y.set_value(0, 2, std::sin(angle));
+    mrotate_y.set_value(2, 0, -std::sin(angle));
+    mrotate_y.set_value(2, 2, std::cos(angle));
 
     return mrotate_y;
 }
 
-Matrix rtm::rotation_z(const float& angle)
+Matrix rtm::rotation_z(const double& angle)
 {
     Matrix mrotate_z = Matrix(4 , 4);
     mrotate_z.set_identity();
 
-    mrotate_z.set_value(0, 0, cos(angle));
-    mrotate_z.set_value(0, 1, -sin(angle));
-    mrotate_z.set_value(1, 0, sin(angle));
-    mrotate_z.set_value(1, 1, cos(angle));
+    mrotate_z.set_value(0, 0, std::cos(angle));
+    mrotate_z.set_value(0, 1, -std::sin(angle));
+    mrotate_z.set_value(1, 0, std::sin(angle));
+    mrotate_z.set_value(1, 1, std::cos(angle));
 
     return mrotate_z;
 }
@@ -93,7 +93,7 @@ Matrix rtm::view_transform(const Point& from, const Point& to, const Vector& up)
     auto left = cross(forward, normalize(up));
     auto true_up = cross(left, forward);
 
-    float mat_or[16] = { left.x(), left.y(), left.z(), 0, 
+    double mat_or[16] = { left.x(), left.y(), left.z(), 0, 
                          true_up.x(), true_up.y(), true_up.z(), 0,
                          -forward.x(), -forward.y(), -forward.z(), 0,
                          0, 0, 0, 1};

@@ -6,13 +6,13 @@
 namespace rtm
 {
 bool compare(const Matrix&, const Matrix&);
-float determinant(const Matrix& M);
+double determinant(const Matrix& M);
 Matrix inverse(const Matrix& M);
 
 // Stuff for computing the inverse of a matrix
 Matrix submatrix(const Matrix& M, int row, int col);
-float minor(const Matrix& M, int row, int col);
-float cofactor(const Matrix& M, int row, int col);
+double minor(const Matrix& M, int row, int col);
+double cofactor(const Matrix& M, int row, int col);
 
 
 
@@ -20,7 +20,7 @@ float cofactor(const Matrix& M, int row, int col);
 template<class T>
 T operator*(const Matrix& m, const T& tuple)
 {
-    float results[4];
+    double results[4];
 
     for(int row=0; row<4; ++row)
     {

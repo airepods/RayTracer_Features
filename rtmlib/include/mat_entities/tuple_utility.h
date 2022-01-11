@@ -23,20 +23,20 @@ Color operator-(const Color&, const Color&);
 
 // Multiplication by scalar
 template<class T>
-T operator*(const T& t, const float& scalar)
+T operator*(const T& t, const double& scalar)
 {
     return T(t.x()*scalar, t.y()*scalar, t.z()*scalar);
 }
 
 template<class T>
-T operator*(float scalar, const T& t)
+T operator*(double scalar, const T& t)
 {
     return t*scalar;
 }
 
 // Division by scalar
 template<class T>
-T operator/(const T& t, const float& scalar)
+T operator/(const T& t, const double& scalar)
 {
     return T(t.x()/scalar, t.y()/scalar, t.z()/scalar);
 }

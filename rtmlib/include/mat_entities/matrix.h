@@ -7,7 +7,7 @@ class Matrix
 {
     private:
         int m_row, m_column;
-        float** matrix;
+        double** matrix;
     public:
 
         // Exception class
@@ -29,7 +29,7 @@ class Matrix
 
         Matrix();
         Matrix(const int& row, const int& column);
-        Matrix(const int& row, const int& column, float* mat);
+        Matrix(const int& row, const int& column, double* mat);
         ~Matrix();
 
         Matrix(const Matrix&);
@@ -38,10 +38,10 @@ class Matrix
         inline int get_nrow() const { return m_row; }
         inline int get_ncolumn() const { return m_column; }
 
-        float at(const int& row, const int& column) const;
-        //void set_matrix(int nrow, int ncolumn, float* mat);
+        double at(const int& row, const int& column) const;
+        //void set_matrix(int nrow, int ncolumn, double* mat);
         void set_identity();
-        void set_value(const int& row, const int& column, const float& val);
+        void set_value(const int& row, const int& column, const double& val);
         Matrix transpose() const;
 
         Matrix operator *(const Matrix& m) const;
