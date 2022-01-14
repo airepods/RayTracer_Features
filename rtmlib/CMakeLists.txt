@@ -25,7 +25,8 @@ add_library(${PROJECT_NAME}
                 src/prepare_computations.cpp
                 src/camera.cpp
                 src/scene.cpp
-                src/plane.cpp)
+                src/plane.cpp
+                src/pattern_function.cpp)
 
 # Include directories for header files
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include)

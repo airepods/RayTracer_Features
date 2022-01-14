@@ -46,6 +46,10 @@
 #include "computations/computation.h"
 #include "computations/prepare_computations.h"
 
+// patterns
+#include "patterns/pattern_functions.h"
+#include "patterns/pattern.h"
+
 // utility
 #include "util/utils.h"
 #include "progress_bar/progressbar.hpp"

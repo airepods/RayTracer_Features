@@ -9,6 +9,7 @@
 #include "geometry/intersection.h"
 #include "geometry/ray_intersection.h"
 #include "computations/prepare_computations.h"
+#include "patterns/pattern_functions.h"
 #include <cmath>
 
 #include <iostream>
@@ -17,7 +18,15 @@ using namespace rtm;
 
 Color rtm::lighting(const Material& material, const PointLight& light, const Point& point, const Vector& eyev, const Vector& normalv, const bool& in_shadow)
 {
-    Color effective_color = material.get_color() * light.get_intensity();
+    // check for patterns
+    // if material has pattern
+    rtm::Color color;
+    if(material.get_pattern().exists)
+        color = stripe_at(material.get_pattern(), point);
+    else
+        color = material.get_color();
+
+    Color effective_color = color * light.get_intensity();
     
     // find the direction to the light source
     Vector lightv = normalize(light.get_position() - point);
