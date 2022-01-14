@@ -15,7 +15,7 @@ Camera::Camera(const int& hsize, const int& vsize, const double& field_of_view)
 {
     m_transform.set_identity(); 
 
-    double half_view = tan(m_field_of_view/2);
+    double half_view = tan(m_field_of_view/2.0);
     double aspect = (static_cast<double>(m_hsize)/static_cast<double>(m_vsize));
 
     if(aspect >= 1)
@@ -35,8 +35,8 @@ Camera::Camera(const int& hsize, const int& vsize, const double& field_of_view)
 Ray Camera::ray_for_pixel(const int& px, const int& py) const // px and py are in canvas space (pixel locations)
 {
     // the offset from the edge of the canvas to the pixel's center
-    double xoffset = (px + 0.5f) * pixel_size;
-    double yoffset = (py + 0.5f) * pixel_size;
+    double xoffset = (px + 0.5) * pixel_size;
+    double yoffset = (py + 0.5) * pixel_size;
 
     // the untransformed coordinates of the pixel in world space.
     double world_x = half_width - xoffset;

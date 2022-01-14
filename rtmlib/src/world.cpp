@@ -17,16 +17,16 @@ World::World()
 
     // default sphere 1
     auto matsph1 = Material();
-    matsph1.set_color(Color(0.8f, 1.0f, 0.6f));
-    matsph1.set_diffuse(0.7f);
-    matsph1.set_specular(0.2f);
+    matsph1.set_color(Color(0.8, 1.0, 0.6));
+    matsph1.set_diffuse(0.7);
+    matsph1.set_specular(0.2);
     // then material is deleted by the end of the scope
     // but set_material receives a variable by reference 
     // and modifies the material attrbute of the surface
     s1->set_material(matsph1);
 
     // default sphere 2
-    s2->set_transform(scaling(0.5f, 0.5f, 0.5f));
+    s2->set_transform(scaling(0.5, 0.5, 0.5));
 
     m_surfaces = {s1, s2};
 }

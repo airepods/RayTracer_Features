@@ -11,6 +11,8 @@
 #include "computations/prepare_computations.h"
 #include <cmath>
 
+#include <iostream>
+
 using namespace rtm;
 
 Color rtm::lighting(const Material& material, const PointLight& light, const Point& point, const Vector& eyev, const Vector& normalv, const bool& in_shadow)

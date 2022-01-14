@@ -13,7 +13,7 @@ Vector::Vector()
 // Custom constructor
 Vector::Vector(const double& x, const double& y, const double& z) : Tuple(x, y, z)
 {
-    t[3] = 0.0f;
+    t[3] = 0.0;
 }
 
 Vector::Vector(const double& x, const double& y, const double& z, const double& w) : Tuple(x, y, z, w)

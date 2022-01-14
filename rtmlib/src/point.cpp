@@ -12,7 +12,7 @@ Point::Point()
 // Custom constructor
 Point::Point(const double& x, const double& y, const double& z) : Tuple(x, y, z)
 {
-    t[3] = 1.0f;
+    t[3] = 1.0;
 }
 
 // Another custom constructor, takes an additional w parameter

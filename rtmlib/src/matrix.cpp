@@ -42,7 +42,7 @@ Matrix::Matrix(const int& row, const int& column, double* mat) : m_row(row), m_c
     {
         for(int j=0; j<m_column; ++j)
         {
-            matrix[i][j] = 0.0f;
+            matrix[i][j] = 0.0;
         }
     }
 
@@ -147,10 +147,10 @@ void Matrix::set_identity()
         throw Matrix::no_allocation_detected();
     }
 
-    this->set_value(0, 0, 1.0f);
-    this->set_value(1, 1, 1.0f);
-    this->set_value(2, 2, 1.0f);
-    this->set_value(3, 3, 1.0f);
+    this->set_value(0, 0, 1.0);
+    this->set_value(1, 1, 1.0);
+    this->set_value(2, 2, 1.0);
+    this->set_value(3, 3, 1.0);
 }
 
 // Set the values of the elements of the matrix given an specific index i(row), j(column) 

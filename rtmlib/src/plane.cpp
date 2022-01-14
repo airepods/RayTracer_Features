@@ -1,11 +1,11 @@
-#define _USE_MATH_DEFINES
-
 #include "primitives/plane.h"
 #include "mat_constants/math_constants.h"
 #include "mat_entities/matrix_utility.h"
 #include "mat_entities/vector_utility.h"
 #include "mat_entities/tuple_utility.h"
 #include <vector>
+
+#include <iostream>
 
 using namespace rtm;
 
@@ -21,7 +21,7 @@ std::vector<Intersection> Plane::intersects_with(const Ray& r) const
         return e;
     }
 
-    double t = -(ray.origin().y()/ray.direction().y());
+    double t = -ray.origin().y()/ray.direction().y();
 
     std::vector<Intersection> intersections = {Intersection(t, this)};
     return intersections;
@@ -30,8 +30,6 @@ std::vector<Intersection> Plane::intersects_with(const Ray& r) const
 
 Vector Plane::normal_at(const Point& world_point) const
 {
-    // Passing the point in world space to object space
-    auto object_point = inverse(m_transform) * world_point;
     // Getting the normal vector in object space
     auto object_normal = Vector(0, 1, 0);
     // Taking the normal vector in object space and pass it to world space

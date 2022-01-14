@@ -5,6 +5,8 @@
 #include "util/utils.h"
 #include "mat_constants/math_constants.h"
 
+#include <iostream>
+
 using namespace rtm;
 
 Computation rtm::prepare_computations(const Intersection& i, const Ray& ray)
@@ -20,8 +22,7 @@ Computation rtm::prepare_computations(const Intersection& i, const Ray& ray)
     comps.point = position(ray, comps.tvalue);
     comps.eyev = -ray.direction();
     comps.normalv = comps.surface->normal_at(comps.point);
-    comps.over_point = comps.point + (comps.normalv * rtm::constants::epsilon);
-
+    
     if(dot(comps.normalv, comps.eyev) < 0)
     {
         comps.inside = true;
@@ -32,5 +33,7 @@ Computation rtm::prepare_computations(const Intersection& i, const Ray& ray)
         comps.inside = false;
     }
 
+    comps.over_point = comps.point + (comps.normalv * rtm::constants::epsilon);
+    
     return comps;
 }
