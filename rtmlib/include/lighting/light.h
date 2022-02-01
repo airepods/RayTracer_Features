@@ -13,6 +13,7 @@ namespace rtm
     Color shade_hit(const World& world, const Computation& comps);
     Color color_at(const World& world, const Ray& ray);
     bool is_shadowed(const World& world, const Point& point);
+    Color reflected_color(const World& world, const Computation& comps);
 }
 
 #endif

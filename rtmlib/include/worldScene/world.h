@@ -14,11 +14,12 @@ class World
     private:
         PointLight m_light;
         std::vector<Surface*> m_surfaces;
+        bool default_flag;
     public:
         World();
         World(const PointLight& light, const std::vector<Surface*>& surfaces);
         // enable this when creating a default world
-        //~World();
+        ~World();
 
         std::vector<Intersection> intersects_with(const Ray& r) const;
 

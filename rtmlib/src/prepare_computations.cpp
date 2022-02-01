@@ -4,6 +4,11 @@
 
 using namespace rtm;
 
+namespace
+{
+    Vector reflect(const Vector& l, const Vector& normal) { return -l + 2*dot(l, normal)*normal; }
+}
+
 Computation rtm::prepare_computations(const Intersection& i, const Ray& ray)
 {
     // instantiate a data structure for storing some precomputed values
@@ -28,7 +33,9 @@ Computation rtm::prepare_computations(const Intersection& i, const Ray& ray)
         comps.inside = false;
     }
 
+    comps.reflectv = reflect(-ray.direction(), comps.normalv);
     comps.over_point = comps.point + (comps.normalv * rtm::constants::epsilon);
     
     return comps;
 }
+

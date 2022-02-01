@@ -5,6 +5,8 @@ using namespace rtm;
 
 World::World()
 {
+    default_flag = true;
+
     m_light = PointLight(Point(-10, 10, -10), Color(1, 1, 1));
     Sphere* s1 = new Sphere();
     Sphere* s2 = new Sphere();
@@ -25,17 +27,23 @@ World::World()
     m_surfaces = {s1, s2};
 }
 
-World::World(const PointLight& light, const std::vector<Surface*>& surfaces) : m_light(light), m_surfaces(surfaces)
+World::World(const PointLight& light, const std::vector<Surface*>& surfaces) : m_light(light), m_surfaces(surfaces), default_flag(false)
 {}
 
-// World::~World()
-// {
-//     for(auto p : m_surfaces)
-//     {
-//         delete p;
-//     }
-//     m_surfaces.clear();
-// }
+World::~World()
+{
+    // if default flag is active (true)
+    if(default_flag)
+    {
+        for(auto p : m_surfaces)
+        {
+            delete p;
+        }
+        m_surfaces.clear();
+    }
+    // if not dont do nothing
+
+}
 
 // TODO implement copy constructors
 

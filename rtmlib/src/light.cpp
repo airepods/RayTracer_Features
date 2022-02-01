@@ -55,7 +55,10 @@ Color rtm::lighting(const Material& material, const Surface* object, const Point
 Color rtm::shade_hit(const World& world, const Computation& comps)
 {
     auto shadow = is_shadowed(world, comps.over_point);
-    return lighting(comps.surface->get_material(), comps.surface, world.get_pointLight(), comps.over_point, comps.eyev, comps.normalv, shadow);
+    auto surface = lighting(comps.surface->get_material(), comps.surface, world.get_pointLight(), comps.over_point, comps.eyev, comps.normalv, shadow);
+    auto reflected = reflected_color(world, comps);
+
+    return surface + reflected;
 }
 
 Color rtm::color_at(const World& world, const Ray& ray)
@@ -94,6 +97,17 @@ bool rtm::is_shadowed(const World& world, const Point& point)
     }
 
     return false;
+}
+
+Color rtm::reflected_color(const World& world, const Computation& comps)
+{
+    if(comps.surface->get_material().get_reflective() == 0.0f)
+        return rtm::Color(0, 0, 0);
+    
+    auto reflect_ray = Ray(comps.over_point, comps.reflectv);
+    auto color = color_at(world, reflect_ray);
+
+    return color * comps.surface->get_material().get_reflective();
 }
 
 
