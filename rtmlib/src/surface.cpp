@@ -1,5 +1,4 @@
 #include "primitives/surface.h"
-#include "mat_entities/matrix.h"
 
 using namespace rtm;
 

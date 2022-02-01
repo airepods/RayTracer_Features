@@ -2,9 +2,7 @@
 #define RAY_INTERSECTION_H   
 
 #include <vector>
-#include "intersection.h"
-#include "ray.h"
-#include "mat_entities/point.h"
+#include "intersection.h" // intersections contains ray
 
 namespace rtm
 {

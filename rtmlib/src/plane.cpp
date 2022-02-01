@@ -1,8 +1,6 @@
 #include "primitives/plane.h"
 #include "mat_constants/math_constants.h"
-#include "mat_entities/matrix_utility.h"
-#include "mat_entities/vector_utility.h"
-#include "mat_entities/tuple_utility.h"
+
 #include <vector>
 
 #include <iostream>

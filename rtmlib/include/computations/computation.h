@@ -2,8 +2,6 @@
 #define COMPUTATION_H
 
 #include "primitives/surface.h"
-#include "mat_entities/point.h"
-#include "mat_entities/vector.h"
 
 namespace rtm
 {

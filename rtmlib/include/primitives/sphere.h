@@ -1,13 +1,10 @@
 #ifndef SPHERE_H    
 #define SPHERE_H
 
-#include "geometry/ray.h" 
 #include "surface.h"
 #include "geometry/intersection.h"
-#include "mat_entities/matrix.h"
 #include <vector>
 #include <string>
-#include "materials/material.h"
 
 namespace rtm
 {

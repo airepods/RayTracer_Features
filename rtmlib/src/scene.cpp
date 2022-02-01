@@ -1,11 +1,9 @@
 #include "worldScene/scene.h"
+
 #include <assert.h>
 #include <iostream>
-#include <math.h>
-#include "canvas/canvas.h"
-#include "lighting/light.h"
-#include "geometry/ray.h"
-#include "mat_entities/color.h"
+#include <cmath>
+
 #include "progress_bar/progressbar.hpp"
 
 using namespace rtm;

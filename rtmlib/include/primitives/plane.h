@@ -2,9 +2,7 @@
 #define PLANE_H
 
 #include "surface.h"
-#include "mat_entities/vector.h"
 #include "geometry/intersection.h"
-#include "geometry/ray.h"
 #include <string>
 
 namespace rtm

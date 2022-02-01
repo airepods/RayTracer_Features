@@ -1,6 +1,4 @@
 #include "mat_entities/color.h"
-#include "util/utils.h"
-#include <string>
 
 using namespace std;
 using namespace rtm;

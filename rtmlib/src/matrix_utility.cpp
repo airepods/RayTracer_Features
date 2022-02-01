@@ -1,6 +1,5 @@
 #include "mat_entities/matrix_utility.h"
 #include "util/utils.h"
-#include "mat_entities/matrix.h"
 
 using namespace rtm;
 

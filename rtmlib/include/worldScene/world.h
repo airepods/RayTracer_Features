@@ -2,9 +2,9 @@
 #define WORLD_H
 
 #include "lighting/pointLight.h"
-#include "primitives/surface.h"
 #include "geometry/intersection.h"
-#include "geometry/ray.h"
+#include "primitives/sphere.h"
+#include "transforms/transforms.h"
 #include <vector>
 
 namespace rtm
@@ -17,7 +17,8 @@ class World
     public:
         World();
         World(const PointLight& light, const std::vector<Surface*>& surfaces);
-        ~World();
+        // enable this when creating a default world
+        //~World();
 
         std::vector<Intersection> intersects_with(const Ray& r) const;
 

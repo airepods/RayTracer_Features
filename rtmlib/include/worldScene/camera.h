@@ -1,7 +1,6 @@
 #ifndef CAMERA_H    
 #define CAMERA_H
 
-#include "mat_entities/matrix.h"
 #include "geometry/ray.h"
 
 namespace rtm

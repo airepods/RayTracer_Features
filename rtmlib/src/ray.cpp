@@ -1,5 +1,4 @@
 #include "geometry/ray.h"
-#include "mat_entities/matrix_utility.h"
 
 using namespace rtm;
 

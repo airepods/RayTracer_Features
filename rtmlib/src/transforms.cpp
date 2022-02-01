@@ -1,10 +1,4 @@
 #include "transforms/transforms.h"
-#include "mat_entities/matrix.h"
-#include "util/utils.h"
-#include "mat_entities/tuple_utility.h"
-#include "mat_entities/vector_utility.h"
-#include "mat_entities/matrix.h"
-#include "mat_entities/matrix_utility.h"
 #include <cmath>
 
 using namespace rtm;

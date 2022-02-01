@@ -1,9 +1,5 @@
 #include "worldScene/camera.h"
-#include "math.h"
-#include "mat_entities/matrix_utility.h"
-#include "mat_entities/point.h"
-#include "mat_entities/tuple_utility.h"
-#include "mat_entities/vector_utility.h"
+#include <cmath>
 
 using namespace rtm;
 
@@ -15,7 +11,7 @@ Camera::Camera(const int& hsize, const int& vsize, const double& field_of_view)
 {
     m_transform.set_identity(); 
 
-    double half_view = tan(m_field_of_view/2.0);
+    double half_view = std::tan(m_field_of_view/2.0);
     double aspect = (static_cast<double>(m_hsize)/static_cast<double>(m_vsize));
 
     if(aspect >= 1)

@@ -1,28 +1,16 @@
 #include "lighting/light.h"
-#include "mat_entities/vector.h"
-#include "mat_entities/point.h"
-#include "mat_entities/vector_utility.h"
-#include "mat_entities/tuple_utility.h"
-#include "mat_entities/color.h"
-#include "lighting/pointLight.h"
-#include "materials/material.h"
-#include "geometry/intersection.h"
-#include "geometry/ray_intersection.h"
-#include "computations/prepare_computations.h"
-#include "patterns/pattern_functions.h"
-#include <cmath>
 
-#include <iostream>
+#include <cmath>
 
 using namespace rtm;
 
-Color rtm::lighting(const Material& material, const PointLight& light, const Point& point, const Vector& eyev, const Vector& normalv, const bool& in_shadow)
+Color rtm::lighting(const Material& material, const Surface* object, const PointLight& light, const Point& point, const Vector& eyev, const Vector& normalv, const bool& in_shadow)
 {
     // check for patterns
     // if material has pattern
     rtm::Color color;
-    if(material.get_pattern().exists)
-        color = stripe_at(material.get_pattern(), point);
+    if(material.get_pattern() != nullptr)
+        color = material.get_pattern()->pattern_at_object(object, point);
     else
         color = material.get_color();
 
@@ -67,7 +55,7 @@ Color rtm::lighting(const Material& material, const PointLight& light, const Poi
 Color rtm::shade_hit(const World& world, const Computation& comps)
 {
     auto shadow = is_shadowed(world, comps.over_point);
-    return lighting(comps.surface->get_material(), world.get_pointLight(), comps.over_point, comps.eyev, comps.normalv, shadow);
+    return lighting(comps.surface->get_material(), comps.surface, world.get_pointLight(), comps.over_point, comps.eyev, comps.normalv, shadow);
 }
 
 Color rtm::color_at(const World& world, const Ray& ray)

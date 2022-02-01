@@ -1,13 +1,7 @@
 #include "primitives/sphere.h"
-#include "mat_entities/vector.h"
-#include "mat_entities/matrix.h"
-#include "mat_entities/matrix_utility.h"
+
 #include <cmath>
 #include <vector>
-#include "geometry/intersection.h"
-#include "mat_entities/tuple_utility.h"
-#include "mat_entities/vector_utility.h"
-#include "mat_entities/point.h"
 
 #include <iostream>
 

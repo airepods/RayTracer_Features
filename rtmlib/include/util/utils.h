@@ -1,7 +1,6 @@
 #ifndef UTILS_H    
 #define UTILS_H
 
-#include "mat_entities/matrix.h"
 #include <string>
 #include <cmath>
 

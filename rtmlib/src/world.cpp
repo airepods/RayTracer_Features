@@ -1,10 +1,4 @@
 #include "worldScene/world.h"
-#include "mat_entities/point.h"
-#include "mat_entities/color.h"
-#include "primitives/sphere.h"
-#include "materials/material.h"
-#include "mat_entities/color.h"
-#include "transforms/transforms.h"
 #include <algorithm>
 
 using namespace rtm;
@@ -34,14 +28,14 @@ World::World()
 World::World(const PointLight& light, const std::vector<Surface*>& surfaces) : m_light(light), m_surfaces(surfaces)
 {}
 
-World::~World()
-{
-    for(auto p : m_surfaces)
-    {
-        delete p;
-    }
-    m_surfaces.clear();
-}
+// World::~World()
+// {
+//     for(auto p : m_surfaces)
+//     {
+//         delete p;
+//     }
+//     m_surfaces.clear();
+// }
 
 // TODO implement copy constructors
 

@@ -1,11 +1,6 @@
 #include "computations/prepare_computations.h"
-#include "geometry/ray_intersection.h"
-#include "mat_entities/vector_utility.h"
-#include "mat_entities/tuple_utility.h"
-#include "util/utils.h"
-#include "mat_constants/math_constants.h"
 
-#include <iostream>
+#include "mat_constants/math_constants.h"
 
 using namespace rtm;
 

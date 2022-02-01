@@ -1,5 +1,4 @@
 #include "mat_entities/vector.h"
-#include "util/utils.h"
 #include <cmath>
 #include <string>
 

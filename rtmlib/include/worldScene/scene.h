@@ -3,6 +3,7 @@
 
 #include "world.h"
 #include "camera.h"
+#include "lighting/light.h"
 #include "canvas/canvas.h"
 
 namespace rtm

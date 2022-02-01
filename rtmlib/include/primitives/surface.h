@@ -2,12 +2,10 @@
 #define SURFACE_H
 
 #include <string> 
-#include "mat_entities/matrix.h"
-#include "materials/material.h"
-#include "mat_entities/vector.h"
-#include "mat_entities/point.h"
-#include "geometry/ray.h"
 #include <vector>
+
+#include "materials/material.h"
+#include "geometry/ray.h"
 
 namespace rtm
 {

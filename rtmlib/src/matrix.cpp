@@ -5,7 +5,7 @@
 using namespace rtm;
 
 // Default constructor
-Matrix::Matrix() : matrix(nullptr)
+Matrix::Matrix() : matrix(nullptr), m_column(0), m_row(0)
 {}
 
 // Custom consturctor
@@ -78,6 +78,12 @@ Matrix::Matrix(const Matrix& m)
     m_row = m.m_row;
     m_column = m.m_column;
 
+    if(m.is_empty())
+    {
+        matrix = nullptr;
+        return;
+    }
+
     matrix = new double*[m_row];
 
     for(int i=0; i<m_row; ++i)
@@ -99,6 +105,12 @@ Matrix& Matrix::operator= (const Matrix& m)
 {
     m_row = m.m_row;
     m_column = m.m_column;
+
+    if(m.is_empty())
+    {
+        matrix = nullptr;
+        return *this;
+    }
 
     matrix = new double*[m_row];
 

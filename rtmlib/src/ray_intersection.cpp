@@ -1,5 +1,4 @@
 #include "geometry/ray_intersection.h"
-#include "mat_entities/tuple_utility.h"
 #include <algorithm>
 
 using namespace rtm;

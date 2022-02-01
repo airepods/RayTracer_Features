@@ -46,6 +46,9 @@ class Matrix
 
         Matrix operator *(const Matrix& m) const;
 
+        //check if matrix is null
+        inline bool is_empty() const {return matrix == nullptr ? true : false;}
+
 };
 } //namespace rtm
 

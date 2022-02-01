@@ -10,7 +10,6 @@ add_library(${PROJECT_NAME}
                 src/point.cpp
                 src/surface.cpp
                 src/ray_intersection.cpp
-                src/ray_transform.cpp
                 src/ray.cpp
                 src/sphere.cpp
                 src/transforms.cpp
@@ -26,7 +25,12 @@ add_library(${PROJECT_NAME}
                 src/camera.cpp
                 src/scene.cpp
                 src/plane.cpp
-                src/pattern_function.cpp)
+                src/pattern.cpp
+                src/stripePattern.cpp
+                src/gradientPattern.cpp
+                src/ringPattern.cpp
+                src/checkerPattern.cpp
+                src/solidPattern.cpp)
 
 # Include directories for header files
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include)

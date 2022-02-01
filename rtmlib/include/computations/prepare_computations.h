@@ -2,8 +2,7 @@
 #define PREPARE_COMPUTATIONS_H
 
 #include "computation.h"
-#include "geometry/intersection.h"
-#include "geometry/ray.h"
+#include "geometry/ray_intersection.h"
 
 namespace rtm
 {

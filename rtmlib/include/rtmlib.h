@@ -20,10 +20,9 @@
 
 // geometry
 #include "geometry/ray.h"
-#include "geometry/intersections.h"
+//#include "geometry/intersections.h"
 #include "geometry/intersection.h"
 #include "geometry/ray_intersection.h"
-#include "geometry/ray_transform.h"
 
 // primitives
 #include "primitives/surface.h"
@@ -47,8 +46,13 @@
 #include "computations/prepare_computations.h"
 
 // patterns
-#include "patterns/pattern_functions.h"
 #include "patterns/pattern.h"
+#include "patterns/stripePattern.h"
+#include "patterns/gradientPattern.h"
+#include "patterns/ringPattern.h"
+#include "patterns/checkerPattern.h"
+#include "patterns/solidPattern.h"
+
 
 // utility
 #include "util/utils.h"
