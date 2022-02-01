@@ -23,7 +23,7 @@ int main()
 {    
     // create a new material
     auto material = rtm::Material();
-    material.set_color(rtm::Color(1, 0.2, 1));
+    material.set_color(rtm::Color(1, 0.2f, 1));
 
     // create a surface (sphere) and bind it to a material
     rtm::Sphere sphere;
