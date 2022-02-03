@@ -52,16 +52,16 @@ Color rtm::lighting(const Material& material, const Surface* object, const Point
     return ambient + diffuse + specular;
 }
 
-Color rtm::shade_hit(const World& world, const Computation& comps)
+Color rtm::shade_hit(const World& world, const Computation& comps, int& remaining)
 {
     auto shadow = is_shadowed(world, comps.over_point);
     auto surface = lighting(comps.surface->get_material(), comps.surface, world.get_pointLight(), comps.over_point, comps.eyev, comps.normalv, shadow);
-    auto reflected = reflected_color(world, comps);
+    auto reflected = reflected_color(world, comps, remaining);
 
     return surface + reflected;
 }
 
-Color rtm::color_at(const World& world, const Ray& ray)
+Color rtm::color_at(const World& world, const Ray& ray, int remaining)
 {
     auto xs = world.intersects_with(ray);
     auto color = Color();
@@ -70,7 +70,7 @@ Color rtm::color_at(const World& world, const Ray& ray)
     if(hit(xs, intersection))
     {
         auto comps = prepare_computations(intersection, ray);
-        color = rtm::shade_hit(world, comps);
+        color = rtm::shade_hit(world, comps, remaining);
     }
     else
     {
@@ -99,13 +99,14 @@ bool rtm::is_shadowed(const World& world, const Point& point)
     return false;
 }
 
-Color rtm::reflected_color(const World& world, const Computation& comps)
+Color rtm::reflected_color(const World& world, const Computation& comps, int& remaining)
 {
-    if(comps.surface->get_material().get_reflective() == 0.0f)
+    if(comps.surface->get_material().get_reflective() == 0.0f || remaining <= 0) // if the remaining value is 0 or less, finish the recursion tree
         return rtm::Color(0, 0, 0);
     
     auto reflect_ray = Ray(comps.over_point, comps.reflectv);
-    auto color = color_at(world, reflect_ray);
+    remaining-=1; // decrease by 1 the remaining value, so the recursion can stop
+    auto color = color_at(world, reflect_ray, remaining);
 
     return color * comps.surface->get_material().get_reflective();
 }

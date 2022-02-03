@@ -29,8 +29,8 @@ class Surface
 
         inline Material get_material() const {return m_material;}
         inline void set_material(const Material& material) {m_material = material;}
-
-
+        
+        bool compare(const Surface* s) const;
 };
 } // namespace rtm
 

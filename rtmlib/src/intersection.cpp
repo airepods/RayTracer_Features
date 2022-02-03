@@ -20,6 +20,16 @@ Surface* Intersection::get_shape() const
     return m_object;
 }
 
+bool Intersection::is_equal(const Intersection& i) const
+{
+    // if the two numbers are equal
+    if(fcompare(m_t, i.get_t()) && m_object->compare(i.get_shape()))
+        return true;
+    else    
+        return false;
+}
+
+
 bool Intersection::operator < (const Intersection& i) const
 {
     return (m_t < i.m_t);

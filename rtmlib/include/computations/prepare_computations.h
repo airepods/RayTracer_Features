@@ -4,9 +4,13 @@
 #include "computation.h"
 #include "geometry/ray_intersection.h"
 
+#include <vector>
+#include <list>
+#include <algorithm>
+
 namespace rtm
 {
-    Computation prepare_computations(const Intersection& i, const Ray& r); 
+    Computation prepare_computations(const Intersection& i, const Ray& r, std::vector<Intersection> xs = {}); 
     
 } //namespace rtm
 

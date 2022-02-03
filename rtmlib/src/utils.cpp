@@ -12,7 +12,7 @@ using namespace rtm;
 // Compare two floating point numbers
 bool rtm::fcompare(const double& a, const double& b)
 {
-    if(abs(a - b) < rtm::constants::pi)
+    if(abs(a - b) < rtm::constants::epsilon)
         return true;
     else
         return false;
