@@ -15,6 +15,7 @@ struct Computation
     Point over_point; // for acne effect - point moved slighly in the direction of normal 
     Vector reflectv;
     bool inside;
+    Point under_point;
     // refractive indices
     double n1; 
     double n2;

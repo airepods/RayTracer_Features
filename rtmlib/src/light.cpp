@@ -1,7 +1,5 @@
 #include "lighting/light.h"
 
-#include <cmath>
-
 using namespace rtm;
 
 Color rtm::lighting(const Material& material, const Surface* object, const PointLight& light, const Point& point, const Vector& eyev, const Vector& normalv, const bool& in_shadow)
@@ -101,7 +99,7 @@ bool rtm::is_shadowed(const World& world, const Point& point)
 
 Color rtm::reflected_color(const World& world, const Computation& comps, int& remaining)
 {
-    if(comps.surface->get_material().get_reflective() == 0.0f || remaining <= 0) // if the remaining value is 0 or less, finish the recursion tree
+    if(comps.surface->get_material().get_reflective() == 0 || remaining <= 0) // if the remaining value is 0 or less, finish the recursion tree
         return rtm::Color(0, 0, 0);
     
     auto reflect_ray = Ray(comps.over_point, comps.reflectv);
@@ -109,6 +107,25 @@ Color rtm::reflected_color(const World& world, const Computation& comps, int& re
     auto color = color_at(world, reflect_ray, remaining);
 
     return color * comps.surface->get_material().get_reflective();
+}
+
+Color rtm::refracted_color(const World& world, const Computation& comps, int& remaining)
+{
+    // max recursion depth
+    if(remaining == 0)
+        return rtm::Color(0, 0, 0);
+
+    double n_ratio = comps.n1 / comps.n2;
+    // for theta i (incident ray)
+    double cos_i =  dot(comps.eyev, comps.normalv);
+    // find sin^2(theta)
+    double sin2_t = std::pow(n_ratio, 2) * (1 - std::pow(cos_i, 2));
+
+    // if sin(theta) is grater than 1 (greater then 90 degrees angle), then we are in total internal refraction
+    if(comps.surface->get_material().get_transparency() == 0 || sin2_t > 1) 
+        return rtm::Color(0, 0, 0);
+    
+    return rtm::Color(1, 1, 1);
 }
 
 

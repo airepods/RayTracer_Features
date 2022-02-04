@@ -4,6 +4,8 @@
 #include "worldScene/world.h"
 #include "computations/prepare_computations.h"
 
+#include <cmath>
+
 namespace rtm
 {
     // Because the l vector is pointing out towards the surface
@@ -14,6 +16,7 @@ namespace rtm
     Color color_at(const World& world, const Ray& ray, int remaining = 5);
     bool is_shadowed(const World& world, const Point& point);
     Color reflected_color(const World& world, const Computation& comps, int& remaining);
+    Color refracted_color(const World& world, const Computation& comps, int& remaining);
 }
 
 #endif

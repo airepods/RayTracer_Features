@@ -41,6 +41,7 @@ Computation rtm::prepare_computations(const Intersection& i, const Ray& ray, std
 
     comps.reflectv = reflect(-ray.direction(), comps.normalv);
     comps.over_point = comps.point + (comps.normalv * rtm::constants::epsilon);
+    comps.under_point = comps.point - (comps.normalv * rtm::constants::epsilon);
 
     // Compute n1 and n2 refractive indices
 
