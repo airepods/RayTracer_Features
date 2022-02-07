@@ -78,7 +78,6 @@ Computation rtm::prepare_computations(const Intersection& i, const Ray& ray, std
         }
     }
      
-    
     return comps;
 }
 

@@ -55,8 +55,9 @@ Color rtm::shade_hit(const World& world, const Computation& comps, int& remainin
     auto shadow = is_shadowed(world, comps.over_point);
     auto surface = lighting(comps.surface->get_material(), comps.surface, world.get_pointLight(), comps.over_point, comps.eyev, comps.normalv, shadow);
     auto reflected = reflected_color(world, comps, remaining);
+    auto refracted = refracted_color(world, comps, remaining);
 
-    return surface + reflected;
+    return surface + reflected + refracted;
 }
 
 Color rtm::color_at(const World& world, const Ray& ray, int remaining)
@@ -67,7 +68,7 @@ Color rtm::color_at(const World& world, const Ray& ray, int remaining)
     auto intersection = rtm::Intersection(); 
     if(hit(xs, intersection))
     {
-        auto comps = prepare_computations(intersection, ray);
+        auto comps = prepare_computations(intersection, ray, xs);
         color = rtm::shade_hit(world, comps, remaining);
     }
     else
@@ -121,11 +122,19 @@ Color rtm::refracted_color(const World& world, const Computation& comps, int& re
     // find sin^2(theta)
     double sin2_t = std::pow(n_ratio, 2) * (1 - std::pow(cos_i, 2));
 
-    // if sin(theta) is grater than 1 (greater then 90 degrees angle), then we are in total internal refraction
+    // if sin(theta) is grater than 1 (greater then 90 degrees angle), then we are in total internal reflection
     if(comps.surface->get_material().get_transparency() == 0 || sin2_t > 1) 
         return rtm::Color(0, 0, 0);
     
-    return rtm::Color(1, 1, 1);
+    double cos_t = std::sqrt(1.0 - sin2_t);
+    // -comps.eye because the ray direction is inverted in prepare_computations
+    auto direction = n_ratio*(-comps.eyev) + comps.normalv * (n_ratio * cos_i - cos_t); // direction of refracted ray
+    // refracted ray
+    auto refracted_ray = Ray(comps.under_point, direction);
+    // compute the color
+    auto color = color_at(world, refracted_ray, remaining - 1) * comps.surface->get_material().get_transparency();
+
+    return color;
 }
 
 
