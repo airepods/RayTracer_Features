@@ -17,6 +17,7 @@ namespace rtm
     bool is_shadowed(const World& world, const Point& point);
     Color reflected_color(const World& world, const Computation& comps, int& remaining);
     Color refracted_color(const World& world, const Computation& comps, int& remaining);
+    double fresnel_schlick(const Computation& comps);
 }
 
 #endif

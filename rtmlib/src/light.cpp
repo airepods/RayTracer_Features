@@ -53,9 +53,22 @@ Color rtm::lighting(const Material& material, const Surface* object, const Point
 Color rtm::shade_hit(const World& world, const Computation& comps, int& remaining)
 {
     auto shadow = is_shadowed(world, comps.over_point);
-    auto surface = lighting(comps.surface->get_material(), comps.surface, world.get_pointLight(), comps.over_point, comps.eyev, comps.normalv, shadow);
+    auto surface = lighting(comps.surface->get_material(), 
+                            comps.surface, 
+                            world.get_pointLight(), 
+                            comps.over_point, comps.eyev, comps.normalv, 
+                            shadow);
+
     auto reflected = reflected_color(world, comps, remaining);
     auto refracted = refracted_color(world, comps, remaining);
+
+    auto material = comps.surface->get_material();
+    // if material is reflective and also glassy (transparent -> enables refraction of light)
+    if(material.get_reflective() > 0 && material.get_transparency() > 0)
+    {
+        auto reflectance = fresnel_schlick(comps);
+        return (surface + reflected) * reflectance + refracted * (1 - reflectance);
+    }
 
     return surface + reflected + refracted;
 }
@@ -136,5 +149,30 @@ Color rtm::refracted_color(const World& world, const Computation& comps, int& re
 
     return color;
 }
+
+double rtm::fresnel_schlick(const Computation& comps)
+{
+    double cos = dot(comps.eyev, comps.normalv);
+
+    // total internal reflection only occurs when n1>n2 
+    // angle = arcsin(n2/n1) iff n1 > n2 (because arcsin needs to be between the range 0-1)
+    if(comps.n1 > comps.n2)
+    {
+        double n_ratio = comps.n1 / comps.n2;
+        double sin2_t = std::pow(n_ratio, 2) * (1 - std::pow(cos, 2));
+        if (sin2_t > 1.0) return 1.0; // Total Internal Reflection (TIR)
+        // compute cos of theta t
+        double cos_t = std::sqrt(1.0 - sin2_t);
+        // when n1 > n2 use cos_t instead
+        cos = cos_t;
+    } 
+
+    double r0 = (comps.n1 - comps.n2) / (comps.n1 + comps.n2);
+    r0 *= r0;
+    double x = 1.0 - cos;
+    return r0 + (1.0 - r0) * std::pow(x, 5);
+}
+
+
 
 
