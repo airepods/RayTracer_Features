@@ -67,7 +67,7 @@ Color rtm::shade_hit(const World& world, const Computation& comps, int& remainin
     if(material.get_reflective() > 0 && material.get_transparency() > 0)
     {
         auto reflectance = fresnel_schlick(comps);
-        return (surface + reflected) * reflectance + refracted * (1 - reflectance);
+        return surface + reflected * reflectance + refracted * (1 - reflectance);
     }
 
     return surface + reflected + refracted;
@@ -136,12 +136,12 @@ Color rtm::refracted_color(const World& world, const Computation& comps, int& re
     double sin2_t = std::pow(n_ratio, 2) * (1 - std::pow(cos_i, 2));
 
     // if sin(theta) is grater than 1 (greater then 90 degrees angle), then we are in total internal reflection
-    if(comps.surface->get_material().get_transparency() == 0 || sin2_t > 1) 
+    if(comps.surface->get_material().get_transparency() <= 0 || sin2_t > 1) 
         return rtm::Color(0, 0, 0);
     
     double cos_t = std::sqrt(1.0 - sin2_t);
     // -comps.eye because the ray direction is inverted in prepare_computations
-    auto direction = n_ratio*(-comps.eyev) + comps.normalv * (n_ratio * cos_i - cos_t); // direction of refracted ray
+    auto direction = comps.normalv * (n_ratio * cos_i - cos_t) + (-comps.eyev) * n_ratio; // direction of refracted ray
     // refracted ray
     auto refracted_ray = Ray(comps.under_point, direction);
     // compute the color
