@@ -61,13 +61,14 @@ Color rtm::shade_hit(const World& world, const Computation& comps, int& remainin
 
     auto reflected = reflected_color(world, comps, remaining);
     auto refracted = refracted_color(world, comps, remaining);
+    //auto refracted = Color(0, 0, 0);
 
     auto material = comps.surface->get_material();
-    // if material is reflective and also glassy (transparent -> enables refraction of light)
+    //if material is reflective and also glassy (transparent -> enables refraction of light)
     if(material.get_reflective() > 0 && material.get_transparency() > 0)
     {
         auto reflectance = fresnel_schlick(comps);
-        return surface + reflected * reflectance + refracted * (1 - reflectance);
+        return surface + (reflected * reflectance) + (refracted * (1 - reflectance));
     }
 
     return surface + reflected + refracted;
@@ -111,7 +112,7 @@ bool rtm::is_shadowed(const World& world, const Point& point)
     return false;
 }
 
-Color rtm::reflected_color(const World& world, const Computation& comps, int& remaining)
+Color rtm::reflected_color(const World& world, const Computation& comps, int remaining)
 {
     if(comps.surface->get_material().get_reflective() == 0 || remaining <= 0) // if the remaining value is 0 or less, finish the recursion tree
         return rtm::Color(0, 0, 0);
@@ -123,7 +124,7 @@ Color rtm::reflected_color(const World& world, const Computation& comps, int& re
     return color * comps.surface->get_material().get_reflective();
 }
 
-Color rtm::refracted_color(const World& world, const Computation& comps, int& remaining)
+Color rtm::refracted_color(const World& world, const Computation& comps, int remaining)
 {
     // max recursion depth
     if(remaining == 0)
@@ -141,7 +142,7 @@ Color rtm::refracted_color(const World& world, const Computation& comps, int& re
     
     double cos_t = std::sqrt(1.0 - sin2_t);
     // -comps.eye because the ray direction is inverted in prepare_computations
-    auto direction = comps.normalv * (n_ratio * cos_i - cos_t) + (-comps.eyev) * n_ratio; // direction of refracted ray
+    auto direction = comps.normalv * ((n_ratio * cos_i) - cos_t) - comps.eyev * n_ratio; // direction of refracted ray
     // refracted ray
     auto refracted_ray = Ray(comps.under_point, direction);
     // compute the color
@@ -167,10 +168,9 @@ double rtm::fresnel_schlick(const Computation& comps)
         cos = cos_t;
     } 
 
-    double r0 = (comps.n1 - comps.n2) / (comps.n1 + comps.n2);
-    r0 *= r0;
-    double x = 1.0 - cos;
-    return r0 + (1.0 - r0) * std::pow(x, 5);
+    double r0 = std::pow((comps.n1 - comps.n2) / (comps.n1 + comps.n2), 2);
+    //r0 *= r0;
+    return r0 + (1.0 - r0) * std::pow((1 - cos), 5);
 }
 
 

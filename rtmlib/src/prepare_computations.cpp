@@ -28,7 +28,7 @@ Computation rtm::prepare_computations(const Intersection& i, const Ray& ray, std
     comps.point = position(ray, comps.tvalue);
     comps.eyev = -ray.direction();
     comps.normalv = comps.surface->normal_at(comps.point);
-    
+
     if(dot(comps.normalv, comps.eyev) < 0)
     {
         comps.inside = true;
