@@ -30,7 +30,8 @@ add_library(${PROJECT_NAME}
                 src/gradientPattern.cpp
                 src/ringPattern.cpp
                 src/checkerPattern.cpp
-                src/solidPattern.cpp)
+                src/solidPattern.cpp
+                src/box.cpp)
 
 # Include directories for header files
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include)
