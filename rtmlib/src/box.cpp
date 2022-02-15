@@ -9,28 +9,14 @@
 
 using namespace rtm;
 
-namespace
-{
-    void check_axis(double& tmin, double& tmax, const double& origin, const double& direction)
-    {
-        if(std::abs(direction) < rtm::constants::epsilon)
-        {
-            tmin = (-1 - origin) / std::numeric_limits<double>::infinity();
-            tmax = ( 1 - origin) / std::numeric_limits<double>::infinity();
-        }
-
-        if(tmin > tmax)
-            std::swap(tmin, tmax);
-    }
-}
-
 Box::Box() : Surface()
 {}
 
-std::vector<Intersection> Box::intersects_with(const Ray& ray) const
+std::vector<Intersection> Box::intersects_with(const Ray& r) const
 {
     // Basic cases
     // TODO handle cases when direction is 0
+    Ray ray = r.transform(inverse(this->get_transform()));
 
     double txmin = (-1 - ray.origin().x()) / ray.direction().x();
     double txmax = ( 1 - ray.origin().x()) / ray.direction().x();
