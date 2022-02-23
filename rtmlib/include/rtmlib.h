@@ -29,6 +29,7 @@
 #include "primitives/sphere.h"
 #include "primitives/plane.h"
 #include "primitives/box.h"
+#include "primitives/cylinder.h"
 
 // light
 #include "lighting/light.h"

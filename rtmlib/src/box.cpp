@@ -5,7 +5,6 @@
 #include <vector>
 #include <algorithm>
 #include <cmath>
-#include <limits> // for infinity
 
 using namespace rtm;
 
