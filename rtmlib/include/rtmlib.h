@@ -30,6 +30,7 @@
 #include "primitives/plane.h"
 #include "primitives/box.h"
 #include "primitives/cylinder.h"
+#include "primitives/cone.h"
 
 // light
 #include "lighting/light.h"

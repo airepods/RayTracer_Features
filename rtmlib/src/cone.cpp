@@ -1,4 +1,4 @@
-#include "primitives/cylinder.h"
+#include "primitives/cone.h"
 
 #include <cmath>
 #include <vector>
@@ -11,43 +11,46 @@
 
 using namespace rtm;
 
-Cylinder::Cylinder() : Surface()
+Cone::Cone() : Surface()
 {
     m_minimum = -std::numeric_limits<double>::infinity();
     m_maximum =  std::numeric_limits<double>::infinity();
     m_closed = false;
 }
 
-Cylinder::Cylinder(double minimum, double maximum, bool closed) : Surface()
+Cone::Cone(double minimum, double maximum, bool closed) : Surface()
 {
     m_minimum = minimum;
     m_maximum = maximum;
     m_closed = closed;
 }
 
-std::vector<Intersection> Cylinder::intersects_with(const Ray& r) const
+
+std::vector<Intersection> Cone::intersects_with(const Ray& r) const
 {
     Ray ray = r.transform(inverse(this->get_transform()));
 
     std::vector<Intersection> intersections = {};
 
-    // same logic as ray-sphere intersection but 
-    // this time only consider x and z axis
-    double a = std::pow(ray.direction().x(), 2) + std::pow(ray.direction().z(), 2);
-    // ray is parallel to the y axis
-    if(std::abs(a) <= rtm::constants::epsilon)
-    {   
+    double a = std::pow(ray.direction().x(), 2) - std::pow(ray.direction().y(), 2) + std::pow(ray.direction().z(), 2);
+    double b = 2 * ray.direction().x() * ray.origin().x() -
+               2 * ray.direction().y() * ray.origin().y() +
+               2 * ray.direction().z() * ray.origin().z();
+    double c = std::pow(ray.origin().x(), 2) - std::pow(ray.origin().y(), 2) + std::pow(ray.origin().z(), 2);
+
+    if(a == 0 && b == 0) {return intersections;}
+
+    // ray parallel to one of cone's halves (single intersection in the middle)
+    if(a == 0 && b != 0) 
+    {
+        double t = -c/(2*b);
+        intersections.push_back(Intersection(t, this));
         intersect_caps(ray, intersections);
         return intersections;
-    }
+    } 
 
-    double b = 2 * ray.direction().x() * ray.origin().x() +
-               2 * ray.direction().z() * ray.origin().z();
-    double c = std::pow(ray.origin().x(), 2) + std::pow(ray.origin().z(), 2) - 1; // radius of the cylinder = 1 and center = (0, 0, 0)
-
-    double discriminant = std::pow(b, 2) - 4 * a * c;
-
-    // ray does not intersect the cylinder 
+    double discriminant = std::pow(b, 2) - 4 * a * c;  
+    // if ray does not intersect the cone 
     if (discriminant < 0)
     {
         return intersections;
@@ -70,9 +73,11 @@ std::vector<Intersection> Cylinder::intersects_with(const Ray& r) const
     intersect_caps(ray, intersections);
 
     return intersections;
+
+    return intersections;
 }
 
-Vector Cylinder::normal_at(const Point& world_point) const
+Vector Cone::normal_at(const Point& world_point) const
 {
     // Passing the point in world space to object space
     auto object_point = inverse(m_transform) * world_point;
@@ -92,7 +97,10 @@ Vector Cylinder::normal_at(const Point& world_point) const
         }
         else
         {
-            object_normal = Vector(object_point.x(), 0, object_point.z());
+            double y = std::sqrt(std::pow(object_point.x(), 2) + std::pow(object_point.z(), 2));
+            if (object_point.y() > 0) { y = -y; }
+
+            object_normal = Vector(object_point.x(), y, object_point.z());
         }
     }
 
@@ -105,28 +113,31 @@ Vector Cylinder::normal_at(const Point& world_point) const
     return normalize(world_normal);
 }
 
-void Cylinder::intersect_caps(const Ray& r, std::vector<Intersection>& xs) const
+void Cone::intersect_caps(const Ray& r, std::vector<Intersection>& xs) const
 {
-    // if the cylinder is not closed or the direction in y is close to zero
+    // if the cone is not closed or the direction in y is close to zero
     if(m_closed == false || std::abs(r.direction().y()) <= rtm::constants::epsilon)
         return;
     
     double t;
     // check for an intersection with the lower end cap y = minimum
     t = (m_minimum - r.origin().y()) / r.direction().y();
-    if(check_cap(r, t))
+    if(check_cap(r, t, m_minimum))
         xs.push_back(Intersection(t, this));
     
     // check for an intersection with the upper end cap y = maximum
     t = (m_maximum - r.origin().y()) / r.direction().y();
-    if(check_cap(r, t))
+    if(check_cap(r, t, m_maximum))
         xs.push_back(Intersection(t, this));
 }
 
-bool Cylinder::check_cap(const Ray& r, const double& t) const
+// accept the y coordinate of the plane being tested (the radius is not always 1)
+// the cone has a variable radius as it extends to the infinite (up or down)
+// y_cap -> the y coordinate of the cone's cap (minimum or maximum)
+bool Cone::check_cap(const Ray& r, const double& t, const double& y_cap) const
 {
     double x = r.origin().x() + t * r.direction().x();
     double z = r.origin().z() + t * r.direction().z();
 
-    return (x*x + z*z) <= 1;
+    return (x*x + z*z) <= std::abs(y_cap); // a cone’s radius at any given y will be the absolute value of that y.
 }
