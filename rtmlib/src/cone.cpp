@@ -73,8 +73,6 @@ std::vector<Intersection> Cone::intersects_with(const Ray& r) const
     intersect_caps(ray, intersections);
 
     return intersections;
-
-    return intersections;
 }
 
 Vector Cone::normal_at(const Point& world_point) const
@@ -98,7 +96,7 @@ Vector Cone::normal_at(const Point& world_point) const
         else
         {
             double y = std::sqrt(std::pow(object_point.x(), 2) + std::pow(object_point.z(), 2));
-            if (object_point.y() > 0) { y = -y; }
+            if (object_point.y() > 0) { y *= -1; }
 
             object_normal = Vector(object_point.x(), y, object_point.z());
         }
@@ -139,5 +137,5 @@ bool Cone::check_cap(const Ray& r, const double& t, const double& y_cap) const
     double x = r.origin().x() + t * r.direction().x();
     double z = r.origin().z() + t * r.direction().z();
 
-    return (x*x + z*z) <= std::abs(y_cap); // a cone’s radius at any given y will be the absolute value of that y.
+    return (std::pow(x, 2) + std::pow(z, 2)) <= std::abs(y_cap); // a cone’s radius at any given y will be the absolute value of that y.
 }
