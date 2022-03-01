@@ -33,7 +33,8 @@ add_library(${PROJECT_NAME}
                 src/solidPattern.cpp
                 src/box.cpp
                 src/cylinder.cpp
-                src/cone.cpp)
+                src/cone.cpp
+                src/group.cpp)
 
 # Include directories for header files
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include)

@@ -11,12 +11,8 @@ using namespace rtm;
 Box::Box() : Surface()
 {}
 
-std::vector<Intersection> Box::intersects_with(const Ray& r) const
+std::vector<Intersection> Box::local_intersect(const Ray& ray) const
 {
-    // Basic cases
-    // TODO handle cases when direction is 0
-    Ray ray = r.transform(inverse(this->get_transform()));
-
     double txmin = (-1 - ray.origin().x()) / ray.direction().x();
     double txmax = ( 1 - ray.origin().x()) / ray.direction().x();
 
@@ -43,6 +39,13 @@ std::vector<Intersection> Box::intersects_with(const Ray& r) const
 
     std::vector<Intersection> intersections = {Intersection(tmin, this), Intersection(tmax, this)};
     return intersections;
+}
+
+std::vector<Intersection> Box::intersects_with(const Ray& r) const
+{
+    Ray ray = r.transform(inverse(this->get_transform()));
+    
+    return local_intersect(ray);
 }
 
 Vector Box::normal_at(const Point& world_point) const

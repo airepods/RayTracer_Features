@@ -16,6 +16,8 @@ class Surface
     protected:
         Matrix m_transform;
         Material m_material;
+        Surface* m_parent;
+        virtual std::vector<Intersection> local_intersect(const Ray&) const = 0;
     public:
         Surface();
         Surface(const Surface& s);
@@ -29,6 +31,10 @@ class Surface
 
         inline Material get_material() const {return m_material;}
         inline void set_material(const Material& material) {m_material = material;}
+
+        inline bool has_parent() const {return m_parent != nullptr;}
+        inline void set_parent(Surface* surface) {m_parent = surface;} 
+        inline Surface* get_parent() const {return m_parent;} 
         
         bool compare(const Surface* s) const;
 };

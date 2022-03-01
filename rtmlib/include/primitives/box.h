@@ -8,7 +8,9 @@
 namespace rtm
 {
 class Box : public Surface
-{
+{    
+    protected:
+        std::vector<Intersection> local_intersect(const Ray&) const override;
     public:
         Box();
         std::vector<Intersection> intersects_with(const Ray&) const override;

@@ -13,6 +13,8 @@ class Cone : public Surface
         double m_minimum;
         double m_maximum;
         bool m_closed;
+    protected:
+        std::vector<Intersection> local_intersect(const Ray&) const override;
     public:
         Cone();
         Cone(double minimum, double maximum, bool closed = false);

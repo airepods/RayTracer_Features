@@ -10,6 +10,8 @@ namespace rtm
 {
 class Sphere : public Surface
 {
+    protected:
+        std::vector<Intersection> local_intersect(const Ray&) const override;
     public:
         Sphere();
         std::vector<Intersection> intersects_with(const Ray&) const override;

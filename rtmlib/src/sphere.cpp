@@ -10,16 +10,12 @@ using namespace rtm;
 Sphere::Sphere() : Surface()
 {}
 
-std::vector<Intersection> Sphere::intersects_with(const Ray& r) const
+std::vector<Intersection> Sphere::local_intersect(const Ray& ray) const
 {
-    // Here I am transforming the ray
-    // Transform the ray by the inverse of the sphere's transformation matrix 
-    Ray ray2 = r.transform(inverse(this->get_transform()));
-    
-    Vector sphere_to_ray = ray2.origin() - Point(0, 0, 0);
+    Vector sphere_to_ray = ray.origin() - Point(0, 0, 0);
 
-    double a = dot(ray2.direction(), ray2.direction());
-    double b = 2 * dot(ray2.direction(), sphere_to_ray);
+    double a = dot(ray.direction(), ray.direction());
+    double b = 2 * dot(ray.direction(), sphere_to_ray);
     double c = dot(sphere_to_ray, sphere_to_ray) - 1;
 
     double discriminant = std::pow(b, 2) - 4 * a * c;
@@ -36,6 +32,15 @@ std::vector<Intersection> Sphere::intersects_with(const Ray& r) const
     std::vector<Intersection> intersections = {Intersection(t1, this), Intersection(t2, this)};
 
     return intersections;
+}
+
+std::vector<Intersection> Sphere::intersects_with(const Ray& r) const
+{
+    // Here I am transforming the ray
+    // Transform the ray by the inverse of the sphere's transformation matrix 
+    Ray ray2 = r.transform(inverse(this->get_transform()));
+    
+    return local_intersect(ray2);
 }
 
 Vector Sphere::normal_at(const Point& world_point) const

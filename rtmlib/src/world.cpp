@@ -51,9 +51,9 @@ std::vector<Intersection> World::intersects_with(const Ray& r) const
 {
     std::vector<Intersection> intersections;
 
-    for(auto surface : m_surfaces)
+    for(const auto& surface : m_surfaces)
     {
-        for(auto i : surface->intersects_with(r))
+        for(const auto& i : surface->intersects_with(r))
         {
             intersections.push_back(i);
         }

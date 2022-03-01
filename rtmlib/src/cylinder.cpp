@@ -25,10 +25,8 @@ Cylinder::Cylinder(double minimum, double maximum, bool closed) : Surface()
     m_closed = closed;
 }
 
-std::vector<Intersection> Cylinder::intersects_with(const Ray& r) const
+std::vector<Intersection> Cylinder::local_intersect(const Ray& ray) const
 {
-    Ray ray = r.transform(inverse(this->get_transform()));
-
     std::vector<Intersection> intersections = {};
 
     // same logic as ray-sphere intersection but 
@@ -70,6 +68,13 @@ std::vector<Intersection> Cylinder::intersects_with(const Ray& r) const
     intersect_caps(ray, intersections);
 
     return intersections;
+}
+
+std::vector<Intersection> Cylinder::intersects_with(const Ray& r) const
+{
+    Ray ray = r.transform(inverse(this->get_transform()));
+
+    return local_intersect(ray);
 }
 
 Vector Cylinder::normal_at(const Point& world_point) const

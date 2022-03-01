@@ -13,6 +13,8 @@ class Cylinder : public Surface
         double m_minimum; // y coordinate
         double m_maximum; // y coordinate
         bool m_closed;
+    protected:
+        std::vector<Intersection> local_intersect(const Ray&) const override;
     public:
         Cylinder();
         Cylinder(double minimum, double maximum, bool closed = false);

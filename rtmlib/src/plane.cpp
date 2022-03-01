@@ -10,9 +10,8 @@ using namespace rtm;
 Plane::Plane() : Surface()
 {}
 
-std::vector<Intersection> Plane::intersects_with(const Ray& r) const
+std::vector<Intersection> Plane::local_intersect(const Ray& ray) const
 {
-    Ray ray = r.transform(inverse(this->get_transform()));
     if(std::abs(ray.direction().y()) < rtm::constants::epsilon)
     {
         std::vector<Intersection> e;
@@ -22,7 +21,15 @@ std::vector<Intersection> Plane::intersects_with(const Ray& r) const
     double t = -ray.origin().y()/ray.direction().y();
 
     std::vector<Intersection> intersections = {Intersection(t, this)};
+
     return intersections;
+}
+
+std::vector<Intersection> Plane::intersects_with(const Ray& r) const
+{
+    Ray ray = r.transform(inverse(this->get_transform()));
+
+    return local_intersect(ray);
 }
 
 

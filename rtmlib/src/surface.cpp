@@ -5,6 +5,7 @@ using namespace rtm;
 Surface::Surface() : m_transform{Matrix(4, 4)}, m_material(Material())
 {
     m_transform.set_identity();
+    m_parent = nullptr;
 }
 
 Surface::Surface(const Surface& s)

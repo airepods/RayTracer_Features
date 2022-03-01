@@ -26,10 +26,8 @@ Cone::Cone(double minimum, double maximum, bool closed) : Surface()
 }
 
 
-std::vector<Intersection> Cone::intersects_with(const Ray& r) const
+std::vector<Intersection> Cone::local_intersect(const Ray& ray) const
 {
-    Ray ray = r.transform(inverse(this->get_transform()));
-
     std::vector<Intersection> intersections = {};
 
     double a = std::pow(ray.direction().x(), 2) - std::pow(ray.direction().y(), 2) + std::pow(ray.direction().z(), 2);
@@ -73,6 +71,13 @@ std::vector<Intersection> Cone::intersects_with(const Ray& r) const
     intersect_caps(ray, intersections);
 
     return intersections;
+}
+
+std::vector<Intersection> Cone::intersects_with(const Ray& r) const
+{
+    Ray ray = r.transform(inverse(this->get_transform()));
+
+    return local_intersect(ray);
 }
 
 Vector Cone::normal_at(const Point& world_point) const
