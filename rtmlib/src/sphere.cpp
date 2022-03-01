@@ -46,14 +46,26 @@ std::vector<Intersection> Sphere::intersects_with(const Ray& r) const
 Vector Sphere::normal_at(const Point& world_point) const
 {
     // Passing the point in world space to object space
-    auto object_point = inverse(m_transform) * world_point;
+    auto object_point = world_to_object(world_point);
     // Getting the normal vector in object space
     auto object_normal = object_point - rtm::Point(0, 0, 0);
-    // Taking the normal vector in object space and pass it to world space
-    auto world_normal = (inverse(m_transform)).transpose() * object_normal;
-    // Set the w component to 0 because I am considering the translation component
-    // of the transformation matrix and because of that, the w might change. 
-    world_normal.set_w(0);
-
-    return normalize(world_normal);
+    // Taking the normal from object to world space
+    auto world_normal = normal_to_world(object_normal);
+     
+    return world_normal;
 }
+
+// Vector Sphere::normal_at(const Point& world_point) const
+// {
+//     // Passing the point in world space to object space
+//     auto object_point = inverse(m_transform) * world_point;
+//     // Getting the normal vector in object space
+//     auto object_normal = object_point - rtm::Point(0, 0, 0);
+//     // Taking the normal vector in object space and pass it to world space
+//     auto world_normal = (inverse(m_transform)).transpose() * object_normal;
+//     // Set the w component to 0 because I am considering the translation component
+//     // of the transformation matrix and because of that, the w might change. 
+//     world_normal.set_w(0);
+
+//     return normalize(world_normal);
+// }

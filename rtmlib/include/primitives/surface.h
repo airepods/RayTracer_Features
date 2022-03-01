@@ -37,6 +37,9 @@ class Surface
         inline Surface* get_parent() const {return m_parent;} 
         
         bool compare(const Surface* s) const;
+
+        Point world_to_object(const Point& p) const;
+        Vector normal_to_world(const Vector& normal_vector) const;
 };
 } // namespace rtm
 

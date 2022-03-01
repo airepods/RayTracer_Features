@@ -35,7 +35,7 @@ std::vector<Intersection> Group::intersects_with(const Ray& r) const
 
 Vector Group::normal_at(const Point& world_point) const
 {
-    return Vector(1, 1, 1);
+    throw Group::calling_normal_on_group();
 }
 
 void Group::add_child(Surface* shape)

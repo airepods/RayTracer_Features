@@ -27,13 +27,16 @@ World::World()
     m_surfaces = {s1, s2};
 }
 
-World::World(const PointLight& light, const std::vector<Surface*>& surfaces) : m_light(light), m_surfaces(surfaces), default_flag(false)
-{}
+World::World(const PointLight& light, const std::vector<Surface*>& surfaces, bool ptr_delete) : m_light(light), m_surfaces(surfaces), default_flag(false)
+{
+    if(ptr_delete)
+        m_ptr_delete = true;
+}
 
 World::~World()
 {
     // if default flag is active (true)
-    if(default_flag)
+    if(default_flag || m_ptr_delete)
     {
         for(auto p : m_surfaces)
         {
