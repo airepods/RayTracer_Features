@@ -17,6 +17,7 @@ class Surface
         Matrix m_transform;
         Material m_material;
         Surface* m_parent;
+        std::vector<Surface*> m_children;
         virtual std::vector<Intersection> local_intersect(const Ray&) const = 0;
     public:
         Surface();

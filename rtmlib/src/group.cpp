@@ -6,9 +6,7 @@
 using namespace rtm;
 
 Group::Group() : Surface()
-{
-    m_children = {};
-}
+{}
 
 std::vector<Intersection> Group::local_intersect(const Ray& ray) const
 {

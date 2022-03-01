@@ -10,8 +10,6 @@ namespace rtm
 {
 class Group : public Surface
 {
-    private:
-        std::vector<Surface*> m_children;
     protected:
         std::vector<Intersection> local_intersect(const Ray&) const override;
     public:

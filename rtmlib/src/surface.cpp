@@ -6,12 +6,14 @@ Surface::Surface() : m_transform{Matrix(4, 4)}, m_material(Material())
 {
     m_transform.set_identity();
     m_parent = nullptr;
+    m_children = {};
 }
 
 Surface::Surface(const Surface& s)
 {
     m_material = s.m_material;
     m_transform = s.m_transform;
+    m_children = s.m_children;
 }
 
 bool Surface::compare(const Surface* s) const
