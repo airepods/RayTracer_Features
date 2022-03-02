@@ -38,10 +38,7 @@ Vector Plane::normal_at(const Point& world_point) const
     // Getting the normal vector in object space
     auto object_normal = Vector(0, 1, 0);
     // Taking the normal vector in object space and pass it to world space
-    auto world_normal = (inverse(m_transform)).transpose() * object_normal;
-    // Set the w component to 0 because I am considering the translation component
-    // of the transformation matrix and because of that, the w might change. 
-    world_normal.set_w(0);
-
-    return normalize(world_normal);
+    auto world_normal = normal_to_world(object_normal);
+     
+    return world_normal;
 }

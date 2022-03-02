@@ -14,6 +14,31 @@ Surface::Surface(const Surface& s)
     m_material = s.m_material;
     m_transform = s.m_transform;
     m_children = s.m_children;
+    m_parent = s.m_parent;
+}
+
+Surface& Surface::operator= (const Surface& s)
+{
+    m_material = s.m_material;
+    m_transform = s.m_transform;
+    m_parent = s.m_parent;
+
+    // make children point to new parent (only upper children in the tree)
+    if(s.m_children.empty())
+    {
+        m_children = s.m_children;
+    }
+    else
+    {
+        for (auto &&child : s.m_children)
+        {
+            // points to the new parent
+            child->m_parent = this;
+            m_children.push_back(child);
+        }
+    }
+
+    return *this;
 }
 
 bool Surface::compare(const Surface* s) const
@@ -32,7 +57,7 @@ Point Surface::world_to_object(const Point& p) const
     if(this->has_parent())
     {
         // convert the point first from world space to parent space
-        point = this->get_parent()->world_to_object(point);
+        point = m_parent->world_to_object(point);
     }
 
     return inverse(m_transform) * point;

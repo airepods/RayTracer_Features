@@ -22,6 +22,7 @@ class Surface
     public:
         Surface();
         Surface(const Surface& s);
+        Surface& operator= (const Surface&);
         
         virtual std::string type_to_str() const = 0;
         virtual Vector normal_at(const Point& world_point) const = 0;
