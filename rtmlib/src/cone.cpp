@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <limits> // for infinity
 
-#include <iostream>
+//#include <iostream>
 
 #include "mat_constants/math_constants.h"
 
@@ -23,6 +23,30 @@ Cone::Cone(double minimum, double maximum, bool closed) : Surface()
     m_minimum = minimum;
     m_maximum = maximum;
     m_closed = closed;
+}
+
+Cone::Cone(const Cone& s) : Surface(s)
+{
+    m_minimum = s.m_minimum;
+    m_maximum = s.m_maximum;
+    m_closed = s.m_closed;
+}
+
+Cone& Cone::operator= (const Cone& s)
+{
+    // Cone class attribbutes
+    m_minimum = s.m_minimum;
+    m_maximum = s.m_maximum;
+    m_closed = s.m_closed;
+
+    // Surface base class attributes
+    Surface::operator=(s);
+    return *this;
+}
+
+Cone::~Cone()
+{
+    //std::cout<<"Cone destructor"<<"\n";
 }
 
 
@@ -82,8 +106,9 @@ std::vector<Intersection> Cone::intersects_with(const Ray& r) const
 
 Vector Cone::normal_at(const Point& world_point) const
 {
+    auto w_point = world_point;
     // Passing the point in world space to object space
-    auto object_point = world_to_object(world_point);
+    auto object_point = world_to_object(w_point);
 
     // Getting the normal vector in object space (local normal)
     Vector object_normal;

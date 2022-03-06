@@ -6,10 +6,17 @@
 #include <algorithm>
 #include <cmath>
 
+//#include <iostream>
+
 using namespace rtm;
 
 Box::Box() : Surface()
 {}
+
+Box::~Box()
+{
+    //std::cout<<"Box destructor"<<"\n";
+}
 
 std::vector<Intersection> Box::local_intersect(const Ray& ray) const
 {
@@ -50,8 +57,9 @@ std::vector<Intersection> Box::intersects_with(const Ray& r) const
 
 Vector Box::normal_at(const Point& world_point) const
 {
+    auto w_point = world_point;
     // Passing the point in world space to object space
-    auto object_point = world_to_object(world_point);
+    auto object_point = world_to_object(w_point);
     
     // Getting the normal vector in object space (local normal)
     double maxc = std::max({std::abs(object_point.x()), std::abs(object_point.y()), std::abs(object_point.z())});

@@ -28,7 +28,8 @@ Pattern::Pattern(Pattern* a, Pattern* b) : m_transform{Matrix(4, 4)}, m_pattern_
 
 Color Pattern::pattern_at_object(const Surface* object, const Point& point) const
 {
-    auto object_point = object->world_to_object(point);
+    auto w_point = point;
+    auto object_point = object->world_to_object(w_point);
     auto pattern_point = inverse(m_transform) * object_point;
 
     return pattern_at(pattern_point);

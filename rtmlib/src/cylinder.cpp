@@ -1,11 +1,11 @@
 #include "primitives/cylinder.h"
 
+//#include <iostream>
+
 #include <cmath>
 #include <vector>
 #include <algorithm>
 #include <limits> // for infinity
-
-#include <iostream>
 
 #include "mat_constants/math_constants.h"
 
@@ -23,6 +23,30 @@ Cylinder::Cylinder(double minimum, double maximum, bool closed) : Surface()
     m_minimum = minimum;
     m_maximum = maximum;
     m_closed = closed;
+}
+
+Cylinder::Cylinder(const Cylinder& s) : Surface(s)
+{
+    m_minimum = s.m_minimum;
+    m_maximum = s.m_maximum;
+    m_closed = s.m_closed;
+}
+
+Cylinder& Cylinder::operator= (const Cylinder& s)
+{
+    // Cylinder class attribbutes
+    m_minimum = s.m_minimum;
+    m_maximum = s.m_maximum;
+    m_closed = s.m_closed;
+
+    // Surface base class attributes
+    Surface::operator=(s);
+    return *this;
+}
+
+Cylinder::~Cylinder()
+{
+    //std::cout<<"Cylinder destructor"<<"\n";
 }
 
 std::vector<Intersection> Cylinder::local_intersect(const Ray& ray) const
@@ -79,8 +103,9 @@ std::vector<Intersection> Cylinder::intersects_with(const Ray& r) const
 
 Vector Cylinder::normal_at(const Point& world_point) const
 {
+    auto w_point = world_point;
     // Passing the point in world space to object space
-    auto object_point = world_to_object(world_point);
+    auto object_point = world_to_object(w_point);
 
     // Getting the normal vector in object space (local normal)
     Vector object_normal;

@@ -3,7 +3,7 @@
 #include <cmath>
 #include <vector>
 
-#include <iostream>
+//#include <iostream>
 
 using namespace rtm;
 
@@ -34,6 +34,11 @@ std::vector<Intersection> Sphere::local_intersect(const Ray& ray) const
     return intersections;
 }
 
+Sphere::~Sphere()
+{
+    //std::cout<<"Sphere destructor"<<"\n";
+}
+
 std::vector<Intersection> Sphere::intersects_with(const Ray& r) const
 {
     // Here I am transforming the ray
@@ -45,8 +50,9 @@ std::vector<Intersection> Sphere::intersects_with(const Ray& r) const
 
 Vector Sphere::normal_at(const Point& world_point) const
 {
+    auto w_point = world_point;
     // Passing the point in world space to object space
-    auto object_point = world_to_object(world_point);
+    auto object_point = world_to_object(w_point);
     // Getting the normal vector in object space
     auto object_normal = object_point - rtm::Point(0, 0, 0);
     // Taking the normal from object to world space

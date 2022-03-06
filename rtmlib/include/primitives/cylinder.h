@@ -15,9 +15,14 @@ class Cylinder : public Surface
         bool m_closed;
     protected:
         std::vector<Intersection> local_intersect(const Ray&) const override;
+        inline virtual Cylinder* clone_impl() const override { return new Cylinder(*this); }
     public:
         Cylinder();
         Cylinder(double minimum, double maximum, bool closed = false);
+        Cylinder(const Cylinder& s);
+        Cylinder& operator= (const Cylinder& s);
+        ~Cylinder();
+        
         std::vector<Intersection> intersects_with(const Ray&) const override;
         Vector normal_at(const Point& world_point) const override;
 

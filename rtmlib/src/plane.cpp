@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include <iostream>
+//#include <iostream>
 
 using namespace rtm;
 
@@ -23,6 +23,11 @@ std::vector<Intersection> Plane::local_intersect(const Ray& ray) const
     std::vector<Intersection> intersections = {Intersection(t, this)};
 
     return intersections;
+}
+
+Plane::~Plane()
+{
+    //std::cout<<"Plane destructor"<<"\n";
 }
 
 std::vector<Intersection> Plane::intersects_with(const Ray& r) const

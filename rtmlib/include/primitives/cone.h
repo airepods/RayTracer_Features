@@ -15,9 +15,14 @@ class Cone : public Surface
         bool m_closed;
     protected:
         std::vector<Intersection> local_intersect(const Ray&) const override;
+        inline virtual Cone* clone_impl() const override { return new Cone(*this); }
     public:
         Cone();
         Cone(double minimum, double maximum, bool closed = false);
+        Cone(const Cone& s);
+        Cone& operator= (const Cone& s);
+        ~Cone();
+
         std::vector<Intersection> intersects_with(const Ray&) const override;
         Vector normal_at(const Point& world_point) const override;
 
