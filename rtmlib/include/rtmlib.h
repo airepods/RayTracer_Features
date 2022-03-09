@@ -32,6 +32,7 @@
 #include "primitives/cylinder.h"
 #include "primitives/cone.h"
 #include "primitives/group.h"
+#include "primitives/triangle.h"
 
 // light
 #include "lighting/light.h"

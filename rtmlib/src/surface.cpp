@@ -1,5 +1,5 @@
 #include "primitives/surface.h"
-#include <iostream>
+//#include <iostream>
 #include <utility>
 
 using namespace rtm;
@@ -31,7 +31,7 @@ Surface& Surface::operator= (const Surface& s)
 
 Surface::~Surface()
 {
-    std::cout<<"Surface destructor"<<"\n";
+    //std::cout<<"Surface destructor"<<"\n";
 }
 
 bool Surface::compare(const Surface* s) const
