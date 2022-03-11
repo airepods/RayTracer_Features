@@ -1,10 +1,9 @@
 #include "parser/parser.h"
 
-#include "primitives/triangle.h" 
-
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <iterator>
 
 using namespace rtm;
 
@@ -18,11 +17,9 @@ Parser::Parser(const std::string& obj_filename)
     {
         std::string line;
         char command;
-        int index;
         double x, y, z;
+        int id1, id2, id3;
         
-        std::vector<int> indices = {}; 
-        std::vector<Point> points = {};
         Triangle t;
 
         while(std::getline(infile, line))
@@ -40,20 +37,23 @@ Parser::Parser(const std::string& obj_filename)
                 break;
             
             case 'f':
-                indices.clear(); 
-                while(iss >> index)
-                {   
-                    indices.push_back(index-1);
-                }
-
-                points.clear();
-                for (auto &&i : indices)
+                // count
+                if(countWordsInString(line) > 4)
                 {
-                    points.push_back(vertices.at(i));
+                    // it's a polygon, starts triangulation 
+                    for (auto &&triangle : fan_triangulation())
+                    {
+                        default_group.add_child(triangle);    
+                    }
+                    
                 }
-                
-                t = Triangle(points.at(0), points.at(1), points.at(2));
-                default_group.add_child(t);
+                else
+                {
+                    // read three vertices
+                    iss >> id1 >> id2 >> id3;
+                    t = Triangle(vertices.at(id1-1), vertices.at(id2-1), vertices.at(id3-1));
+                    default_group.add_child(t);
+                }
                 break;
             
             default:
@@ -66,4 +66,15 @@ Parser::Parser(const std::string& obj_filename)
     {
         std::cout<<"File cannot be opened"<<"\n";
     }
+}
+
+std::vector<Triangle> Parser::fan_triangulation()
+{
+    std::vector<Triangle> triangles = {};
+    for(int i = 1; i < vertices.size() - 1; ++i)
+    {
+        Triangle t(vertices.at(0), vertices.at(i), vertices.at(i+1));
+        triangles.push_back(t);
+    }
+    return triangles;
 }

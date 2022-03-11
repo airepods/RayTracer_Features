@@ -11,6 +11,7 @@ std::string ftos(const float& f, const int& nd);
 std::string dtos(const double& f, const int& nd);
 float to_radians(const float& degrees);
 void* empty_array();
+unsigned int countWordsInString(const std::string& str);
 
 // inline double PI() {return 3.14159265;}
 // inline float EPSILON() 

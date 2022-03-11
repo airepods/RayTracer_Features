@@ -2,9 +2,11 @@
 
 #include "util/utils.h"
 #include "mat_constants/math_constants.h"
+
 #include <string>
-#include <sstream>
 #include <cmath>
+#include <sstream>
+#include <iterator>
 
 using namespace std;
 using namespace rtm;
@@ -46,4 +48,11 @@ float rtm::to_radians(const float& degrees)
 void* rtm::empty_array()
 {
     return nullptr;
+}
+
+// Count words in string
+unsigned int rtm::countWordsInString(const std::string& str)
+{
+    std::stringstream stream(str);
+    return std::distance(std::istream_iterator<std::string>(stream), std::istream_iterator<std::string>());
 }
