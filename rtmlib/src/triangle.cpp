@@ -7,6 +7,9 @@
 
 using namespace rtm;
 
+Triangle::Triangle() : Surface()
+{}
+
 Triangle::Triangle(const Point& p1, const Point& p2, const Point& p3) : Surface()
 {
     m_p1 = p1;

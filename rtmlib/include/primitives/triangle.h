@@ -20,6 +20,7 @@ class Triangle : public Surface
         std::vector<Intersection> local_intersect(const Ray&) const override;
         inline virtual Triangle* clone_impl() const override { return new Triangle(*this); }
     public:
+        Triangle();
         Triangle(const Point& p1, const Point& p2, const Point& p3);
         Triangle(const Triangle& s);
         Triangle& operator= (const Triangle& s);

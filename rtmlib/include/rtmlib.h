@@ -58,6 +58,8 @@
 #include "patterns/checkerPattern.h"
 #include "patterns/solidPattern.h"
 
+// parser OBJ file
+#include "parser/parser.h"
 
 // utility
 #include "util/utils.h"
