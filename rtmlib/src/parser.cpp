@@ -19,11 +19,14 @@ Parser::Parser(const std::string& obj_filename)
         char command;
         double x, y, z;
         int id1, id2, id3;
+        std::string group_name;
         
         Triangle t;
 
         while(std::getline(infile, line))
         {
+            auto g = Group();
+
             if(line.size() == 1) { continue; }
 
             std::stringstream iss(line);
@@ -52,8 +55,23 @@ Parser::Parser(const std::string& obj_filename)
                     // read three vertices
                     iss >> id1 >> id2 >> id3;
                     t = Triangle(vertices.at(id1-1), vertices.at(id2-1), vertices.at(id3-1));
-                    default_group.add_child(t);
+                    
+                    // if there is no group
+                    if(group_name.empty())
+                    {
+                        default_group.add_child(t); 
+                    }
+                    else
+                    {   
+                        g.add_child(t);
+                        default_group.add_child(g);
+                    }
+                        
                 }
+                break;
+            
+            case 'g':
+                iss >> group_name;
                 break;
             
             default:

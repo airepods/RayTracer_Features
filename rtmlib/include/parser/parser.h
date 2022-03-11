@@ -13,9 +13,10 @@ class Parser
 { 
     public:
         std::vector<Point> vertices;
-        Group default_group;
         Parser(const std::string& obj_filename);
+        inline Group obj_to_group() {return default_group;}
     private:
+        Group default_group;
         std::vector<Triangle> fan_triangulation();
 };
 };
