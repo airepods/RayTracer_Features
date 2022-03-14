@@ -87,7 +87,7 @@ std::vector<Intersection> Triangle::local_intersect(const Ray& ray) const
 
 std::vector<Intersection> Triangle::intersects_with(const Ray& r) const
 {
-    Ray ray = r.transform(inverse(this->get_transform()));
+    Ray ray = r.transform(inv_transform);
 
     return local_intersect(ray);
 }
@@ -101,4 +101,9 @@ Vector Triangle::normal_at(const Point& world_point) const
     auto world_normal = normal_to_world(object_normal);
      
     return world_normal;
+}
+
+void Triangle::set_invTransform()
+{
+    inv_transform = inverse(m_transform);
 }

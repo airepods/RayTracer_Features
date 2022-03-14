@@ -40,9 +40,16 @@ Ray Camera::ray_for_pixel(const int& px, const int& py) const // px and py are i
 
     // using the camera matrix, transform the canvas point and the origin,
     // and then compute the ray's direction vector. (canvas is at z=-1)
-    Point pixel = inverse(m_transform) * Point(world_x, world_y, -1);
-    Point origin = inverse(m_transform) * Point(0, 0, 0);
+    Point pixel = inv_transform * Point(world_x, world_y, -1);
+    Point origin = inv_transform * Point(0, 0, 0);
     auto direction = normalize(pixel - origin);
 
     return Ray(origin, direction);
+}
+
+void Camera::set_transform(const Matrix& transform)
+{
+    m_transform = transform;
+    // precompute the inverse
+    inv_transform = inverse(m_transform);
 }

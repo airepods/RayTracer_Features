@@ -66,3 +66,12 @@ std::vector<Intersection> World::intersects_with(const Ray& r) const
     return intersections;
 }
 
+void World::precompute_inverse() const
+{
+    for(auto& surface : m_surfaces)
+    {
+        surface->set_invTransform();
+    }
+    
+}
+

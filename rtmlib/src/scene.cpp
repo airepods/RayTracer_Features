@@ -25,6 +25,9 @@ Canvas Scene::Render(const Camera& camera, const World& world)
     std::cout<<"Rendering..."<<"\n";
     progressbar bar(camera.get_vsize()-1);
 
+    // precompute the inverse transformation of every surface
+    world.precompute_inverse();
+
     // hsize and vsize are expressed in pixels (canvas space)
     for(int y=0; y<camera.get_vsize()-1; ++y)
     {

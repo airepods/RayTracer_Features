@@ -29,6 +29,8 @@ class Triangle : public Surface
         std::vector<Intersection> intersects_with(const Ray&) const override;
         Vector normal_at(const Point& world_point) const override;
 
+        void set_invTransform() override;
+
         inline std::string type_to_str() const override {return "Triangle";}
 };
 } // namespace rtm

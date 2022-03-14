@@ -65,3 +65,13 @@ Vector Group::normal_at(const Point& world_point) const
 {
     throw Group::calling_normal_on_group();
 }
+
+void Group::set_invTransform()
+{
+    inv_transform = inverse(m_transform);
+    for (auto &surface : m_children)
+    {
+        surface.get()->set_invTransform();
+    }
+    
+}

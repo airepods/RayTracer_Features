@@ -19,6 +19,7 @@ class Surface
         Material m_material;
         Surface* m_parent;
         bool m_is_group;
+        Matrix inv_transform;
     protected:
         virtual std::vector<Intersection> local_intersect(const Ray&) const = 0;
         virtual Surface* clone_impl() const = 0;
@@ -35,7 +36,9 @@ class Surface
         virtual std::vector<Intersection> intersects_with(const Ray&) const = 0;
 
         inline Matrix get_transform() const {return m_transform;}
-        inline void set_transform(const Matrix& transformation) {m_transform = transformation;};
+        inline void set_transform(const Matrix& transformation) {m_transform = transformation;}
+
+        virtual void set_invTransform() {inv_transform = inverse(m_transform);}
 
         inline Material get_material() const {return m_material;}
         inline void set_material(const Material& material) {m_material = material;}

@@ -25,6 +25,9 @@ Matrix::Matrix(const int& row, const int& column) : m_row(row), m_column(column)
             matrix[i][j] = 0.0f;
         }
     }
+    
+    //std::cout<<"matrix created"<<std::endl;
+
 }
 
 // Construct a Matrix providing a built-in array of arrays (built-in matrix) and
@@ -54,6 +57,9 @@ Matrix::Matrix(const int& row, const int& column, double* mat) : m_row(row), m_c
             matrix[i][j] = *(mat + i*m_column + j);
         }
     }
+
+    //std::cout<<"matrix created"<<std::endl;
+
 
 }
 
@@ -98,6 +104,9 @@ Matrix::Matrix(const Matrix& m)
             matrix[i][j] = m.matrix[i][j];
         }
     }
+
+    //std::cout<<"matrix copied"<<std::endl;
+
 }
 
 // Copy assignment operator
@@ -126,6 +135,9 @@ Matrix& Matrix::operator= (const Matrix& m)
             matrix[i][j] = m.matrix[i][j];
         }
     }
+
+    //std::cout<<"matrix copied"<<std::endl;
+
 
     return *this;
 }

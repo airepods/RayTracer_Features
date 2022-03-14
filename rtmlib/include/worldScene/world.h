@@ -23,6 +23,7 @@ class World
         ~World();
 
         std::vector<Intersection> intersects_with(const Ray& r) const;
+        void precompute_inverse() const;
 
         //getters
         inline PointLight get_pointLight() const {return m_light;}
@@ -30,6 +31,7 @@ class World
 
         //setters
         inline void set_light(const PointLight& light) {m_light = light;}
+        
 };
 } // namespace rtm
 

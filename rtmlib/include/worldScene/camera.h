@@ -15,6 +15,7 @@ class Camera
         double pixel_size;   // world-space units
         double m_field_of_view;
         Matrix m_transform;
+        Matrix inv_transform;
     public:
         Camera();
         Camera(const int& hsize, const int& vsize, const double& field_of_view);
@@ -26,7 +27,7 @@ class Camera
         inline int get_vsize() const {return m_vsize;}
         inline Matrix get_transform() const {return m_transform;}
 
-        inline void set_transform(const Matrix& transform) {m_transform = transform;}
+        void set_transform(const Matrix& transform);
 
 
 };
