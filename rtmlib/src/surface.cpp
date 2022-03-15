@@ -52,13 +52,13 @@ Point Surface::world_to_object(Point& p) const
         p = m_parent->world_to_object(p);
     }
 
-    return inverse(m_transform) * p;
+    return inv_transform * p;
 }
 
 // converts normal from object to world space
 Vector Surface::normal_to_world(Vector& normal) const
 {
-    normal = (inverse(m_transform)).transpose() * normal;
+    normal = (inv_transform).transpose() * normal;
     normal.set_w(0);
     normal = normalize(normal);
 

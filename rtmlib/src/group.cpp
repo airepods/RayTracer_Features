@@ -56,7 +56,7 @@ std::vector<Intersection> Group::local_intersect(const Ray& ray) const
 
 std::vector<Intersection> Group::intersects_with(const Ray& r) const
 {
-    Ray ray = r.transform(inverse(m_transform));
+    Ray ray = r.transform(inv_transform);
 
     return local_intersect(ray);
 }
