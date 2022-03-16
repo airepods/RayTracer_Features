@@ -21,7 +21,7 @@ bool rtm::hit(std::vector<Intersection*>& record, Intersection& intersection_oup
 
 bool rtm::hit(std::vector<Intersection>& record, Intersection& intersection_ouput)
 {
-    std::sort(record.begin(), record.end(), [](Intersection a, Intersection b){return a < b;});
+    //std::sort(record.begin(), record.end(), [](Intersection a, Intersection b){return a < b;});
 
     for (auto&& current_intersection : record)
     {
