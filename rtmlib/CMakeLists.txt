@@ -36,7 +36,8 @@ add_library(${PROJECT_NAME}
                 src/cone.cpp
                 src/group.cpp
                 src/triangle.cpp
-                src/parser.cpp)
+                src/parser.cpp
+                src/triangleMesh.cpp)
 
 # Include directories for header files
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include)
