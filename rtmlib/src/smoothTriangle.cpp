@@ -1,4 +1,4 @@
-#include "primitives/triangle.h"
+#include "primitives/smoothTriangle.h"
 
 //#include <iostream>
 
@@ -7,35 +7,55 @@
 
 using namespace rtm;
 
-Triangle::Triangle() : Surface()
+SmoothTriangle::SmoothTriangle() : Surface()
 {}
 
-Triangle::Triangle(const Point& p1, const Point& p2, const Point& p3) : Surface()
+SmoothTriangle::SmoothTriangle(
+    const Point& p1, 
+    const Point& p2, 
+    const Point& p3, 
+    const Vector& n1, 
+    const Vector& n2, 
+    const Vector& n3)
+    : Surface()
 {
+    // vertices
     m_p1 = p1;
     m_p2 = p2;
     m_p3 = p3;
+    // normal vertices
+    m_n1 = n1;
+    m_n2 = n2;
+    m_n3 = n3;
+    // edges
     m_e1 = p2 - p1;
     m_e2 = p3 - p1;
+    // face normal
     m_normal = normalize(cross(m_e2, m_e1));
 }
 
-Triangle::Triangle(const Triangle& s) : Surface(s)
+SmoothTriangle::SmoothTriangle(const SmoothTriangle& s) : Surface(s)
 {
     m_p1 = s.m_p1;
     m_p2 = s.m_p2;
     m_p3 = s.m_p3;
+    m_n1 = s.m_n1;
+    m_n2 = s.m_n2;
+    m_n3 = s.m_n3;
     m_e1 = s.m_e1;
     m_e2 = s.m_e2;
     m_normal = s.m_normal;
 }
 
-Triangle& Triangle::operator= (const Triangle& s)
+SmoothTriangle& SmoothTriangle::operator= (const SmoothTriangle& s)
 {
     // Triangle class attribbutes
     m_p1 = s.m_p1;
     m_p2 = s.m_p2;
     m_p3 = s.m_p3;
+    m_n1 = s.m_n1;
+    m_n2 = s.m_n2;
+    m_n3 = s.m_n3;
     m_e1 = s.m_e1;
     m_e2 = s.m_e2;
     m_normal = s.m_normal;
@@ -45,12 +65,12 @@ Triangle& Triangle::operator= (const Triangle& s)
     return *this;
 }
 
-Triangle::~Triangle()
+SmoothTriangle::~SmoothTriangle()
 {
     //std::cout<<"Triangle destructor"<<"\n";
 }
 
-std::vector<Intersection> Triangle::local_intersect(const Ray& ray) const
+std::vector<Intersection> SmoothTriangle::local_intersect(const Ray& ray) const
 {
     std::vector<Intersection> intersections = {};
 
@@ -81,21 +101,23 @@ std::vector<Intersection> Triangle::local_intersect(const Ray& ray) const
     // computes the T component
     auto t = inv_det * dot(origin_cross_e1, m_e2);
 
-    intersections.push_back(Intersection(t, this));
+    intersections.push_back(Intersection(t, this, u, v));
     return intersections;
 }
 
-std::vector<Intersection> Triangle::intersects_with(const Ray& r) const
+std::vector<Intersection> SmoothTriangle::intersects_with(const Ray& r) const
 {
     Ray ray = r.transform(inv_transform);
 
     return local_intersect(ray);
 }
 
-Vector Triangle::normal_at(const Point& world_point, const Intersection& hit) const
+Vector SmoothTriangle::normal_at(const Point& world_point, const Intersection& hit) const
 {
     // Getting the normal vector in object space (local normal)
-    Vector object_normal = m_normal;
+    Vector object_normal = m_n2 * hit.u +
+                           m_n3 * hit.v +
+                           m_n1 * (1 - hit.u - hit.v);
 
     // Taking the normal vector in object space and pass it to world space
     auto world_normal = normal_to_world(object_normal);
@@ -103,7 +125,7 @@ Vector Triangle::normal_at(const Point& world_point, const Intersection& hit) co
     return world_normal;
 }
 
-void Triangle::set_invTransform()
+void SmoothTriangle::set_invTransform()
 {
     inv_transform = inverse(m_transform);
 }

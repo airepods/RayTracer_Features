@@ -32,7 +32,7 @@ class Surface
         inline auto clone() const { return std::unique_ptr<Surface>(clone_impl()); }
 
         virtual std::string type_to_str() const = 0;
-        virtual Vector normal_at(const Point& world_point) const = 0;
+        virtual Vector normal_at(const Point& world_point, const Intersection& hit) const = 0;
         virtual std::vector<Intersection> intersects_with(const Ray&) const = 0;
 
         inline Matrix get_transform() const {return m_transform;}

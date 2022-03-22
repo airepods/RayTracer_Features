@@ -3,6 +3,7 @@
 
 #include <string>
 #include <cmath>
+#include <vector>
 
 namespace rtm
 {
@@ -12,6 +13,7 @@ std::string dtos(const double& f, const int& nd);
 float to_radians(const float& degrees);
 void* empty_array();
 unsigned int countWordsInString(const std::string& str);
+std::vector<std::string> splitString(const std::string& str, char delimiter);
 
 // inline double PI() {return 3.14159265;}
 // inline float EPSILON() 

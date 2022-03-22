@@ -32,7 +32,7 @@ class Group : public Surface
         ~Group();
 
         std::vector<Intersection> intersects_with(const Ray&) const override;
-        Vector normal_at(const Point& world_point) const override;
+        Vector normal_at(const Point& world_point, const Intersection& hit) const override;
 
         void set_invTransform() override;
 

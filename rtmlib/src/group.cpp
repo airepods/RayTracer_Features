@@ -50,7 +50,7 @@ std::vector<Intersection> Group::local_intersect(const Ray& ray) const
         }
     }
 
-    std::sort(intersections.begin(), intersections.end(), [](Intersection a, Intersection b){return a < b;});
+    // std::sort(intersections.begin(), intersections.end(), [](Intersection a, Intersection b){return a < b;});
     return intersections;
 }
 
@@ -61,7 +61,7 @@ std::vector<Intersection> Group::intersects_with(const Ray& r) const
     return local_intersect(ray);
 }
 
-Vector Group::normal_at(const Point& world_point) const
+Vector Group::normal_at(const Point& world_point, const Intersection& hit) const
 {
     throw Group::calling_normal_on_group();
 }

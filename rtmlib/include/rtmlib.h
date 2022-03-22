@@ -33,7 +33,7 @@
 #include "primitives/cone.h"
 #include "primitives/group.h"
 #include "primitives/triangle.h"
-#include "primitives/triangleMesh.h"
+#include "primitives/smoothTriangle.h"
 
 // light
 #include "lighting/light.h"

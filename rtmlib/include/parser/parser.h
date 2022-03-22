@@ -13,6 +13,8 @@ class Parser
 { 
     public:
         std::vector<Point> vertices;
+        std::vector<Vector> normals;
+        
         Parser(const std::string& obj_filename);
         inline Group obj_to_group() {return default_group;}
     private:

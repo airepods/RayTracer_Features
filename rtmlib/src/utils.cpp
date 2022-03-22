@@ -56,3 +56,17 @@ unsigned int rtm::countWordsInString(const std::string& str)
     std::stringstream stream(str);
     return std::distance(std::istream_iterator<std::string>(stream), std::istream_iterator<std::string>());
 }
+
+// Split a string into parts according to a specific delimiter
+std::vector<std::string> rtm::splitString(const std::string& str, char delimiter)
+{
+    std::vector<std::string> parts;
+    std::istringstream input;
+    input.str(str);
+    for (std::string subPart; std::getline(input, subPart, delimiter); ) 
+    {
+        parts.push_back(subPart);
+    }
+
+    return parts;
+}

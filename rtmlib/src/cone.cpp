@@ -104,7 +104,7 @@ std::vector<Intersection> Cone::intersects_with(const Ray& r) const
     return local_intersect(ray);
 }
 
-Vector Cone::normal_at(const Point& world_point) const
+Vector Cone::normal_at(const Point& world_point, const Intersection& hit) const
 {
     auto w_point = world_point;
     // Passing the point in world space to object space

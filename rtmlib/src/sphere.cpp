@@ -48,7 +48,7 @@ std::vector<Intersection> Sphere::intersects_with(const Ray& r) const
     return local_intersect(ray2);
 }
 
-Vector Sphere::normal_at(const Point& world_point) const
+Vector Sphere::normal_at(const Point& world_point, const Intersection& hit) const
 {
     auto w_point = world_point;
     // Passing the point in world space to object space

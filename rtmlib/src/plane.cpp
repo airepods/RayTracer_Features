@@ -38,7 +38,7 @@ std::vector<Intersection> Plane::intersects_with(const Ray& r) const
 }
 
 
-Vector Plane::normal_at(const Point& world_point) const
+Vector Plane::normal_at(const Point& world_point, const Intersection& hit) const
 {
     // Getting the normal vector in object space
     auto object_normal = Vector(0, 1, 0);

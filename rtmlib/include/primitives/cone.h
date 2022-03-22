@@ -24,7 +24,7 @@ class Cone : public Surface
         ~Cone();
 
         std::vector<Intersection> intersects_with(const Ray&) const override;
-        Vector normal_at(const Point& world_point) const override;
+        Vector normal_at(const Point& world_point, const Intersection& hit) const override;
 
         //inline Sphere* get_object_type() override {return this;}
         inline std::string type_to_str() const override {return "Cone";}

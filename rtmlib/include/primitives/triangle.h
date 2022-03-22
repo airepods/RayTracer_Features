@@ -17,8 +17,8 @@ class Triangle : public Surface
         Vector m_e2;
         Vector m_normal;
     protected:
-        std::vector<Intersection> local_intersect(const Ray&) const override;
         inline virtual Triangle* clone_impl() const override { return new Triangle(*this); }
+        std::vector<Intersection> local_intersect(const Ray&) const override;
     public:
         Triangle();
         Triangle(const Point& p1, const Point& p2, const Point& p3);
@@ -27,7 +27,7 @@ class Triangle : public Surface
         ~Triangle();
         
         std::vector<Intersection> intersects_with(const Ray&) const override;
-        Vector normal_at(const Point& world_point) const override;
+        Vector normal_at(const Point& world_point, const Intersection& hit) const override;
 
         void set_invTransform() override;
 

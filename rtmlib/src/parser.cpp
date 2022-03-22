@@ -1,9 +1,13 @@
 #include "parser/parser.h"
+#include "util/utils.h"
+#include "primitives/smoothTriangle.h"
 
 #include <fstream>
 #include <iostream>
 #include <sstream>
 #include <iterator>
+#include <string>
+#include <array>
 
 using namespace rtm;
 
@@ -15,32 +19,44 @@ Parser::Parser(const std::string& obj_filename)
     std::ifstream infile(obj_filename);
     if(infile.is_open())
     {
+        // line
         std::string line;
-        char command;
+        // command
+        std::string command;
+        // vertices
         double x, y, z;
-        int id1, id2, id3;
-        std::string group_name;
+        // vertex normals
+        double vn1, vn2, vn3;
+        // check if there are normals
+        bool normals_defined = false;  
         
         Triangle t;
 
         while(std::getline(infile, line))
         {
-            auto g = Group();
-
+            // line is empty
             if(line.size() == 1) { continue; }
 
             std::stringstream iss(line);
             iss >> command;
 
-            switch (command)
+            if(command == "v")
             {
-            case 'v':
                 iss >> x >> y >> z;
                 vertices.push_back(Point(x, y, z));
-                break;
-            
-            case 'f':
-                // count
+                continue;
+            }
+
+            if(command == "vn")
+            {
+                iss >> vn1 >> vn2 >> vn3;
+                normals.push_back(Vector(vn1, vn2, vn3));
+                normals_defined = true;
+                continue;
+            }
+
+            if(command == "f")
+            {
                 if(countWordsInString(line) > 4)
                 {
                     // it's a polygon, starts triangulation 
@@ -52,30 +68,48 @@ Parser::Parser(const std::string& obj_filename)
                 }
                 else
                 {
+                    // indices
+                    std::string id1, id2, id3;
                     // read three vertices
                     iss >> id1 >> id2 >> id3;
-                    t = Triangle(vertices.at(id1-1), vertices.at(id2-1), vertices.at(id3-1));
-                    
-                    // if there is no group
-                    if(group_name.empty())
-                    {
-                        default_group.add_child(t); 
-                    }
-                    else
-                    {   
-                        g.add_child(t);
-                        default_group.add_child(g);
-                    }
                         
+                    std::array<std::string, 3> parts = {id1, id2, id3};
+
+                    std::array<int, 3> face_indices;
+                    std::array<int, 3> texture_indices;
+                    std::array<int, 3> normal_indices;
+                    for(int i = 0; i < 3; ++i)
+                    {
+                        auto subParts = splitString(parts[i], '/');
+                        try
+                        {
+                            if(!normals_defined) 
+                            {
+                                face_indices[i] = std::stoi(subParts[0])-1;
+                                continue;
+                            }
+                            face_indices[i] = std::stoi(subParts[0])-1;
+                            texture_indices[i] = std::stoi(subParts[1])-1;
+                            normal_indices[i] = std::stoi(subParts[2])-1;
+                        }
+                        catch(const std::exception& e)
+                        {}
+                    }
+                    
+                    if(!normals_defined)
+                        Triangle t(vertices[face_indices[0]], vertices[face_indices[1]], vertices[face_indices[2]]);
+                    else
+                        SmoothTriangle(
+                            vertices[face_indices[0]], 
+                            vertices[face_indices[1]], 
+                            vertices[face_indices[2]], 
+                            normals[normal_indices[0]],
+                            normals[normal_indices[1]],
+                            normals[normal_indices[2]]);
+
+                    default_group.add_child(t);
                 }
-                break;
-            
-            case 'g':
-                iss >> group_name;
-                break;
-            
-            default:
-                break;
+                continue;
             }
         }
         infile.close();
