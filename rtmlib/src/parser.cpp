@@ -29,8 +29,6 @@ Parser::Parser(const std::string& obj_filename)
         double vn1, vn2, vn3;
         // check if there are normals
         bool normals_defined = false;  
-        
-        Triangle t;
 
         while(std::getline(infile, line))
         {
@@ -96,18 +94,27 @@ Parser::Parser(const std::string& obj_filename)
                         {}
                     }
                     
+                    Triangle t;
+                    SmoothTriangle st;
+
                     if(!normals_defined)
-                        Triangle t(vertices[face_indices[0]], vertices[face_indices[1]], vertices[face_indices[2]]);
+                    {
+                        t = Triangle(vertices[face_indices[0]], vertices[face_indices[1]], vertices[face_indices[2]]);
+                        default_group.add_child(t);
+                    }
+                        
                     else
-                        SmoothTriangle(
+                    {
+                        st = SmoothTriangle(
                             vertices[face_indices[0]], 
                             vertices[face_indices[1]], 
                             vertices[face_indices[2]], 
                             normals[normal_indices[0]],
                             normals[normal_indices[1]],
                             normals[normal_indices[2]]);
-
-                    default_group.add_child(t);
+                            
+                        default_group.add_child(st);
+                    }
                 }
                 continue;
             }
