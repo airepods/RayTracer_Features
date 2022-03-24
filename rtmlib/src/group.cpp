@@ -18,6 +18,7 @@ Group::Group(const Group& s) : Surface(s)
     for (auto &&child : s.m_children)
     {
         std::unique_ptr<Surface> ptr_base(child->clone());
+        ptr_base->set_parent(this);
         m_children.push_back(std::move(ptr_base));
     }
 }
@@ -27,6 +28,7 @@ Group& Group::operator= (const Group& s)
     for (auto &&child : s.m_children)
     {
         std::unique_ptr<Surface> ptr_base(child->clone());
+        ptr_base->set_parent(this);
         m_children.push_back(std::move(ptr_base));
     }
 
@@ -74,4 +76,15 @@ void Group::set_invTransform()
         surface.get()->set_invTransform();
     }
     
+}
+
+void Group::set_material(const Material& material)
+{
+    for (auto& child : m_children)
+    {
+        // if the child surface is not a group then
+        // set to them the assigned material
+        if(!child->is_group())
+            child->set_material(material);
+    }
 }

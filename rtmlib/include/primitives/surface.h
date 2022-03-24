@@ -41,7 +41,7 @@ class Surface
         virtual void set_invTransform() {inv_transform = inverse(m_transform);}
 
         inline Material get_material() const {return m_material;}
-        inline void set_material(const Material& material) {m_material = material;}
+        virtual void set_material(const Material& material) {m_material = material;}
 
         inline bool has_parent() const {return m_parent != nullptr;}
         virtual void set_parent(Surface* surface) {m_parent = surface;}

@@ -34,6 +34,7 @@ class Group : public Surface
         std::vector<Intersection> intersects_with(const Ray&) const override;
         Vector normal_at(const Point& world_point, const Intersection& hit) const override;
 
+        void set_material(const Material& material) override;
         void set_invTransform() override;
 
         inline std::string type_to_str() const override {return "Group";} 
@@ -51,7 +52,6 @@ class Group : public Surface
         {
             std::unique_ptr<Group> s = std::make_unique<Group>(shape);
             s->set_parent(this); 
-
             // make the inmediately below children point to their new parent address
             for (auto &&child : s->m_children)
             {

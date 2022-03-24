@@ -57,10 +57,49 @@ Parser::Parser(const std::string& obj_filename)
             {
                 if(countWordsInString(line) > 4)
                 {
-                    // it's a polygon, starts triangulation 
-                    for (auto &&triangle : fan_triangulation())
+                    // indices
+                    std::string id;
+                    // vector of parts of a face
+                    std::vector<std::string> parts = {};
+                    // read the indices
+                    while(iss >> id)
                     {
-                        default_group.add_child(triangle);    
+                        parts.push_back(id);
+                    }
+                    
+                    std::vector<int> face_indices(parts.size());
+                    std::vector<int> texture_indices(parts.size());
+                    std::vector<int> normal_indices(parts.size());
+                    for(int i=0; i<parts.size(); ++i)
+                    {
+                        auto subParts = splitString(parts[i], '/');
+
+                        if(!normals_defined) 
+                        {
+                            face_indices[i] = std::stoi(subParts[0])-1;
+                            continue;
+                        } 
+                        face_indices[i]     =   (subParts[0] == " " || subParts[0] == "") ? -1 : std::stoi(subParts[0])-1;
+                        texture_indices[i]  =   (subParts[1] == " " || subParts[1] == "") ? -1 : std::stoi(subParts[1])-1;
+                        normal_indices[i]   =   (subParts[2] == " " || subParts[2] == "") ? -1 : std::stoi(subParts[2])-1;
+                    }
+
+                    // it's a polygon, starts triangulation 
+                    // if normals are not defined inside the obj file then use flat shading
+                    if(!normals_defined)
+                    {
+                        for (const auto& triangle : fan_triangulation(face_indices)) 
+                        { 
+                            default_group.add_child(triangle); 
+                        }
+                    }
+                    // if normals are defined inside the file then use vertex shading
+                    else 
+                    {
+                        for (const auto& triangle : fan_triangulation(face_indices, normal_indices)) 
+                        { 
+                            default_group.add_child(triangle); 
+                        }
                     }
                     
                 }
@@ -68,7 +107,7 @@ Parser::Parser(const std::string& obj_filename)
                 {
                     // indices
                     std::string id1, id2, id3;
-                    // read three vertices
+                    // read three indices
                     iss >> id1 >> id2 >> id3;
                         
                     std::array<std::string, 3> parts = {id1, id2, id3};
@@ -79,19 +118,15 @@ Parser::Parser(const std::string& obj_filename)
                     for(int i = 0; i < 3; ++i)
                     {
                         auto subParts = splitString(parts[i], '/');
-                        try
+
+                        if(!normals_defined) 
                         {
-                            if(!normals_defined) 
-                            {
-                                face_indices[i] = std::stoi(subParts[0])-1;
-                                continue;
-                            }
                             face_indices[i] = std::stoi(subParts[0])-1;
-                            texture_indices[i] = std::stoi(subParts[1])-1;
-                            normal_indices[i] = std::stoi(subParts[2])-1;
-                        }
-                        catch(const std::exception& e)
-                        {}
+                            continue;
+                        } 
+                        face_indices[i]     =   (subParts[0] == " " || subParts[0] == "") ? -1 : std::stoi(subParts[0])-1;
+                        texture_indices[i]  =   (subParts[1] == " " || subParts[1] == "") ? -1 : std::stoi(subParts[1])-1;
+                        normal_indices[i]   =   (subParts[2] == " " || subParts[2] == "") ? -1 : std::stoi(subParts[2])-1;
                     }
                     
                     Triangle t;
@@ -127,13 +162,31 @@ Parser::Parser(const std::string& obj_filename)
     }
 }
 
-std::vector<Triangle> Parser::fan_triangulation()
+std::vector<Triangle> Parser::fan_triangulation(const std::vector<int>& face_list)
 {
     std::vector<Triangle> triangles = {};
-    for(int i = 1; i < vertices.size() - 1; ++i)
+    for(int i = 1; i <= face_list.size() - 2; ++i)
     {
-        Triangle t(vertices.at(0), vertices.at(i), vertices.at(i+1));
+        Triangle t(vertices.at(face_list.at(0)), vertices.at(face_list.at(i)), vertices.at(face_list.at(i+1)));
         triangles.push_back(t);
+    }
+    return triangles;
+}
+
+std::vector<SmoothTriangle> Parser::fan_triangulation(const std::vector<int>& face_list, const std::vector<int>& normal_list)
+{
+    std::vector<SmoothTriangle> triangles = {};
+    for(int i = 1; i <= face_list.size() - 2; ++i)
+    {
+        SmoothTriangle st(
+            vertices.at(face_list.at(0)), 
+            vertices.at(face_list.at(i)), 
+            vertices.at(face_list.at(i+1)),
+            normals.at(normal_list.at(0)),
+            normals.at(normal_list.at(i)),
+            normals.at(normal_list.at(i+1)) 
+            );
+        triangles.push_back(st);
     }
     return triangles;
 }
